@@ -5,5 +5,3 @@
  <a href="https://drive.google.com/drive/folders/1XUSfrSd561TWogkcoHpNpr64Xzq9lYGB" target="_blank"><img src="https://img.shields.io/badge/-Apresentação vídeo-%230077B5?style=for-the-badge&logo=gravacao&logoColor=white" style="border-radius: 4px" target="_blank"></a> 
    <a href="https://www.canva.com/design/DAFvx0TnRHY/eq0c-LB2e0_CWa2q_FiRRQ/view?utm_content=DAFvx0TnRHY&utm_campaign=designshare&utm_medium=link&utm_source=editor" target="_blank"><img src="https://img.shields.io/badge/-Apresentação pdf-%23E4405F?style=for-the-badge&logo=canva&logoColor=white"style="border-radius: 4px"</a>
   </div>
-
-- Site disponivel na branch.

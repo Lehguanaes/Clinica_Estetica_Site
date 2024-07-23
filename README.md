@@ -3,7 +3,7 @@
 # Projeto: Site Clínica Estética
 
 
-  <a href="https://github.com/Lehguanaes/Clinica_Estetica_Site" target="_blank"><img src="https://img.shields.io/badge/Código do Site-EBF3F8?style=for-the-badge&logo=github&logoColor=CB6373"></a> 
+  <a href="Projeto Clínica Estética" target="_blank"><img src="https://img.shields.io/badge/Código do Site-EBF3F8?style=for-the-badge&logo=github&logoColor=CB6373"></a> 
   <a href="https://www.figma.com/file/AsyqBSFvNkSN8ZIIzuKlQ2/Cl%C3%ADnica-Est%C3%A9tica?type=design&t=1ZkGzKG2SFcM01Rr-6" target="_blank"><img src="https://img.shields.io/badge/-figma-EBF3F8?style=for-the-badge&logo=figma&logoColor=CB6373"></a> 
    <a href="https://www.canva.com/design/DAFvx0TnRHY/eq0c-LB2e0_CWa2q_FiRRQ/view?utm_content=DAFvx0TnRHY&utm_campaign=designshare&utm_medium=link&utm_source=editor" target="_blank"><img src="https://img.shields.io/badge/-Apresentação pdf-EBF3F8?style=for-the-badge&logo=canva&logoColor=CB6373"></a>
 </div>

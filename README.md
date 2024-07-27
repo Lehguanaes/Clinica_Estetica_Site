@@ -83,5 +83,13 @@ Código:
           </sub> <br>
         </a>
       </td>
+      <td align="center">
+        <a href="https://github.com/N1k0145">
+          <img src="https://avatars.githubusercontent.com/u/131282424?v=4" width="130px;" alt="Nicolas - Github"/><br>
+          <sub>
+              <b>Nicolas</b>
+          </sub> <br>
+        </a>
+      </td>
     </tr>
   </table>

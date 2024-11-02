@@ -1,53 +1,158 @@
-/* Estilos para o input da foto no perfil*/
-    #form_perfil{
+/* Estilos referente as páginas de cadastro, visualização e edição dos perfis */
+
+    /* Estilos para o formulário de perfil */
+    #form_perfil {
         border: #CF6F7A;
-        border: groove;
-        border-radius: 3%;
-        padding: 30px;
+        border: groove; /* Define o tipo de borda */
+        border-radius: 3%; /* Arredonda as bordas */
+        padding: 30px; /* Espaçamento interno */
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra para dar efeito de profundidade */
     }
-    /* Estilos para o contêiner da foto */
+
+    /* Estilos para o nome do perfil */
+    #nome_perfil {
+        color: #CF6F7A; /* Cor do texto */
+        text-align: center; /* Centraliza o texto */
+        font-weight: 450; /* Define a espessura da fonte */
+        font-size: x-large; /* Aumenta o tamanho da fonte */
+        margin-top: 10px;
+        margin-bottom: 35px;
+    }
+
+    /* Contêiner para visualização do perfil */
+    #perfil_conteiner {
+        width: 85%; /* Define uma largura máxima */
+        margin: 0 auto; /* Centraliza horizontalmente */
+        padding: 20px;
+        padding-bottom: 40px;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar o contêiner */
+        border-radius: 8px; /* Arredonda as bordas */
+        background-color: #fff; /* Fundo branco */
+    }
+
+    /* Contêiner para a foto de perfil */
     .profile-pic-container {
-        position: relative;
+        position: relative; /* Necessário para posicionar o botão de upload */
         width: 151px;
         height: 151px;
-        margin: 0 auto 12px;
+        margin: 0 auto 20px; /* Centraliza e define margem inferior */
+    }
+
+    /* Contêiner para a foto de perfil na visualização */
+    .profile-pic-container_visualizar {
+        position: relative;
+        width: 170px;
+        height: 170px;
+        margin: 0 auto 12px; /* Centraliza e define margem inferior */
     }
 
     /* Estilos para a imagem de perfil */
     .profile-pic {
-        width: 100%;
+        width: 100%; /* Faz a imagem ocupar todo o contêiner */
         height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 2px solid #ccc;
+        object-fit: cover; /* Ajusta a imagem para cobrir o contêiner sem distorção */
+        border-radius: 50%; /* Torna a imagem circular */
+        border: 2px solid #ccc; /* Adiciona uma borda */
     }
 
-    /* Estilos para o botão de adicionar */
+    /* Botão de adicionar imagem de perfil */
     .upload-button {
         position: absolute;
         bottom: 0;
         right: 0;
-        background-color: #CF6F7A;
+        background-color: #CF6F7A; /* Cor do botão */
         color: white;
         border: none;
-        border-radius: 50%;
+        border-radius: 50%; /* Torna o botão circular */
         width: 40px;
         height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
+        cursor: pointer; /* Altera o cursor ao passar sobre o botão */
     }
 
-    /* Esconde o input de arquivo */
+    /* Esconde o input de arquivo para que apenas o botão de upload seja visível */
     #foto_atendente {
-    display: none;
+        display: none;
     }
 
-    /* Diminui a fonte do label*/
-    #label_foto_perfil{
+    /* Reduz o tamanho da fonte do label da foto */
+    #label_foto_perfil {
         font-size: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    /* Estilos para o botão de editar perfil */
+    #editar_perfil_button {
+        border-radius: 5px;
+        color: #fff;
+        font-size: 15px !important;
+        font-size: 1rem;
+        font-weight: 400;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease; /* Suaviza a transição de hover */
+        background: #1A7F83; /* Cor do botão */
+    }
+
+    /* Efeito de hover para o botão de editar perfil */
+    #editar_perfil_button:hover {
+        opacity: 0.6; /* Altera a opacidade no hover */
+        transition: 0.6s;
+    }
+
+    /* Contêiner para o campo de senha */
+    .password-container {
+        position: relative; /* Necessário para posicionar o ícone de olho */
+        display: flex;
+        align-items: center;
+    }
+
+    /* Ícone de olho para mostrar/ocultar senha */
+    .eye-icon {
+        position: absolute;
+        right: 10px; /* Alinha o ícone à direita do campo */
+        cursor: pointer; /* Altera o cursor ao passar sobre o ícone */
+    }
+
+    #consultar_fotos{
+        width: 100px; /* Aumente o tamanho conforme necessário */
+        height: 100px; /* Mantenha a altura igual à largura para manter a circularidade */
+        object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+        border-radius: 50%; /* Faz a imagem ficar circular */
+        border: 2px solid #ccc; /* Adiciona uma borda ao redor da imagem, opcional */
+    }
+
+    #consultar_fotos_td {
+        display: flex;            /* Ativa o Flexbox */
+        justify-content: center; /* Centraliza horizontalmente */
+        align-items: center;     /* Centraliza verticalmente */
+        height: 100%;            /* Garante que o espaço vertical seja utilizado */
+    }
+
+    #editar_consultar_button{
+        border-radius: 5px;
+        color: #fff;
+        font-size: 15px !important;
+        font-size: 1rem;
+        font-weight: 400;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease; /* Suaviza a transição de hover */
+        background: #1A7F83; /* Cor do botão */
+        display: flex;            /* Ativa o Flexbox */
+        justify-content: center; /* Centraliza horizontalmente */
+        align-items: center;     /* Centraliza verticalmente */
+        height: 100%;    
+    }
+
+    /* Efeito de hover para o botão de editar perfil */
+    #editar_consultar_button:hover{
+        opacity: 0.6; /* Altera a opacidade no hover */
+        transition: 0.6s;
     }

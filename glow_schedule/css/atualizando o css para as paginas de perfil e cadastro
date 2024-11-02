@@ -1,0 +1,53 @@
+/* Estilos para o input da foto no perfil*/
+    #form_perfil{
+        border: #CF6F7A;
+        border: groove;
+        border-radius: 3%;
+        padding: 30px;
+    }
+    /* Estilos para o contêiner da foto */
+    .profile-pic-container {
+        position: relative;
+        width: 151px;
+        height: 151px;
+        margin: 0 auto 12px;
+    }
+
+    /* Estilos para a imagem de perfil */
+    .profile-pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+    }
+
+    /* Estilos para o botão de adicionar */
+    .upload-button {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: #CF6F7A;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    /* Esconde o input de arquivo */
+    #foto_atendente {
+    display: none;
+    }
+
+    /* Diminui a fonte do label*/
+    #label_foto_perfil{
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }

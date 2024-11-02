@@ -2,13 +2,13 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
 
-class Atendente {
-    private $cpf_atendente;
-    private $nome_atendente;
-    private $foto_atendente;
-    private $telefone_atendente;
-    private $email_atendente;
-    private $senha_atendente;
+class Cliente {
+    private $cpf_cliente;
+    private $nome_cliente;
+    private $foto_cliente;
+    private $telefone_cliente;
+    private $email_cliente;
+    private $senha_cliente;
 
     private $conexao;
 
@@ -17,28 +17,28 @@ class Atendente {
     }
 
     // Getters e Setters para os campos
-    public function setCpf($cpf_atendente) { $this->cpf_atendente = $cpf_atendente; }
-    public function setNome($nome_atendente) { $this->nome_atendente = $nome_atendente; }
-    public function setFoto($foto_atendente) { $this->foto_atendente = $foto_atendente; }
-    public function setTelefone($telefone_atendente) { $this->telefone_atendente = $telefone_atendente; }
-    public function setEmail($email_atendente) { $this->email_atendente = $email_atendente; }
-    public function setSenha($senha_atendente) { $this->senha_atendente = $senha_atendente; }
+    public function setCpf($cpf_cliente) { $this->cpf_cliente = $cpf_cliente; }
+    public function setNome($nome_cliente) { $this->nome_cliente = $nome_cliente; }
+    public function setFoto($foto_cliente) { $this->foto_cliente = $foto_cliente; }
+    public function setTelefone($telefone_cliente) { $this->telefone_cliente = $telefone_cliente; }
+    public function setEmail($email_cliente) { $this->email_cliente = $email_cliente; }
+    public function setSenha($senha_cliente) { $this->senha_cliente = $senha_cliente; }
 
-    // Método para inserir atendente
+    // Método para inserir cliente
     public function inserir() {
-        $sql = "INSERT INTO atendente (cpf_atendente, nome_atendente, foto_atendente, telefone_atendente, email_atendente, senha_atendente) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO cliente (cpf_cliente, nome_cliente, foto_cliente, telefone_cliente, email_cliente, senha_cliente) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             $stmt = $this->conexao->getConexao()->prepare($sql);
             
             // Associa os parâmetros com os valores
             $stmt->bind_param(
                 "ssssss", 
-                $this->cpf_atendente, 
-                $this->nome_atendente, 
-                $this->foto_atendente, 
-                $this->telefone_atendente, 
-                $this->email_atendente, 
-                $this->senha_atendente
+                $this->cpf_cliente, 
+                $this->nome_cliente, 
+                $this->foto_cliente, 
+                $this->telefone_cliente, 
+                $this->email_cliente, 
+                $this->senha_cliente
             );
 
             if ($stmt->execute()) {
@@ -54,18 +54,18 @@ class Atendente {
         }
     }
 
-    // Método para atualizar atendente
+    // Método para atualizar cliente
     public function atualizar() {
-        $sql = "UPDATE atendente SET nome_atendente = ?, foto_atendente = ?, telefone_atendente = ?, email_atendente = ?, senha_atendente = ? WHERE cpf_atendente = ?";
+        $sql = "UPDATE cliente SET nome_cliente = ?, foto_cliente = ?, telefone_cliente = ?, email_cliente = ?, senha_cliente = ? WHERE cpf_cliente = ?";
         try {
             $stmt = $this->conexao->getConexao()->prepare($sql);
             $stmt->bind_param("ssssss", 
-                $this->nome_atendente, 
-                $this->foto_atendente, 
-                $this->telefone_atendente, 
-                $this->email_atendente, 
-                $this->senha_atendente, 
-                $this->cpf_atendente
+            $this->nome_cliente, 
+            $this->foto_cliente, 
+            $this->telefone_cliente, 
+            $this->email_cliente, 
+            $this->senha_cliente,
+            $this->cpf_cliente
             );
 
             if ($stmt->execute()) {
@@ -80,12 +80,12 @@ class Atendente {
         }
     }
     public function buscarPorCpf() {
-        $sql = "SELECT * FROM esteticista WHERE  cpf_esteticista = ?";
+        $sql = "SELECT * FROM cliente WHERE  cpf_cliente = ?";
         
         try {
             $stmt = $this->conexao->getConexao()->prepare($sql);
             $stmt->bind_param("s", 
-                $this->cpf_atendente
+                $this->cpf_cliente
             );
 
             if ($stmt->execute()) {
@@ -99,8 +99,8 @@ class Atendente {
         }
     }
     public function listar() {
-        // Query para obter a lista de atendentes
-        $sql = "SELECT * FROM atendentes";
+        // Query para obter a lista de cliente
+        $sql = "SELECT * FROM cliente";
     }
 
     public function __destruct() {

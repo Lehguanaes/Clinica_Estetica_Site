@@ -13,10 +13,6 @@
     <link rel="stylesheet" href="../css/style.css">
     <!-- Estilização formulário de Perfil -->
     <link rel="stylesheet" href="../css/perfil.css">
-    <!-- script formulário de Perfil -->
-    <script src="js/perfil.js" defer></script>
-    <!-- script máscara de formulários -->
-    <script src="js/mascaraInput.js" defer></script>
 </head>
 <body>
     <!-- Início da Navbar -->
@@ -53,21 +49,18 @@
     <!-- Início formulário de cadastro -->
     <section class="container">
         <form method="POST" action="/glow_schedule/controller/atendente/atendenteController.php" enctype="multipart/form-data" class="form" id="form_perfil">
-        <input type="hidden" name="acao" value="inserir"> 
+            <input type="hidden" name="acao" value="inserir"> 
             <div class="column">
                 <div class="input-box">
                     <!-- Campo de Foto de Perfil -->
                     <div class="profile-pic-container">
-                        <!-- Imagem de perfil padrão -->
                         <img src="../iconesPerfil/perfilPadrao.png" alt="Foto de perfil padrão" class="profile-pic" id="profile-pic-preview">
-                        <!-- Botão de adicionar -->
                         <label class="upload-button" for="foto_atendente">
                             <i class="fa fa-plus"></i>
                         </label>
-                        <!-- Input de arquivo escondido -->
                         <input type="file" name="foto_atendente" id="foto_atendente" accept="image/*" onchange="previewProfilePic()">
                         <label id="label_foto_perfil" for="foto_atendente">Adicione a foto aqui:</label>
-                    </div>    
+                    </div>   
                 </div>
             </div>
             <div class="column">
@@ -93,12 +86,88 @@
                 </div>
                 <div class="input-box">
                     <label for="senha_atendente">Senha:</label>
-                    <input type="text" class="form-control" id="senha_atendente" name="senha_atendente" required>
+                    <div class="password-container">
+                        <input type="password" class="form-control" id="senha_atendente" name="senha_atendente" required>
+                        <span class="eye-icon" onclick="togglePasswordVisibility()">
+                            <i id="eye-icon" class="fa fa-eye"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
     </section>
     <!-- Fim formulário de cadastro -->
+    <script>
+        // Função para pré-visualizar a imagem selecionada do perfil
+        function previewProfilePic() {
+            // Seleciona o input de arquivo e o elemento de visualização de imagem
+            const input = document.getElementById("foto_atendente");
+            const preview = document.getElementById("profile-pic-preview");
+
+            // Obtém o arquivo selecionado pelo usuário
+            const file = input.files[0];
+            // Cria um FileReader para ler o conteúdo do arquivo
+            const reader = new FileReader();
+
+            // Define a ação a ser realizada quando a leitura for concluída
+            reader.onloadend = function() {
+                // Define o conteúdo lido como fonte (src) da imagem de pré-visualização
+                preview.src = reader.result;
+            };
+
+            // Se um arquivo for selecionado, inicia a leitura como uma URL de dados
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Máscara dos inputs
+        $(document).ready(function() {
+            // Aplica máscara para o campo de telefone, no formato "(00) 00000-0000"
+            $('#telefone_atendente').mask('(00) 00000-0000');
+            // Aplica máscara para o campo de CPF, no formato "000.000.000-00"
+            $('#cpf_atendente').mask('000.000.000-00');
+        });
+
+        // Função duplicada para pré-visualização da imagem do perfil (repetida sem necessidade)
+        function previewProfilePic() {
+            const input = document.getElementById("foto_atendente");
+            const preview = document.getElementById("profile-pic-preview");
+
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Função para alternar a visibilidade do campo de senha
+        function togglePasswordVisibility() {
+            // Seleciona o campo de senha e o ícone do olho
+            const passwordInput = document.getElementById("senha_atendente");
+            const eyeIcon = document.getElementById("eye-icon");
+
+            // Verifica se o tipo de entrada é "password" para alternar
+            if (passwordInput.type === "password") {
+                // Torna a senha visível alterando o tipo para "text"
+                passwordInput.type = "text";
+                // Muda o ícone para o olho com barra (fa-eye-slash)
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                // Oculta a senha alterando o tipo de volta para "password"
+                passwordInput.type = "password";
+                // Muda o ícone de volta para o olho normal (fa-eye)
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </body>
 </html>

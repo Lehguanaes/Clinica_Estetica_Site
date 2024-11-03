@@ -79,6 +79,7 @@ class Cliente {
             return false;
         }
     }
+
     public function buscarPorCpf() {
         $sql = "SELECT * FROM cliente WHERE  cpf_cliente = ?";
         
@@ -98,6 +99,7 @@ class Cliente {
             return false; // Retorna false se houve um erro
         }
     }
+    
     public function listar() {
         // Query para obter a lista de cliente
         $sql = "SELECT * FROM cliente";

@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Estilização padrão do web site -->
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Estilização formulário de Perfil -->
+    <!-- Estilização formulários de Perfis -->
     <link rel="stylesheet" href="../css/perfil.css">
 </head>
 <body>
     <div class="container">
-        <h2>Lista de Atendentes</h2>
+        <h2>Atendentes Cadastrados</h2>
         <?php
             // Caminho do arquivo de conexão com o banco de dados
             require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
@@ -46,7 +46,6 @@
                 // Exibe os dados de cada atendente
                 while ($row = $result->fetch_assoc()) {
                     echo '<tr>';
-                    
                     // Verifica se a foto do atendente existe
                     $fotoPath = $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $row['foto_atendente'];
                     $foto = file_exists($fotoPath) && !empty($row['foto_atendente']) 

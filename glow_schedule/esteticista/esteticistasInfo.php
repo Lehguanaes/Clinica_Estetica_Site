@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Care Tones</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <!-- Links externos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Estilização padrão do web site -->
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <body>
-
-<nav class="navbar navbar-expand-lg">
+    <!-- Início da Navbar -->
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand"><img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"></a>
             <div class="logo">
@@ -31,9 +36,9 @@
             </div>
         </div>
     </nav>
-    
+    <!-- Fim da Navbar -->
+    <!-- Exibição do Esteticista -->
     <div id="Profissionais">
-
         <?php
         // Atualize o caminho do arquivo de conexão com o banco de dados
         require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
@@ -56,9 +61,8 @@
         if ($result->num_rows > 0) {
             // Obtém as informações do esteticista
             $row = $result->fetch_assoc();
-
             echo '<h2 style="color: #CF6F7A; text-align: center; margin-top:10px; margin-bottom: 35px;">' . htmlspecialchars($row['nome_esteticista']) . '</h2>';
-            echo '<div class="card mb-1" style="max-width: 1000px; margin-left: 10%; border: none;">';
+            echo '<div class="card mb-1" style="max-width: 1000px; margin-left: 10%; border: none;";>';
             echo '<div class="row g-0">';
             echo '<div class="col-md-3" style="margin-bottom: 50px;">';
             echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $row['foto_esteticista']) ? "/glow_schedule/" . htmlspecialchars($row['foto_esteticista']) : "/glow_schedule/uploads/default.jpg") . '" alt="Foto do Esteticista" style="width:100%; height:auto;">';
@@ -76,16 +80,12 @@
         } else {
             echo '<h2 style="color: #CF6F7A; text-align: center; margin-top:10px; margin-bottom: 35px;">Esteticista não encontrado</h2>';
         }
-
         // Fecha a conexão com o banco de dados
         $stmt->close();
         $conn->close();
         ?>
-
     </div>
-
     <h4 style="color: #18676C;margin-top: 20px; margin-left: 75px;">Avaliações</h4>
-        
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-3">
@@ -102,7 +102,6 @@
                 </div>
                 <br>
             </div>
-    
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body" style="background-color: #EDF0F2;">
@@ -117,7 +116,6 @@
                 </div>
                 <br>
             </div>
-
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body" style="background-color: #EDF0F2;">
@@ -132,7 +130,6 @@
                 </div>
                 <br>
             </div>
-
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body" style="background-color: #EDF0F2;">

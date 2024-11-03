@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Care Tones</title>
+    <title>Página de Acesso</title>
+    <!-- Links externos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Estilização padrão do web site -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="Css/carrossel.css" media="screen" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="Js/carrossel.js" defer></script>
-    <integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="glider.js"></script>
-
-
+    <!-- Estilização de Perfil -->
+    <link rel="stylesheet" href="css/perfil.css">
 </head>
+<body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <body>
-
- <!-- Início da Navbar -->
+    <!-- Início da Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand"> <img class="rounded-circle ms-4" src="logo/Logo.png" alt="Logo care tones" width="69px"> </a>
@@ -34,10 +32,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                 <ul class="navbar-nav w-auto">
                     <li class="nav-item pe-4 ps-4">
-                         <a class="nav-link" aria-current="page" href="Home.html">Home</a>
+                        <a class="nav-link" aria-current="page" href="Home.html">Home</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                         <a class="nav-link active" aria-current="page" href="Sobre_nos.html">Sobre nós</a>
+                        <a class="nav-link active" aria-current="page" href="Sobre_nos.html">Sobre nós</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
                         <a class="nav-link active" aria-current="page" href="Procedimentos.html">Procedimentos</a>
@@ -46,7 +44,6 @@
                         <a class="nav-link active" aria-current="page" href="Profissionais.html">Profissionais</a>
                     </li>
                 </ul>
-
                 <button type="button" class="btn btn-sm btn-link me-4 ms-4"> <a href="Agendamentos.html" id="link_agendamentos">Agendamentos</a> </button>
                 <div class="dropdown">
                     <div class="login-icon">
@@ -58,37 +55,42 @@
                             <a href="Cadastro.html"><i class="fa-solid fa-address-card" style="color: #cf6f7a;"></i> Cadastre-se</i></a>
                         </div>
                     </div>
-                 </div>
+                </div>
             </div>
         </div>
     </nav>
-     <!-- Fim da Navbar -->
+    <!-- Fim da Navbar -->
 
-      <!-- Início do login -->
-    <h2 class="h2_novo">Login</h2>  
-    <section class="container">
-    <form method="post" action="/glow_schedule/controller/usuarioController.php">
-       <input type="hidden" name="acao" value="login">
-             <div class="Login">        
+    <!-- Início do login -->
+    <h2>Login</h2>  
+    <section class="container"> 
+    <form method="post" action="/glow_schedule/controller/usuarioController.php" class="form" id="form_perfil">
+        <input type="hidden" name="acao" value="login">
+            <div class="Login">        
                     <div class="input-box">
                         <label>Email:</label>
                         <input type="text" id="email" name="email" placeholder="Email:" required />
                     </div>
                     <div class="input-box">
-                        <label>Senha:</label>
-                        <input type="password"  id="senha" name="senha" placeholder="Senha" required />
+                        <label for="senha">*Senha:</label>
+                        <div class="password-container">
+                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite a Senha:" required>
+                            <span class="eye-icon" onclick="togglePasswordVisibility()">
+                                <i id="eye-icon" class="fa fa-eye"></i>
+                            </span>
+                        </div>
                     </div>
-                    <button>  <i class="fa-solid fa-right-to-bracket" ></i>  Entrar</button>
+                    <button>Entrar</button>
             </div>
             <a href="cliente/cadastrarCliente.php" style="color: #cf6f7a;"> Não possui conta? </a>
-        </form>
+    </form>
     </section>
 
     <footer>
         <div id="footer_content">
             <div id="footer_contacts">
                 <a class="navbar-brand"> <img class="rounded-circle ms-4" src="Imagem_Logo/Logo.png" alt="Logo care tones" width="69px"></a>
-               <h3>Care Tones</h3>  
+            <h3>Care Tones</h3>  
                 <div id="footer_social_media">
                     <a href="#" class="footer-link" id="instagram">
                         <i class="fa-brands fa-instagram"></i>
@@ -156,3 +158,29 @@
             2023 all rights reserved
         </div>
     </footer>
+    <!-- Fim footer -->
+    <script>
+        // Função para alternar a visibilidade do campo de senha
+        function togglePasswordVisibility() {
+            // Seleciona o campo de senha e o ícone do olho
+            const passwordInput = document.getElementById("senha");
+            const eyeIcon = document.getElementById("eye-icon");
+
+            // Verifica se o tipo de entrada é "password" para alternar
+            if (passwordInput.type === "password") {
+                // Torna a senha visível alterando o tipo para "text"
+                passwordInput.type = "text";
+                // Muda o ícone para o olho com barra (fa-eye-slash)
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                // Oculta a senha alterando o tipo de volta para "password"
+                passwordInput.type = "password";
+                // Muda o ícone de volta para o olho normal (fa-eye)
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>

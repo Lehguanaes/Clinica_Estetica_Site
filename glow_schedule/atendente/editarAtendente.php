@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Estilização padrão do web site -->
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Estilização formulário de Perfil -->
+    <!-- Estilização formulários de Perfis -->
     <link rel="stylesheet" href="../css/perfil.css">
 </head>
 <body>
@@ -147,23 +147,23 @@
             </div>
             <div class="column">
                 <div class="input-box">
-                    <label for="nome_atendente">Nome:</label>
-                    <input type="text" class="form-control" id="nome_atendente" name="nome_atendente" value="<?php echo htmlspecialchars($atendenteData['nome_atendente']); ?>" required>
+                    <label for="nome_atendente">*Nome:</label>
+                    <input type="text" class="form-control" id="nome_atendente" name="nome_atendente"  placeholder="Digite o Nome Completo:" value="<?php echo htmlspecialchars($atendenteData['nome_atendente']); ?>" required>
                 </div>
                 <div class="input-box">
-                    <label for="telefone_atendente">Telefone:</label>
-                    <input type="text" class="form-control" id="telefone_atendente" name="telefone_atendente" value="<?php echo htmlspecialchars($atendenteData['telefone_atendente']); ?>" required maxlength="15">
+                    <label for="telefone_atendente">*Telefone:</label>
+                    <input type="text" class="form-control" id="telefone_atendente" name="telefone_atendente"  placeholder="Digite o Telefone:" value="<?php echo htmlspecialchars($atendenteData['telefone_atendente']); ?>" required maxlength="15">
                 </div>
             </div>
             <div class="column">
                 <div class="input-box">
-                    <label for="email_atendente">Email:</label>
-                    <input type="email" class="form-control" id="email_atendente" name="email_atendente" value="<?php echo htmlspecialchars($atendenteData['email_atendente']); ?>" required>
+                    <label for="email_atendente">*E-mail:</label>
+                    <input type="email" class="form-control" id="email_atendente" name="email_atendente" placeholder="Digite o E-mail:" value="<?php echo htmlspecialchars($atendenteData['email_atendente']); ?>" required>
                 </div>
                 <div class="input-box">
-                    <label for="senha_atendente">Senha:</label>
+                    <label for="senha_atendente">*Senha:</label>
                     <div class="password-container">
-                        <input type="password" class="form-control" id="senha_atendente" name="senha_atendente" value="<?php echo htmlspecialchars($atendenteData['senha_atendente']); ?>" required>
+                        <input type="password" class="form-control" id="senha_atendente" name="senha_atendente" placeholder="Digite a Senha:" value="<?php echo htmlspecialchars($atendenteData['senha_atendente']); ?>" required>
                         <span class="eye-icon" onclick="togglePasswordVisibility()">
                             <i id="eye-icon" class="fa fa-eye"></i>
                         </span>

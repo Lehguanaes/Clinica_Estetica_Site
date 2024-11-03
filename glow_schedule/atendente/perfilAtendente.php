@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Estilização padrão do web site -->
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Estilização perfil de Atendente -->
+    <!-- Estilização formulários de Perfis -->
     <link rel="stylesheet" href="../css/perfil.css">
 </head>
 <body>
@@ -57,7 +57,7 @@
                         <a class="nav-link active" aria-current="page" href="agenda.php">Agenda</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="../esteticista/cadastroEsteticista.php">Cadastro Esteticista</a>
+                        <a class="nav-link active" aria-current="page" href="cadastroEsteticista.php">Cadastro Esteticista</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
                         <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
@@ -75,8 +75,15 @@
             <div class="row g-0">
                 <div class="profile-pic-container_visualizar">
                     <!-- Imagem de perfil do atendente -->
-                    <img src="<?php echo file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $atendente['foto_atendente']) ? "/glow_schedule/" . htmlspecialchars($atendenteData['foto_atendente']) : "/glow_schedule/uploads/default.jpg"; ?>" alt="Foto do Atendente" class="profile-pic" id="profile-pic-preview">
-                    <p id="nome_perfil"><strong> </strong> <?php echo htmlspecialchars($atendente['nome_atendente']); ?></p>
+                    <img src="<?php 
+                        // Verifica se a foto do atendente existe e se o campo não está vazio
+                        $fotoPath = $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $atendente['foto_atendente'];
+                        echo (file_exists($fotoPath) && !empty($atendente['foto_atendente'])) 
+                            ? "/glow_schedule/" . htmlspecialchars($atendente['foto_atendente']) 
+                            : "../iconesPerfil/perfilPadrao.png"; // Caminho para a imagem padrão
+                    ?>" alt="Foto do Atendente" class="profile-pic" id="profile-pic-preview">
+                
+                    <p id="nome_perfil"><strong></strong> <?php echo htmlspecialchars($atendente['nome_atendente']); ?></p>
                 </div>
                 <!-- Coluna de informações -->
                 <div class="col-md-8" style="margin-top: 30px;">
@@ -92,6 +99,5 @@
             <a href="http://localhost/glow_schedule/atendente/editarAtendente.php?cpf_atendente=<?php echo htmlspecialchars($atendente['cpf_atendente']); ?>" class="btn btn-primary" id="editar_perfil_button">Editar Perfil</a>
         </div>
     </div>
-
 </body>
 </html>

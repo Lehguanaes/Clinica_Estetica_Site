@@ -118,8 +118,8 @@ class EsteticistaController {
         $this->esteticista->setInstagram($_POST['instagram_esteticista']);
         $this->esteticista->setFacebook($_POST['facebook_esteticista']);
         $this->esteticista->setLinkedin($_POST['linkedin_esteticista']);
+        $this->esteticista->setSenha($_POST['senha_esteticista']);
     }
 }
-
 new EsteticistaController();
 ?>

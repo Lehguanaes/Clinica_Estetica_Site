@@ -79,6 +79,14 @@
         display: none;
     }
 
+    #foto_esteticista {
+        display: none;
+    }
+
+    #foto_cliente{
+        display: none;
+    }
+
     /* Reduz o tamanho da fonte do label da foto */
     #label_foto_perfil {
         font-size: 14px;

@@ -23,49 +23,77 @@
     $esteticista = $resultado->fetch_assoc();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Consulta de Perfil</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Esteticista</title>
+    <!-- Links externos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Estilização padrão do web site -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Estilização formulários de Perfis -->
+    <link rel="stylesheet" href="../css/perfil.css">
 </head>
 <body>
-<div class="container">
-        <div>&nbsp;</div>
-        <h2>Editar</h2>
-        <div>&nbsp;</div>
-
-        <form method="POST"  enctype="multipart/form-data">
-
-                <div class="form-group">
-                    <label for="foto_esteticista">Foto:</label><br>
-                    <img src="<?php echo ($esteticista['foto_esteticista']); ?>" alt="Foto do Esteticista" style="width:100px;height:100px;"><br>
-                    <input type="file" name="foto_esteticista" id="foto_esteticista" accept="image/*">
+    <!-- Início da Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"> </a>
+            <div class="logo">
+                <a class="nav-link active" aria-current="page" href="home.php">Care Tones</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav w-auto">
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="agenda.php">Agenda</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="cadastroEsteticista.php">Cadastro Esteticista</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado"> <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
+            </div>
+        </div>
+    </nav>
+    <!-- Fim da Navbar -->
+    <h2>Minhas Informações</h2>
+    <!-- Exibição do perfil -->
+    <div class="container mt-4" id="perfil_conteiner">
+        <div class="card mb-4" id="perfil_card" style="max-width: 1000px; margin: auto; border: none;">
+            <div class="row g-0">
+                <!-- Foto e nome do esteticista -->
+                <div class="profile-pic-container_visualizar" style="margin-bottom: 65px;">
+                    <img src="<?php echo file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $esteticista['foto_esteticista']) ? "/glow_schedule/" . htmlspecialchars($esteticista['foto_esteticista']) : "/glow_schedule/uploads/default.jpg"; ?>" alt="Foto do esteticista" class="profile-pic" id="profile-pic-preview">
+                    <p id="nome_perfil"><strong> </strong> <?php echo htmlspecialchars($esteticista['nome_esteticista']); ?></p>
                 </div>
-
-                <div class="form-group">
-                    <label for="nome_esteticista">Nome:</label>
-                    <input type="text" class="form-control" id="nome_esteticista" name="nome_esteticista" value="<?php echo ($esteticista['nome_esteticista']); ?>" disabled>
+                <!-- Coluna de informações -->
+                <div class="col-12 col-md-8" style="margin-top: 30px;">
+                    <p><strong>Nome Completo:</strong> <?php echo htmlspecialchars($esteticista['nome_esteticista']); ?></p>
+                    <p><strong>CPF:</strong> <?php echo htmlspecialchars($esteticista['cpf_esteticista']); ?></p>
+                    <p><strong>Telefone:</strong> <?php echo htmlspecialchars($esteticista['telefone_esteticista']); ?></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($esteticista['email_esteticista']); ?></p>
+                    <p><strong>Formação:</strong> <?php echo htmlspecialchars($esteticista['formacao_esteticista']); ?></p>
+                    <p><strong>Descrição Curta:</strong> <?php echo htmlspecialchars($esteticista['descricao_p_esteticista']); ?></p>
+                    <p><strong>Descrição Detalhada:</strong> <?php echo htmlspecialchars($esteticista['descricao_g_esteticista']); ?></p>
+                    <p><strong>Instagram:</strong> <a href="<?php echo htmlspecialchars($esteticista['instagram_esteticista']); ?>" target="_blank"><?php echo htmlspecialchars($esteticista['instagram_esteticista']); ?></a></p>
+                    <p><strong>Facebook:</strong> <a href="<?php echo htmlspecialchars($esteticista['facebook_esteticista']); ?>" target="_blank"><?php echo htmlspecialchars($esteticista['facebook_esteticista']); ?></a></p>
+                    <p><strong>LinkedIn:</strong> <a href="<?php echo htmlspecialchars($esteticista['linkedin_esteticista']); ?>" target="_blank"><?php echo htmlspecialchars($esteticista['linkedin_esteticista']); ?></a></p>
                 </div>
-
-                <div class="form-group">
-                    <label for="apelido_esteticista">Apelido:</label>
-                    <input type="text" class="form-control" id="apelido_esteticista" name="apelido_esteticista" value="<?php echo ($esteticista['apelido_esteticista']); ?>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email_esteticista">Email:</label>
-                    <input type="email" class="form-control" id="email_esteticista" name="email_esteticista" value="<?php echo ($esteticista['email_esteticista']); ?>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="telefone_esteticista">Telefone:</label>
-                    <input type="text" class="form-control" id="telefone_esteticista" name="telefone_esteticista" value="<?php echo ($esteticista['telefone_esteticista']); ?>" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Atualizar</button>
-            </form>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="editarEsteticista.php?cpf_esteticista=<?php echo htmlspecialchars($esteticista['cpf_esteticista']); ?>" class="btn btn-primary" id="editar_perfil_button">Editar Perfil</a>
+        </div>
     </div>
+    &nbsp;
 </body>
 </html>

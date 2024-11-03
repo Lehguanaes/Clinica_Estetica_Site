@@ -1,3 +1,27 @@
+<?php
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/usuarioController.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
+
+    $conexaoMini = new Conexao();
+    $conexao = $conexaoMini->getConexao();
+
+    $cpf = $_SESSION['usuario_cpf'];
+    //smt com placeholder ?, pq o método ':cpf', $cpf não funcionou
+    $stmt = $conexao->prepare("SELECT * FROM atendente WHERE cpf_atendente = ?");
+    // um if para a verificação se o statement resulta em algo
+    if ($stmt === false) {
+        // Exibe o erro da preparação da consulta
+        die('Erro no sql: ' . $conexao->error);
+    }
+    //smt com placeholder ?, pq o método ':cpf', $cpf não funcionou
+    $stmt->bind_param("s", $cpf);
+    $stmt->execute();
+    
+    // atribui o resultado da consulta  do stmt ao vetor $resultado
+    $resultado = $stmt->get_result();
+    // atribui o $cliente a uma linha do $resultado
+    $atendente = $resultado->fetch_assoc();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -33,7 +57,7 @@
                         <a class="nav-link active" aria-current="page" href="agenda.php">Agenda</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="cadastroEsteticista.php">Cadastro Esteticista</a>
+                        <a class="nav-link active" aria-current="page" href="../esteticista/cadastroEsteticista.php">Cadastro Esteticista</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
                         <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
@@ -44,36 +68,6 @@
         </div>
     </nav>
     <!-- Fim da Navbar -->
-    <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/atendente/atendente.php";
-
-    if (isset($_GET['cpf_atendente'])) {
-        $cpf_atendente = $_GET['cpf_atendente'];
-
-        $sql = "SELECT * FROM atendente WHERE cpf_atendente = ?";
-        $conn = (new Conexao())->getConexao();
-
-        if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("s", $cpf_atendente);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                $atendenteData = $result->fetch_assoc();
-            } else {
-                echo "<p>Nenhum atendente encontrado com o CPF informado.</p>";
-            }
-            $stmt->close();
-        } else {
-            echo "Erro na consulta: " . $conn->error;
-        }
-    } else {
-        echo "<p>CPF do atendente não foi informado.</p>";
-    }
-
-    if (isset($atendenteData)) {
-    ?>
     <!-- Exibição do perfil -->
     <h2>Minhas Informações</h2>
     <div class="container mt-4" id="perfil_conteiner">
@@ -81,26 +75,23 @@
             <div class="row g-0">
                 <div class="profile-pic-container_visualizar">
                     <!-- Imagem de perfil do atendente -->
-                    <img src="<?php echo file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $atendenteData['foto_atendente']) ? "/glow_schedule/" . htmlspecialchars($atendenteData['foto_atendente']) : "/glow_schedule/uploads/default.jpg"; ?>" alt="Foto do Atendente" class="profile-pic" id="profile-pic-preview">
-                    <p id="nome_perfil"><strong> </strong> <?php echo htmlspecialchars($atendenteData['nome_atendente']); ?></p>
+                    <img src="<?php echo file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $atendente['foto_atendente']) ? "/glow_schedule/" . htmlspecialchars($atendenteData['foto_atendente']) : "/glow_schedule/uploads/default.jpg"; ?>" alt="Foto do Atendente" class="profile-pic" id="profile-pic-preview">
+                    <p id="nome_perfil"><strong> </strong> <?php echo htmlspecialchars($atendente['nome_atendente']); ?></p>
                 </div>
                 <!-- Coluna de informações -->
                 <div class="col-md-8" style="margin-top: 30px;">
-                    <p><strong>Nome Completo:</strong> <?php echo htmlspecialchars($atendenteData['nome_atendente']); ?></p>
-                    <p><strong>CPF:</strong> <?php echo htmlspecialchars($atendenteData['cpf_atendente']); ?></p>
-                    <p><strong>Telefone:</strong> <?php echo htmlspecialchars($atendenteData['telefone_atendente']); ?></p>
-                    <p><strong>Email:</strong> <?php echo htmlspecialchars($atendenteData['email_atendente']); ?></p>
+                    <p><strong>Nome Completo:</strong> <?php echo ($atendente['nome_atendente']); ?></p>
+                    <p><strong>CPF:</strong> <?php echo ($atendente['cpf_atendente']); ?></p>
+                    <p><strong>Telefone:</strong> <?php echo ($atendente['telefone_atendente']); ?></p>
+                    <p><strong>Email:</strong> <?php echo ($atendente['email_atendente']); ?></p>
                 </div>
             </div>
         </div>
         <!-- Botão para editar o perfil -->
         <div class="text-center mt-4">
-            <a href="http://localhost/glow_schedule/atendente/editarAtendente.php?cpf_atendente=<?php echo htmlspecialchars($atendenteData['cpf_atendente']); ?>" class="btn btn-primary" id="editar_perfil_button">Editar Perfil</a>
+            <a href="http://localhost/glow_schedule/atendente/editarAtendente.php?cpf_atendente=<?php echo htmlspecialchars($atendente['cpf_atendente']); ?>" class="btn btn-primary" id="editar_perfil_button">Editar Perfil</a>
         </div>
     </div>
-    <?php
-    }
-    $conn->close();
-    ?>
+
 </body>
 </html>

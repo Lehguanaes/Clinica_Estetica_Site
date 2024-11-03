@@ -70,7 +70,7 @@ if ($acao == "login") {
 
             $_SESSION['usuario_cpf'] = $usuario['cpf_atendente'];
             $_SESSION['usuario_tipo'] = $usuario['tipo'];
-            header("Location: /glow_schedule/atendente/esteticistas.php");
+            header("Location: /glow_schedule/atendente/perfilAtendente.php");
 
         } elseif ($usuario['tipo'] === 'esteticista') {
 

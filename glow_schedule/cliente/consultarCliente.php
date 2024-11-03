@@ -23,44 +23,75 @@
     $cliente = $resultado->fetch_assoc();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Consulta de Perfil</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Atendente</title>
+    <!-- Links externos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Estilização padrão do web site -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Estilização perfil de Atendente -->
+    <link rel="stylesheet" href="../css/perfil.css">
 </head>
 <body>
-<div class="container">
-        <div>&nbsp;</div>
-        <h2>Editar</h2>
-        <div>&nbsp;</div>
-
-        <form method="POST" action="controller/esteticistacontroller.php">
-            <div class="form-group">
-
-              <label for="foto_atendente">Foto:</label><br>
-              <img src="<?php echo ($cliente['foto_cliente']); ?>" alt="Foto do cliente" style="width:100px;height:100px;"><br>
-                <input type="file" name="foto_cliente" id="foto_cliente" accept="image/*">
-             
-
-                <label for="nome_cliente">Nome:</label>
-                <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" value="<?php echo ($cliente['nome_cliente']); ?>" required>
-            
-                <label for="email_cliente">Email:</label>
-                <input type="text" class="form-control" id="email_cliente" name="email_cliente" value="<?php echo ($cliente['email_cliente']); ?>" required>
-        
-                <label for="telefone_cliete">Telefone:</label>
-                <input type="text" class="form-control" id="telefone_cliete" name="telefone_cliete" value="<?php echo ($cliente['telefone_cliente']); ?>" required>
-       
-                <label for="cpf_cliente">CPF:</label>
-                <input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" value="<?php echo ($cliente['cpf_cliente']); ?>" required>
-       
-                <label for="senha_cliente">Senha:</label>
-                <input type="text" class="form-control" id="senha_cliente" name="senhaE" value="<?php echo $cliente['senha_cliente']; ?>" required>
-                
+    <!-- Início da Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"> </a>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+            <div class="logo">
+                <a class="nav-link active" aria-current="page" href="home.php">Care Tones</a>
             </div>
-        </form>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+                <ul class="navbar-nav w-auto">
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="">Alguma Coisa</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="">Coisas</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="">Algo Ai</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
+            </div>
+        </div>
+    </nav>
+    <!-- Fim da Navbar -->
+    <!-- Exibição do perfil -->
+    <h2>Minhas Informações</h2>
+    <div class="container mt-4" id="perfil_conteiner">
+        <div class="card mb-4" id="perfil_card" style="max-width: 1000px; margin: auto; border: none;">
+            <div class="row g-0">
+                <div class="profile-pic-container_visualizar">
+                    <!-- Imagem de perfil do atendente -->
+                    <img src="<?php echo file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $cliente['foto_cliente']) ? "/glow_schedule/" . htmlspecialchars($cliente['foto_cliente']) : "/glow_schedule/uploads/default.jpg"; ?>" alt="Foto do cliente" class="profile-pic" id="profile-pic-preview">
+                    <p id="nome_perfil"><strong> </strong> <?php echo htmlspecialchars($cliente['nome_cliente']); ?></p>
+                </div>
+                <!-- Coluna de informações -->
+                <div class="col-md-8" style="margin-top: 30px;">
+                    <p><strong>Nome Completo:</strong> <?php echo ($cliente['nome_cliente']); ?></p>
+                    <p><strong>CPF:</strong> <?php echo ($cliente['cpf_cliente']); ?></p>
+                    <p><strong>Telefone:</strong> <?php echo ($cliente['telefone_cliente']); ?></p>
+                    <p><strong>Email:</strong> <?php echo ($cliente['email_cliente']); ?></p>
+                </div>
+            </div>
+        </div>
+        <!-- Botão para editar o perfil -->
+        <div class="text-center mt-4">
+            <a href="http://localhost/glow_schedule/atendente/editarCliente.php?cpf_cliente=<?php echo ($cliente['cpf_cliente']); ?>" class="btn btn-primary" id="editar_perfil_button">Editar Perfil</a>
+        </div>
     </div>
+
 </body>
 </html>

@@ -1,5 +1,4 @@
 <?php
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
 
 class Atendente {
@@ -79,6 +78,7 @@ class Atendente {
             return false;
         }
     }
+
     public function buscarPorCpf() {
         $sql = "SELECT * FROM esteticista WHERE  cpf_esteticista = ?";
         
@@ -98,6 +98,7 @@ class Atendente {
             return false; // Retorna false se houve um erro
         }
     }
+
     public function listar() {
         // Query para obter a lista de atendentes
         $sql = "SELECT * FROM atendentes";

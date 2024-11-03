@@ -1,5 +1,4 @@
 <?php
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/atendente/atendente.php";
 
 class AtendenteController {
@@ -60,7 +59,6 @@ class AtendenteController {
             die("Erro ao inserir: " . $e->getMessage());
         }
     }
-      
 
     private function listar() {
         $atendentes = $this->atendente->listar();
@@ -117,10 +115,8 @@ class AtendenteController {
         $this->atendente->setTelefone($_POST['telefone_atendente']);
         $this->atendente->setEmail($_POST['email_atendente']);
         $this->atendente->setSenha($_POST['senha_atendente']);
-        // Não define a foto aqui, pois é feita no método inserir()
     }
     
 }
-
 new AtendenteController();
 ?>

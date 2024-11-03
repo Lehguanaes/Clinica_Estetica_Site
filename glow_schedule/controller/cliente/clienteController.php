@@ -60,7 +60,6 @@ class ClienteController {
             die("Erro ao inserir: " . $e->getMessage());
         }
     }
-      
 
     private function listar() {
         $clientes = $this->cliente->listar();
@@ -117,7 +116,6 @@ class ClienteController {
         $this->cliente->setTelefone($_POST['telefone_cliente']);
         $this->cliente->setEmail($_POST['email_cliente']);
         $this->cliente->setSenha($_POST['senha_cliente']);
-        // Não define a foto aqui, pois é feita no método inserir()
     }
     
 }

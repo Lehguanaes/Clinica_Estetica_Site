@@ -1,0 +1,186 @@
+/* Estilos para o Formulario */
+.container {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #f4f4f9;
+}
+
+.div_container {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #1A7F83;
+}
+
+p {
+    text-align: center;
+    color: #333;
+}
+
+i {
+    color: #1A7F83;
+}
+
+.contact-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contact-info .div {
+    font-size: large;
+}
+
+.contact-form {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-info div,
+.contact-form label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    color: #555;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 95%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+#button-duvida {
+    background-color: #1A7F83;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+#button-duvida:hover {
+    background-color: #145f63;
+}
+
+#mensagemResposta {
+    color: #CF6F7A;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .contact-section {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
+/* Ajustes para o ícone e opções do filtro */
+.filter-container {
+    position: relative;
+    display: inline-block;
+    margin: 15px;
+    font-size: 1.5em;
+    color: #1A7F83;
+}
+
+/* Adiciona transição suave ao exibir as opções */
+.filter-container:hover .filter-options {
+    display: block;
+    opacity: 1;
+    transform: translateY(0); /* Move para a posição final */
+    transition: opacity 0.6s ease, transform 0.9s ease; /* Controla a transição */
+}
+
+.filter-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color:  #1A7F83;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    width: 140px; /* Aumenta o tamanho do menu */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(-10px);
+    opacity: 0;
+    z-index: 1;
+}
+
+.filter-container.active .filter-options {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.filter-options button {
+    width: 100%;
+    padding: 15px; /* Aumenta o tamanho do botão */
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-options button:hover {
+    opacity: 1;
+}
+
+/* Estilo para o card e transição */
+.card-corpo-dicas {
+    margin: 15px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mensagem-expandida {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.mensagem-expandida.show {
+    max-height: 500px;
+}

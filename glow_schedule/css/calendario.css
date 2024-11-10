@@ -1,0 +1,59 @@
+
+/* Estilo para a tabela de calendário */
+table {
+    border-collapse: collapse;
+    width: 80%; /* Diminui a largura da tabela para 80% */
+    margin: 0 auto; /* Centraliza o calendário */
+}
+
+/* Estilo para as células da tabela */
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduz o padding para tornar a tabela mais compacta */
+    text-align: center;
+    height: 40px; /* Ajusta a altura das células */
+}
+
+/* Estilo para o cabeçalho da tabela (th) */
+th {
+    background-color: #e0e0e0; /* Cor de fundo do cabeçalho */
+    font-weight: bold;
+}
+
+/* Estilo para o dia atual */
+.today {
+    background-color: white !important; /* Destaque em tom amarelo claro */
+    font-weight: bold;
+    color: #1A7F83; /* Cor de texto em cinza escuro */
+    border-radius: 50%;
+}
+
+/* Estilo para a célula de data selecionada */
+.selected {
+    background-color: #1A7F83 !important; /* Fundo azul esverdeado */
+    color: white; /* Cor do texto branca */
+    border-radius: 50%;
+}
+
+/* Estilo para as setas de navegação */
+.prev-next {
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+/* Estilo para as células de data clicáveis */
+.date-select {
+    cursor: pointer;
+    padding: 5px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+}
+
+/* Cor de fundo para hover em datas */
+.date-select:hover {
+    background-color: #ddd;
+}
+.consulta-titulo {
+    color: #CF6F7A;
+    margin-bottom: 20px;
+}

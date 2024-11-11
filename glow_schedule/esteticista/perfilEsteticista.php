@@ -1,25 +1,33 @@
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/usuarioController.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
 
     $conexaoMini = new Conexao();
     $conexao = $conexaoMini->getConexao();
+    $message = new Message($BASE_URL);
+    $flashMsg = $message->getMessage();
 
-    $cpf = $_SESSION['usuario_cpf'];
+   if (!empty($flashMsg["msg"])) {
+    $message->limparMessage();
+    }
+
+    $token = $_SESSION['usuario_token'];
     //smt com placeholder ?, pq o método ':cpf', $cpf não funcionou
-    $stmt = $conexao->prepare("SELECT * FROM esteticista WHERE cpf_esteticista = ?");
+    $stmt = $conexao->prepare("SELECT * FROM esteticista WHERE token_esteticista = ?");
     // um if para a verificação se o statement resulta em algo
     if ($stmt === false) {
         // Exibe o erro da preparação da consulta
         die('Erro no sql: ' . $conexao->error);
     }
     //smt com placeholder ?, pq o método ':cpf', $cpf não funcionou
-    $stmt->bind_param("s", $cpf);
+    $stmt->bind_param("s", $token);
     $stmt->execute();
     
     // atribui o resultado da consulta  do stmt ao vetor $resultado
     $resultado = $stmt->get_result();
-    // atribui o $cliente a uma linha do $resultado
+    // atribui o $esteticista a uma linha do $resultado
     $esteticista = $resultado->fetch_assoc();
 ?>
 <!DOCTYPE html>
@@ -96,4 +104,16 @@
     </div>
     &nbsp;
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!--  php da mensagem; se a mensagem não estiver vazia, ela é inserida na página  -->
+  <?php if (!empty($flashMsg["msg"])): ?>
+            <script>
+                Swal.fire({
+                       icon: "<?= $flashMsg['type'] ?>",
+                       title: "<?= $flashMsg['titulo'] ?>",
+                       text: "<?= $flashMsg['msg'] ?>",
+                       toast: true
+                    });
+            </script>      
+<?php endif; ?>
 </html>

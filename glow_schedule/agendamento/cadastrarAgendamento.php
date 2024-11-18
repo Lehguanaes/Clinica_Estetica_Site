@@ -19,18 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
 
+    
     $procedimento = $data['procedimento'] ?? '';
     $profissional = $data['profissional'] ?? '';
     $dataConsulta = $data['data'] ?? '';
     $horario = $data['horario'] ?? '';
-    $cpfCliente = $data['cliente'] ?? '';
+    $cpf_cliente = $data['cliente'] ?? '';
 
     $erros = [];
     if (empty($procedimento)) $erros[] = "O campo 'procedimento' não pode estar vazio.";
     if (empty($profissional)) $erros[] = "O campo 'profissional' não pode estar vazio.";
     if (empty($dataConsulta)) $erros[] = "O campo 'data' não pode estar vazio.";
     if (empty($horario)) $erros[] = "O campo 'horario' não pode estar vazio.";
-    if (empty($cpfCliente)) $erros[] = "O campo 'cliente' não pode estar vazio.";
+    if (empty($cpf_cliente)) $erros[] = "O campo 'cliente' não pode estar vazio.";
 
     if (!empty($erros)) {
         echo json_encode([
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($idProcedimento) {
         $stmt = $conn->prepare("INSERT INTO Consulta (id_procedimento, cpf_esteticista, cpf_cliente, data_consulta, hora_consulta) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param('sssss', $idProcedimento, $profissional, $cpfCliente, $dataConsulta, $horario);
+        $stmt->bind_param('sssss', $idProcedimento, $profissional, $cpf_cliente, $dataConsulta, $horario);
 
         if ($stmt->execute()) {
             echo json_encode([

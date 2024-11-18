@@ -28,18 +28,18 @@ if (isset($_GET['mes']) && isset($_GET['ano'])) {
 
     echo "<table>";
     echo "<tr>
-            <th><span class='prev-next' onclick='carregarMes($mesAnterior, $anoAnterior)'>&lt;&lt;</span></th>
-            <th colspan='5'>" . ucfirst($nomeMes) . " $anoAtual</th>
-            <th><span class='prev-next' onclick='carregarMes($mesProximo, $anoProximo)'>&gt;&gt;</span></th>
+            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesAnterior, $anoAnterior)'>&lt;&lt;</span></th>
+            <th id='titulo_calendario' colspan='5'>" . ucfirst($nomeMes) . " $anoAtual</th>
+            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesProximo, $anoProximo)'>&gt;&gt;</span></th>
         </tr>";
     echo "<tr>
-            <th>Dom</th>
-            <th>Seg</th>
-            <th>Ter</th>
-            <th>Qua</th>
-            <th>Qui</th>
-            <th>Sex</th>
-            <th>Sáb</th>
+            <th id='nome_dia'>Dom</th>
+            <th id='nome_dia'>Seg</th>
+            <th id='nome_dia'>Ter</th>
+            <th id='nome_dia'>Qua</th>
+            <th id='nome_dia'>Qui</th>
+            <th id='nome_dia'>Sex</th>
+            <th id='nome_dia'>Sáb</th>
         </tr>";
     echo "<tr>";
     

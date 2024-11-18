@@ -3,43 +3,28 @@ require_once '../controller/conexao.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
 
-if (session_status() == PHP_SESSION_NONE) {
+
+if (session_status() == PHP_SESSION_NONE){
     session_start();
 }
-
-// Instancia a classe Conexao e obtém a conexão
-$conexao = new Conexao();
-$conn = $conexao->getConexao();
-if ($conn->connect_error) {
-    die("Erro na conexão com o banco de dados: " . $conn->connect_error);
-}
-
-$message = new Message($BASE_URL);
-$flashMsg = $message->getMessage();
-
-if (!empty($flashMsg["msg"])) {
-    $message->limparMessage();
-}
-
-// Verifica se o usuário está logado
-$cpfCliente = null;
-if (isset($_SESSION['usuario_token'])) {
-    $token = $_SESSION['usuario_token'];
-
-    // Consulta o banco de dados para obter o CPF do cliente com base no token
-    $stmt = $conn->prepare("SELECT cpf_cliente FROM cliente WHERE token_cliente = ?");
-    $stmt->bind_param("s", $token);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-
-    if ($resultado->num_rows > 0) {
-        $cliente = $resultado->fetch_assoc();
-        $cpfCliente = $cliente['cpf_cliente'];  // Armazena o CPF do cliente
+    
+    $conexao = new Conexao();
+    $conn = $conexao->getConexao();
+    if ($conn->connect_error) {
+        die("Erro na conexão com o banco de dados: " . $conn->connect_error);
     }
-}
 
-$resultado2 = $conn->query("SELECT id_procedimento, nome_procedimento FROM procedimento");
-$procedimentos = $resultado2 ? $resultado2->fetch_all(MYSQLI_ASSOC) : [];
+    $message = new Message($BASE_URL);
+    $flashMsg = $message->getMessage();
+
+    if (!empty($flashMsg["msg"])) {
+    $message->limparMessage();
+    }
+    
+    $token = isset($_SESSION['usuario_token']);
+     
+    $result = $conn->query("SELECT id_procedimento, nome_procedimento FROM procedimento");
+    $procedimentos = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -47,7 +32,7 @@ $procedimentos = $resultado2 ? $resultado2->fetch_all(MYSQLI_ASSOC) : [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agendamento</title>
-    <!-- Estilização padrão do website -->
+    <!-- Estilização padrão do web site -->
     <link rel="stylesheet" href="../css/style.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
@@ -62,7 +47,6 @@ $procedimentos = $resultado2 ? $resultado2->fetch_all(MYSQLI_ASSOC) : [];
             const procedimentoId = document.getElementById('procedimento_desejado').value;
             const esteticistasSelect = document.getElementById('preferencia_profissional');
 
-            // Limpa as opções anteriores
             esteticistasSelect.innerHTML = '';
             esteticistasSelect.disabled = true;
 
@@ -72,102 +56,88 @@ $procedimentos = $resultado2 ? $resultado2->fetch_all(MYSQLI_ASSOC) : [];
             esteticistasSelect.add(optionDefault);
 
             if (procedimentoId) {
-                // Chama o backend para buscar os esteticistas baseados no procedimento selecionado
                 fetch(`carregarEsteticistas.php?id_procedimento=${procedimentoId}`)
                     .then(response => response.json())
                     .then(data => {
                         data.forEach(est => {
                             const option = document.createElement('option');
                             option.value = est.cpf_esteticista;
-                            option.text = `${est.apelido_esteticista}`;
+                            option.text = ` ${est.apelido_esteticista}`;
                             esteticistasSelect.add(option);
                         });
                         esteticistasSelect.disabled = false;
                     })
-                    .catch(error => console.error('Erro ao carregar esteticistas:', error));
+                    .catch(error => console.error('Erro:', error));
             }
         }
+
 
         function confirmarAgendamento(procedimento, apelidoProfissional, data, horario) {
-            // Verifica se o usuário está logado
-            if (!<?= json_encode($cpfCliente) ?>) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Login Necessário',
-                    text: 'Você precisa estar logado para realizar um agendamento.',
-                    confirmButtonText: 'Login',
-                    html: 'Novo por aqui? Cadastre-se. <a href="../cliente/cadastrarCliente.php" style="color: #3085d6; text-decoration: underline;">cadastrar</a>',
-                }).then(() => {
-                    window.location.href = "../login.php";
+            <?php if ($token): ?>
+                const cpf_Cliente = document.getElementById('cpf_cliente').value;
+
+                if (!cpfCliente) {
+                   alert('Por favor, insira o CPF do cliente.');
+                   return;
+                }
+
+                fetch('obterCpfProfissional.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ apelido: apelidoProfissional }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Erro ao buscar o CPF do profissional.");
+                    }
+                    return response.json();
+                })
+                .then(dataResponse => {
+                    if (dataResponse.success) {
+                        const cpfProfissional = dataResponse.cpf;
+
+                        return fetch('cadastrarAgendamento.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        procedimento,
+                        profissional: cpfProfissional,
+                        data,
+                        horario,
+                        cliente: cpfCliente  // CPF do cliente capturado do input
+                    }),
                 });
-                return; 
+            } else {
+                throw new Error("Profissional não encontrado.");
             }
-
-            const cpfCliente = <?= json_encode($cpfCliente) ?>; // CPF do cliente logado
-
-            // Busca o CPF do profissional pelo apelido
-            fetch('obterCpfProfissional.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ apelido: apelidoProfissional }),
-            })
-            .then(response => response.json())
-            .then(profData => {
-                if (profData.success) {
-                    const cpfProfissional = profData.cpf;
-
-                    // Agora envia os dados para cadastrar o agendamento
-                    return fetch('cadastrarAgendamento.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            procedimento,
-                            profissional: cpfProfissional,
-                            data,
-                            horario,
-                            cliente: cpfCliente // CPF do cliente logado
-                        }),
-                    });
-                } else {
-                    throw new Error("Profissional não encontrado.");
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Consulta Marcada!',
-                        text: 'Preencha seu prontuário para maior precisão da consulta!',
-                        html: 'Novo por aqui? Cadastre seu prontuário. <a href="../prontuario/cadastroProntuario.php" style="color: #3085d6; text-decoration: underline;">cadastrar</a>',
-                        confirmButtonText: 'Ok'
-                    }).then(() => {
-                    window.location.href = "../prontuario/editarProntuario.php";
-                });
-                } else {
-                    console.error("Erro no agendamento:", data.message);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro no Agendamento',
-                        text: 'Ocorreu um erro ao confirmar o agendamento. Tente novamente.',
-                        confirmButtonText: 'Ok'
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Erro detalhado:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro ao efetuar o agendamento!',
-                    text: 'Ocorreu um erro: ' + error.message,
-                    confirmButtonText: 'Ok'
-                });
-            });
-        }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro ao cadastrar o agendamento.");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert("Seu agendamento foi confirmado com sucesso!");
+            } else {
+                console.error("Erro no agendamento:", data.message);
+                alert("Ocorreu um erro ao confirmar o agendamento. Tente novamente.");
+            }
+        })
+        .catch(error => {
+            console.error('Erro detalhado:', error);
+            alert("Erro na comunicação com o servidor: " + error.message);
+        });
+    <?php else: ?>
+        alert("Você precisa estar logado para realizar um agendamento.");
+        window.location.href = "../login.php";
+    <?php endif; ?>
+}
     </script>
 </head>
 <body>
@@ -196,6 +166,12 @@ $procedimentos = $resultado2 ? $resultado2->fetch_all(MYSQLI_ASSOC) : [];
     <div class="container">
         <div class="calendar">
             <h4>Selecione o procedimento desejado, o profissional e a data:</h4>
+            <div>
+                <div class="input-box">
+                    <label>CPF do Cliente:</label>
+                    <input type="text" name="cpf_cliente" id="cpf_cliente" placeholder="Digite o CPF do cliente" required>
+                </div>
+            </div>
             <div class="input-box">
                 <div class="select-box">
                     <label for="procedimento_desejado">Procedimento desejado:</label>
@@ -231,6 +207,12 @@ $procedimentos = $resultado2 ? $resultado2->fetch_all(MYSQLI_ASSOC) : [];
         </div>
     </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#cpf_cliente').mask('000.000.000-00');
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php if (!empty($flashMsg["msg"])): ?>
 <script>

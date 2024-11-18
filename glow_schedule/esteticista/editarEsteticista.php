@@ -1,9 +1,45 @@
+<?php
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
+
+
+        $conexaoMini = new Conexao();
+        $conexao = $conexaoMini->getConexao();
+
+
+           $message = new Message($BASE_URL);
+           $flashMsg = $message->getMessage();
+
+        if (!empty($flashMsg["msg"])) {
+             $message->limparMessage();
+        }
+            
+
+            $token = $_SESSION['usuario_token'];
+            $stmt = $conexao->prepare("SELECT * FROM esteticista WHERE token_esteticista = ?");
+
+             $stmt->bind_param("s", $token);
+             $stmt->execute();
+             $resultado = $stmt->get_result();
+             $esteticista = $resultado->fetch_assoc();
+                   
+                if(!isset($_SESSION['usuario_token'])) {
+                    $message->setMessage("Cpf não encontrado", "Nenhum esteticista encontrado com o CPF informado", "warning", "../login.php");
+                }
+      
+                if (!$esteticista) {
+                    $message->setMessage("esteticista não encontrado", "Não encontramos um esteticista com este token", "warning", "../login.php");
+                    exit;
+                }
+        
+        ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Perfil Esteticista</title>
+    <title>Editar Perfil esteticista</title>
     <!-- Links externos -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -48,105 +84,12 @@
     <h2>Editar Perfil</h2>
     <!-- Exibição do perfil para edição -->
     <section class="container">
-        <?php
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/esteticista/esteticista.php";
-
-        // Cria uma nova instância da classe Esteticista
-        $esteticista = new Esteticista();
-
-        // Verifica se o CPF do esteticista foi passado pela URL
-        if (isset($_GET['cpf_esteticista'])) {
-            $cpf_esteticista = $_GET['cpf_esteticista'];
-
-            // Consulta para buscar os dados do esteticista
-            $sql = "SELECT * FROM esteticista WHERE cpf_esteticista = ?";
-            $conn = (new Conexao())->getConexao();
-
-            if ($stmt = $conn->prepare($sql)) {
-                $stmt->bind_param("s", $cpf_esteticista);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                if ($result->num_rows > 0) {
-                    $esteticistaData = $result->fetch_assoc();
-                    // Define os dados do esteticista
-                    $esteticista->setCpf($esteticistaData['cpf_esteticista']);
-                    $esteticista->setNome($esteticistaData['nome_esteticista']);
-                    $esteticista->setApelido($esteticistaData['apelido_esteticista']);
-                    $esteticista->setEmail($esteticistaData['email_esteticista']);
-                    $esteticista->setTelefone($esteticistaData['telefone_esteticista']);
-                    $esteticista->setSenha($esteticistaData['senha_esteticista']);
-                    $esteticista->setFoto($esteticistaData['foto_esteticista']);
-                    $esteticista->setFormacao($esteticistaData['formacao_esteticista']);
-                    $esteticista->setDescricaoP($esteticistaData['descricao_p_esteticista']);
-                    $esteticista->setDescricaoG($esteticistaData['descricao_g_esteticista']);
-                    $esteticista->setInstagram($esteticistaData['instagram_esteticista']);
-                    $esteticista->setFacebook($esteticistaData['facebook_esteticista']);
-                    $esteticista->setLinkedin($esteticistaData['linkedin_esteticista']);
-                } else {
-                    echo "<p>Nenhum esteticista encontrado com o CPF informado.</p>";
-                }
-                $stmt->close();
-            } else {
-                echo "Erro na consulta: " . $conn->error;
-            }
-        } else {
-            echo "<p>CPF do esteticista não foi informado.</p>";
-        }
-
-        // Lógica para atualizar os dados do esteticista
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cpf_esteticista'])) {
-            // Define todos os campos menos o CPF
-            $esteticista->setNome($_POST['nome_esteticista']);
-            $esteticista->setApelido($_POST['apelido_esteticista']);
-            $esteticista->setEmail($_POST['email_esteticista']);
-            $esteticista->setTelefone($_POST['telefone_esteticista']);
-            $esteticista->setFormacao($_POST['formacao_esteticista']);
-            $esteticista->setDescricaoP($_POST['descricao_p_esteticista']);
-            $esteticista->setDescricaoG($_POST['descricao_g_esteticista']);
-            $esteticista->setInstagram($_POST['instagram_esteticista']);
-            $esteticista->setFacebook($_POST['facebook_esteticista']);
-            $esteticista->setLinkedin($_POST['linkedin_esteticista']);
-
-            // Verifica se uma nova senha foi enviada
-            if (!empty($_POST['senha_esteticista'])) {
-                $esteticista->setSenha($_POST['senha_esteticista']);
-            }
-            // Verifica se uma nova foto foi enviada
-            if (isset($_FILES['foto_esteticista']) && $_FILES['foto_esteticista']['error'] == UPLOAD_ERR_OK) {
-                $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/uploads/";
-                $target_file = $target_dir . basename($_FILES["foto_esteticista"]["name"]);
-
-                // Move a nova foto para o diretório de uploads
-                if (move_uploaded_file($_FILES["foto_esteticista"]["tmp_name"], $target_file)) {
-                    $esteticista->setFoto("uploads/" . basename($_FILES["foto_esteticista"]["name"])); // Atualiza a foto com a nova
-                } else {
-                    echo "<p>Erro ao fazer upload da foto.</p>";
-                }
-            } else {
-                // Mantém a foto existente se nenhuma nova for enviada
-                $esteticista->setFoto($_POST['foto_atual']);
-            }
-
-            // Atualiza os dados no banco de dados
-            if ($esteticista->atualizar()) {
-                echo "<p>Esteticista atualizado com sucesso.</p>";
-                header("Location: consultarEsteticista.php");
-                exit();
-            } else {
-                echo "<p>Erro ao atualizar os dados.</p>";
-            }
-
-        }
-        // Verifica se os dados do esteticista foram encontrados para exibir o formulário
-        if (isset($esteticistaData)) {
-        ?>
-        <form method="POST" action="editarEsteticista.php?cpf_esteticista=<?php echo urlencode($esteticistaData['cpf_esteticista']); ?>" enctype="multipart/form-data" class="form" id="form_perfil">
-            <!-- Definindo o CPF do esteticista como campo oculto -->
-            <input type="hidden" name="cpf_esteticista" value="<?php echo htmlspecialchars($esteticistaData['cpf_esteticista']); ?>">
+  
+    <form method="POST" action="../controller/esteticista/esteticistaController.php" enctype="multipart/form-data" class="form" id="form_perfil">
+    <input type="hidden" name="acao" value="atualizar">
+    <input type="hidden" name="token_esteticista" value="<?php echo htmlspecialchars($esteticista['token_esteticista']); ?>">
             <!-- Campo oculto para armazenar o caminho da foto atual -->
-            <input type="hidden" name="foto_atual" value="<?php echo htmlspecialchars($esteticistaData['foto_esteticista']); ?>">
+            <input type="hidden" name="foto_atual" value="<?php echo htmlspecialchars($esteticista['foto_esteticista']); ?>">
             
             <!-- Foto do esteticista com pré-visualização -->
             <div class="column">
@@ -154,8 +97,8 @@
                     <div class="profile-pic-container">
                         <?php
                             // Verifica se a foto do esteticista existe e não está vazia
-                            $fotoPath = "/glow_schedule/" . htmlspecialchars($esteticistaData['foto_esteticista']);
-                            $fotoExibida = (file_exists($_SERVER['DOCUMENT_ROOT'] . $fotoPath) && !empty($esteticistaData['foto_esteticista']))
+                            $fotoPath = "/glow_schedule/" . htmlspecialchars($esteticista['foto_esteticista']);
+                            $fotoExibida = (file_exists($_SERVER['DOCUMENT_ROOT'] . $fotoPath) && !empty($esteticista['foto_esteticista']))
                                 ? $fotoPath
                                 : "../iconesPerfil/perfilPadrao.png"; // Caminho da imagem padrão
                         ?>
@@ -172,65 +115,80 @@
             <div class="column">
                 <div class="input-box">
                     <label for="nome_esteticista">*Nome:</label>
-                    <input type="text" class="form-control" id="nome_esteticista" name="nome_esteticista" placeholder="Digite o Nome Completo:"  value="<?php echo htmlspecialchars($esteticistaData['nome_esteticista']); ?>" required>
+                    <input type="text" class="form-control" id="nome_esteticista" name="nome_esteticista" placeholder="Digite o Nome Completo:"  value="<?php echo htmlspecialchars($esteticista['nome_esteticista']); ?>" required>
                 </div>
             </div>
             <div class="column">
                 <div class="input-box">
                     <label for="apelido_esteticista">*Apelido:</label>
-                    <input type="text" class="form-control" id="apelido_esteticista" name="apelido_esteticista" placeholder="Digite o Nome Profissional:"  value="<?php echo htmlspecialchars($esteticistaData['apelido_esteticista']); ?>" required>
+                    <input type="text" class="form-control" id="apelido_esteticista" name="apelido_esteticista" placeholder="Digite o Nome Profissional:"  value="<?php echo htmlspecialchars($esteticista['apelido_esteticista']); ?>" required>
                 </div>
                 <div class="input-box">
                     <label for="telefone_esteticista">*Telefone:</label>
-                    <input type="text" class="form-control" id="telefone_esteticista" name="telefone_esteticista" placeholder="Digite o Telefone:" value="<?php echo htmlspecialchars($esteticistaData['telefone_esteticista']); ?>" required>
+                    <input type="text" class="form-control" id="telefone_esteticista" name="telefone_esteticista" placeholder="Digite o Telefone:" value="<?php echo htmlspecialchars($esteticista['telefone_esteticista']); ?>" required>
                 </div>
             </div>
             <div class="column">
                 <div class="input-box">
                     <label for="email_esteticista">*E-mail:</label>
-                    <input type="email" class="form-control" id="email_esteticista" name="email_esteticista" placeholder="Digite o E-mail:" value="<?php echo htmlspecialchars($esteticistaData['email_esteticista']); ?>" required>
+                    <input type="email" class="form-control" id="email_esteticista" name="email_esteticista" placeholder="Digite o E-mail:" value="<?php echo htmlspecialchars($esteticista['email_esteticista']); ?>" required>
                 </div>
-                <div class="input-box">
-                    <label for="senha_esteticista">*Senha:</label>
-                    <div class="password-container">
-                        <input type="password" class="form-control" id="senha_esteticista" name="senha_esteticista" placeholder="Digite a senha:"  value="<?php echo htmlspecialchars($esteticistaData['senha_esteticista']); ?>" required>
-                        <span class="eye-icon" onclick="togglePasswordVisibility()">
-                            <i id="eye-icon" class="fa fa-eye"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
             <div class="column">
                 <div class="input-box">
                     <label for="formacao_esteticista">*Formação Acadêmica:</label>
-                    <input type="text" class="form-control" id="formacao_esteticista" name="formacao_esteticista"  placeholder="Digite a Formação:"  value="<?php echo htmlspecialchars($esteticistaData['formacao_esteticista']); ?>" required>
+                    <input type="text" class="form-control" id="formacao_esteticista" name="formacao_esteticista"  placeholder="Digite a Formação:"  value="<?php echo htmlspecialchars($esteticista['formacao_esteticista']); ?>" required>
                 </div>
             </div>
             <div class="column">
                 <div class="input-box">
                     <label for="descricao_p_esteticista">*Descrição Curta:</label>
-                    <textarea class="form-control" id="descricao_p_esteticista" name="descricao_p_esteticista" placeholder="Digite a Pequena Descrição Profissional:" required><?php echo htmlspecialchars($esteticistaData['descricao_p_esteticista']); ?></textarea>
+                    <textarea class="form-control" id="descricao_p_esteticista" name="descricao_p_esteticista" placeholder="Digite a Pequena Descrição Profissional:" required><?php echo htmlspecialchars($esteticista['descricao_p_esteticista']); ?></textarea>
                 </div>
             </div>
             <div class="column">
                 <div class="input-box">
                     <label for="descricao_g_esteticista">*Descrição Detalhada:</label>
-                    <textarea class="form-control" id="descricao_g_esteticista" name="descricao_g_esteticista" placeholder="Digite a Grande Descrição Profissional:" required><?php echo htmlspecialchars($esteticistaData['descricao_g_esteticista']); ?></textarea>
+                    <textarea class="form-control" id="descricao_g_esteticista" name="descricao_g_esteticista" placeholder="Digite a Grande Descrição Profissional:" required><?php echo htmlspecialchars($esteticista['descricao_g_esteticista']); ?></textarea>
                 </div>
             </div>
             <div class="column">
                 <div class="input-box">
                     <label for="instagram_esteticista">*Instagram:</label>
-                    <input type="text" class="form-control" id="instagram_esteticista" name="instagram_esteticista" placeholder="Digite o Instagram:" value="<?php echo htmlspecialchars($esteticistaData['instagram_esteticista']); ?>" placeholder="Digite o Instagram:" required>
+                    <input type="text" class="form-control" id="instagram_esteticista" name="instagram_esteticista" placeholder="Digite o Instagram:" value="<?php echo htmlspecialchars($esteticista['instagram_esteticista']); ?>" placeholder="Digite o Instagram:" required>
                 </div>
+                <div class="column">
                 <div class="input-box">
                     <label for="facebook_esteticista">*Facebook:</label>
-                    <input type="text" class="form-control" id="facebook_esteticista" name="facebook_esteticista" placeholder="Digite o Facebook:" value="<?php echo htmlspecialchars($esteticistaData['facebook_esteticista']); ?>" placeholder="Digite o Facebook:" required>
+                    <input type="text" class="form-control" id="facebook_esteticista" name="facebook_esteticista" placeholder="Digite o Facebook:" value="<?php echo htmlspecialchars($esteticista['facebook_esteticista']); ?>" placeholder="Digite o Facebook:" required>
                 </div>
+                </div>
+                <div class="column">
                 <div class="input-box">
                     <label for="linkedin_esteticista">*LinkedIn:</label>
-                    <input type="text" class="form-control" id="linkedin_esteticista" name="linkedin_esteticista" placeholder="Digite o LinkedIn:" value="<?php echo htmlspecialchars($esteticistaData['linkedin_esteticista']); ?>" placeholder="Digite o LinkedIn:" required>
+                    <input type="text" class="form-control" id="linkedin_esteticista" name="linkedin_esteticista" placeholder="Digite o LinkedIn:" value="<?php echo htmlspecialchars($esteticista['linkedin_esteticista']); ?>" placeholder="Digite o LinkedIn:" required>
                 </div>
+                </div>
+                <div class="column">
+                <div class="input-box">
+                    <label for="senha_esteticista">*Senha atual:</label>
+                    <div class="password-container">
+                        <input type="password" class="form-control" id="senha_esteticista" name="senha_esteticista" placeholder="Digite a senha:">
+                        <span class="eye-icon" onclick="togglePasswordVisibility()">
+                            <i id="eye-icon" class="fa fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                </div>
+                <div class="input-box">
+                    <label for="senha_esteticista">*Senha nova:</label>
+                    <div class="password-container">
+                        <input type="password" class="form-control" id="nova_senha" name="nova_senha" placeholder="Digite a nova senha:"  >
+                        <span class="eye-icon" onclick="togglePasswordVisibility2()">
+                            <i id="eye-icon" class="fa fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
             </div>
             <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
@@ -275,10 +233,22 @@
                 eyeIcon.classList.add("fa-eye"); // Adiciona o ícone de olho aberto
             }
         }
+
+        function togglePasswordVisibility2() {
+            // Obtém o campo de entrada de senha e o ícone que mostra/esconde a senha
+            const passwordInput = document.getElementById("senha_nova");
+            const eyeIcon = document.getElementById("eye-icon");
+            // Verifica o tipo atual do campo de senha
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text"; // Altera para texto para mostrar a senha
+                eyeIcon.classList.remove("fa-eye"); // Remove o ícone de olho aberto
+                eyeIcon.classList.add("fa-eye-slash"); // Adiciona o ícone de olho fechado
+            } else {
+                passwordInput.type = "password"; // Altera de volta para senha
+                eyeIcon.classList.remove("fa-eye-slash"); // Remove o ícone de olho fechado
+                eyeIcon.classList.add("fa-eye"); // Adiciona o ícone de olho aberto
+            }
+        }
     </script>
-    <?php
-    }
-    $conn->close();
-    ?>
 </body>
 </html>

@@ -53,7 +53,7 @@
                 if ($result->num_rows > 0) {
                     // Exibe os dados de cada esteticista em formato de cartão
                     while ($row = $result->fetch_assoc()) {
-                        echo '<div class="col-md-4 mb-4">';
+                        echo '<div class="col-md-3 mb-3">';
                         echo '<div class="card-corpo-dicas">';
                         echo '<div class="imagem-card-home">';
                         echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $row['foto_esteticista']) ? "/glow_schedule/" . htmlspecialchars($row['foto_esteticista']) : "/glow_schedule/uploads/default.jpg") . '" alt="Foto do Esteticista" style="width:100%; height:auto;">';

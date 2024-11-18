@@ -39,51 +39,51 @@
     <!-- Fim da Navbar -->
     <!-- Exibição do Esteticista -->
     <div id="Profissionais">
-        <?php
-        // Atualize o caminho do arquivo de conexão com o banco de dados
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
+    <?php
 
-        // Obtém o cpf_esteticista da URL
-        $cpf_esteticista = isset($_GET['cpf_esteticista']) ? $_GET['cpf_esteticista'] : '';
+     require_once $_SERVER["DOCUMENT_ROOT"]. "/glow_schedule/controller/conexao.php";
+// Obtém o apelido_esteticista da URL
+$apelido_esteticista = isset($_GET['apelido_esteticista']) ? $_GET['apelido_esteticista'] : '';
 
-        // Cria uma nova instância da classe Conexao e obtém a conexão
-        $conexao = new Conexao();
-        $conn = $conexao->getConexao(); // Certifique-se de que isso retorna um objeto de conexão válido
+// Conecta ao banco de dados
+$conexao = new Conexao();
+$conn = $conexao->getConexao();
 
-        // Consulta SQL para buscar as informações do esteticista específico
-        $sql = "SELECT * FROM esteticista WHERE cpf_esteticista = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $cpf_esteticista);
-        $stmt->execute();
-        $result = $stmt->get_result();
+// Consulta SQL para buscar as informações do esteticista pelo apelido
+$sql = "SELECT * FROM esteticista WHERE apelido_esteticista = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $apelido_esteticista);
+$stmt->execute();
+$result = $stmt->get_result();
 
-        // Verifica se há resultados
-        if ($result->num_rows > 0) {
-            // Obtém as informações do esteticista
-            $row = $result->fetch_assoc();
-            echo '<h2 style="color: #CF6F7A; text-align: center; margin-top:10px; margin-bottom: 35px;">' . htmlspecialchars($row['nome_esteticista']) . '</h2>';
-            echo '<div class="card mb-1" style="max-width: 1000px; margin-left: 10%; border: none;";>';
-            echo '<div class="row g-0">';
-            echo '<div class="col-md-3" style="margin-bottom: 50px;">';
-            echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $row['foto_esteticista']) ? "/glow_schedule/" . htmlspecialchars($row['foto_esteticista']) : "/glow_schedule/uploads/default.jpg") . '" alt="Foto do Esteticista" style="width:100%; height:auto;">';
-            echo '</div>';
-            echo '<div class="col-md-8" style="margin-top: 30px; margin-left: 3%;">';
-            echo '<p style="margin-bottom: 1px;"><img src="../iconesProfissionais/Graduado.png" alt="Graduado" width="25px"> ' . htmlspecialchars($row['formacao_esteticista']) . '</p>'; 
-            echo '<p style="margin-top: 3px; margin-left: 2px; margin-bottom: 4px;"><img src="../iconesProfissionais/Insta.png" alt="instagram" width="16px" style="margin-right: 5px;"> ' . htmlspecialchars($row['instagram_esteticista']) . '</p>'; 
-            echo '<p style="margin-top: 3px; margin-left: 2px; margin-bottom: 4px;"><img src="../iconesProfissionais/Link.png" alt="Linkedin" width="16px" style="margin-right: 5px;"> ' . htmlspecialchars($row['linkedin_esteticista']) . '</p>'; 
-            echo '<p style="margin-top: 3px; margin-left: 2px; margin-bottom: 4px;"><img src="../iconesProfissionais/Link.png" alt="Facebook" width="16px" style="margin-right: 5px;"> ' . htmlspecialchars($row['facebook_esteticista']) . '</p>';
-            echo '&nbsp;';
-            echo '<p class="card-text" style="color: black;">' . htmlspecialchars($row['descricao_g_esteticista']) . '</p>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';   
-        } else {
-            echo '<h2 style="color: #CF6F7A; text-align: center; margin-top:10px; margin-bottom: 35px;">Esteticista não encontrado</h2>';
-        }
-        // Fecha a conexão com o banco de dados
-        $stmt->close();
-        $conn->close();
-        ?>
+// Verifica se há resultados
+if ($result->num_rows > 0) {
+    // Exibe as informações do esteticista
+    $row = $result->fetch_assoc();
+    echo '<h2 style="color: #CF6F7A; text-align: center; margin-top:10px; margin-bottom: 35px;">' . htmlspecialchars($row['nome_esteticista']) . '</h2>';
+    echo '<div class="card mb-1" style="max-width: 1000px; margin-left: 10%; border: none;";>';
+    echo '<div class="row g-0">';
+    echo '<div class="col-md-3" style="margin-bottom: 50px;">';
+    echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/" . $row['foto_esteticista']) ? "/glow_schedule/" . htmlspecialchars($row['foto_esteticista']) : "/glow_schedule/uploads/default.jpg") . '" alt="Foto do Esteticista" style="width:100%; height:auto;">';
+    echo '</div>';
+    echo '<div class="col-md-8" style="margin-top: 30px; margin-left: 3%;">';
+    echo '<p style="margin-bottom: 1px;"><img src="../iconesProfissionais/Graduado.png" alt="Graduado" width="25px"> ' . htmlspecialchars($row['formacao_esteticista']) . '</p>'; 
+    echo '<p style="margin-top: 3px; margin-left: 2px; margin-bottom: 4px;"><img src="../iconesProfissionais/Insta.png" alt="instagram" width="16px" style="margin-right: 5px;"> ' . htmlspecialchars($row['instagram_esteticista']) . '</p>'; 
+    echo '<p style="margin-top: 3px; margin-left: 2px; margin-bottom: 4px;"><img src="../iconesProfissionais/Link.png" alt="Linkedin" width="16px" style="margin-right: 5px;"> ' . htmlspecialchars($row['linkedin_esteticista']) . '</p>'; 
+    echo '<p style="margin-top: 3px; margin-left: 2px; margin-bottom: 4px;"><img src="../iconesProfissionais/Link.png" alt="Facebook" width="16px" style="margin-right: 5px;"> ' . htmlspecialchars($row['facebook_esteticista']) . '</p>';
+    echo '&nbsp;';
+    echo '<p class="card-text" style="color: black;">' . htmlspecialchars($row['descricao_g_esteticista']) . '</p>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';   
+} else {
+    echo '<h2 style="color: #CF6F7A; text-align: center; margin-top:10px; margin-bottom: 35px;">Esteticista não encontrado</h2>';
+}
+
+// Fecha a conexão com o banco de dados
+$stmt->close();
+$conn->close();
+?>
     </div>
     <h4 style="color: #18676C;margin-top: 20px; margin-left: 75px;">Avaliações</h4>
     <div class="container mt-5 mb-5">

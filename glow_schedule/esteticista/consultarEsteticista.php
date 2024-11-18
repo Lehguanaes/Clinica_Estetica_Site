@@ -15,19 +15,66 @@
     <link rel="stylesheet" href="../css/perfil.css">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"> </a>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+            <div class="logo">
+                <a class="nav-link active" aria-current="page" href="home.php">Care Tones</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+                <ul class="navbar-nav w-auto">
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="perfilAtendente.php">Perfil</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="../cliente/consultarCliente.php">Cadasrtrar Cliente</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="/glow_schedule/controller/logout.php">Sair</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="consultasCliente.php" id="link_agendamentos_ativado">Agendamentos</a></button>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <h2>Esteticistas Cadastrados</h2>
         <?php
         // Atualize o caminho do arquivo de conexão com o banco de dados
         require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
-
-        // Cria uma nova instância da classe Conexao e obtém a conexão
-        $conexao = new Conexao();
-        $conn = $conexao->getConexao(); // Certifique-se de que isso retorna um objeto de conexão válido
-
-        // Consulta SQL para buscar todos os esteticistas
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
+     
+        $conexaoMini = new Conexao();
+        $conexao = $conexaoMini->getConexao();
+        $message = new Message($BASE_URL);
+        $flashMsg = $message->getMessage();
+     
+       if (!empty($flashMsg["msg"])) {
+        $message->limparMessage();
+        }
+        
+        $token = $_SESSION['usuario_token'];
+        $stmt = $conexao->prepare("SELECT * FROM atendente WHERE token_atendente = ?");
+     
+        if ($stmt === false) {
+            die('Erro no sql: ' . $conexao->error);
+        }
+        
+        $stmt->bind_param("s", $token);
+        $stmt->execute();
+        
+        $resultado = $stmt->get_result();
+        $atendente = $resultado->fetch_assoc();
+        
         $sql = "SELECT * FROM esteticista";
-        $result = $conn->query($sql);
+        $result = $conexao->query($sql);
 
         // Verifica se há resultados
         if ($result->num_rows > 0) {
@@ -61,7 +108,7 @@
                 echo '<td>' . htmlspecialchars($row['email_esteticista']) . '</td>';
                 echo '<td>' . htmlspecialchars($row['telefone_esteticista']) . '</td>';
                 echo '<td>';
-                echo '<a href="editarEsteticista.php?cpf_esteticista=' . urlencode($row['cpf_esteticista']) . '" class="btn btn-primary" id="editar_consultar_button">Editar</a> ';
+                echo '<a href="editarEsteticistaAtendente.php?token_esteticista=' . urlencode($row['token_esteticista']) . '" class="btn btn-primary" id="editar_consultar_button">Editar</a> ';
                 echo '</td>';
                 echo '</tr>';
             }
@@ -71,7 +118,7 @@
             echo '<p>Nenhum esteticista encontrado.</p>';
         }
         // Fecha a conexão com o banco de dados
-        $conn->close();
+        $conexao->close();
         ?>
         <a href="cadastroEsteticista.php" class="btn btn-success" class="btn btn-success" id="editar_perfil_button"><i class="fa fa-plus"></i> Adicionar Novo Esteticista</a>
     </div>

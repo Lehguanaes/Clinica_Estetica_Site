@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/11/2024 às 17:21
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Tempo de geração: 13-Nov-2024 às 21:54
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `atendente`
+-- Estrutura da tabela `atendente`
 --
 
 CREATE TABLE `atendente` (
@@ -33,21 +33,23 @@ CREATE TABLE `atendente` (
   `foto_atendente` varchar(255) DEFAULT NULL,
   `telefone_atendente` varchar(15) NOT NULL,
   `email_atendente` varchar(50) NOT NULL,
-  `senha_atendente` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `senha_atendente` varchar(100) NOT NULL,
+  `token_atendente` varchar(300) UNIQUE NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Despejando dados para a tabela `atendente`
+-- Extraindo dados da tabela `atendente`
 --
 
-INSERT INTO `atendente` (`cpf_atendente`, `nome_atendente`, `foto_atendente`, `telefone_atendente`, `email_atendente`, `senha_atendente`) VALUES
-('111.111.111-10', 'Paulo nigers', 'uploads/Laura_Pereira.jpg', '(11) 11111-1111', 'maria@gmail', '12'),
-('111.111.111-12', 'Leticia Guanaes', 'uploads/Maria_Souza.jpg', '(11) 11111-1111', 'maria@gmail', '101010');
+INSERT INTO `atendente` (`cpf_atendente`, `nome_atendente`, `foto_atendente`, `telefone_atendente`, `email_atendente`, `senha_atendente`, `token_atendente`) VALUES
+('111.111.111-10', 'Paulo nigers', 'uploads/Laura_Pereira.jpg', '(11) 11111-1111', 'maria@gmail', '12', ''),
+('111.111.111-12', 'Leticia Guanaes', 'uploads/Maria_Souza.jpg', '(11) 11111-1111', 'maria@gmail', '101010', ''),
+('454.545.544-54', 'atendente', 'uploads/PAPEL_LABORATÓRIOS.png', '(34) 34343-5768', 'atendente@gmail.com', '$2y$10$9RcfOJXovjZYVhBrn4ofBOJpdmclIzxWKJ3Ty4dBd.f', 'f142bff12613bd098465ddd33f9c66a9e41e236f47c8b48f1b19fa66ef97884ab8776abd039c20dcc0fc4d90708ca1348c54');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `avaliacoes`
+-- Estrutura da tabela `avaliacoes`
 --
 
 CREATE TABLE `avaliacoes` (
@@ -56,12 +58,12 @@ CREATE TABLE `avaliacoes` (
   `comentario_avaliacao` text DEFAULT NULL,
   `data_criacao_avaliacao` date NOT NULL,
   `cpf_cliente` varchar(14) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `cliente`
+-- Estrutura da tabela `cliente`
 --
 
 CREATE TABLE `cliente` (
@@ -70,21 +72,21 @@ CREATE TABLE `cliente` (
   `foto_cliente` varchar(255) DEFAULT NULL,
   `telefone_cliente` varchar(15) NOT NULL,
   `email_cliente` varchar(50) NOT NULL,
-  `senha_cliente` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `senha_cliente` varchar(100) NOT NULL,
+  `token_cliente` varchar(300) UNIQUE NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Despejando dados para a tabela `cliente`
+-- Extraindo dados da tabela `cliente`
 --
 
-INSERT INTO `cliente` (`cpf_cliente`, `nome_cliente`, `foto_cliente`, `telefone_cliente`, `email_cliente`, `senha_cliente`) VALUES
-('111.111.111-20', 'Letícia Guanaes', 'uploads/Laura_Pereira.jpg', '(11) 11111-1111', 'Leticia@gmail.com', '10'),
-('111.111.111-21', 'Joao', 'uploads/Rafael_Lima.jpg', '(11) 11111-1111', 'Leticia@gmail.com', '1111');
+INSERT INTO `cliente` (`cpf_cliente`, `nome_cliente`, `foto_cliente`, `telefone_cliente`, `email_cliente`, `senha_cliente`, `token_cliente`) VALUES
+('123.123.122-22', 'cliente', 'uploads/PAPEL_LABORATÓRIOS.png', '(11) 91982-3912', 'cliente@gmail.com', '$2y$10$OMUPHh2eSGZJLglIcFUDKeKgQAIvIIVyoGkT8JsdjiC', 'aada8f2485e1a8157f7b2a1b775d7a48a6b68814fbdebd1b6afb704bda753323ab237e6131e9a77b8171219db53170691f46');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `consulta`
+-- Estrutura da tabela `consulta`
 --
 
 CREATE TABLE `consulta` (
@@ -94,12 +96,12 @@ CREATE TABLE `consulta` (
   `cpf_esteticista` varchar(14) NOT NULL,
   `id_procedimento` int(11) NOT NULL,
   `cpf_cliente` varchar(14) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `esteticista`
+-- Estrutura da tabela `esteticista`
 --
 
 CREATE TABLE `esteticista` (
@@ -115,37 +117,38 @@ CREATE TABLE `esteticista` (
   `facebook_esteticista` varchar(50) DEFAULT NULL,
   `linkedin_esteticista` varchar(50) DEFAULT NULL,
   `email_esteticista` varchar(50) NOT NULL,
-  `senha_esteticista` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `senha_esteticista` varchar(100) NOT NULL,
+  `token_esteticista` varchar(300) UNIQUE NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Despejando dados para a tabela `esteticista`
+-- Extraindo dados da tabela `esteticista`
 --
 
-INSERT INTO `esteticista` (`cpf_esteticista`, `nome_esteticista`, `foto_esteticista`, `apelido_esteticista`, `telefone_esteticista`, `formacao_esteticista`, `descricao_p_esteticista`, `descricao_g_esteticista`, `instagram_esteticista`, `facebook_esteticista`, `linkedin_esteticista`, `email_esteticista`, `senha_esteticista`) VALUES
-('123.456.789-01', 'Henrique Santos', 'uploads/Henrique_Santos.jpg', 'Dr. Henrique', '(11) 91234-5678', 'Medicina Estética', 'Atua na estética há 7 anos. Especialista em procedimentos faciais.', 'Médico estético com 7 anos de experiência, Dr. Henrique oferece uma abordagem individualizada em cada procedimento. Ele utiliza as mais avançadas técnicas para garantir resultados naturais e a satisfação plena de seus pacientes. Seu foco é a saúde e a beleza da pele.', '@drhenriquesantos', 'facebook.com/drhenriquesantos', 'linkedin.com/in/drhenriquesantos', 'henrique.santos@email.com', 'senha123'),
-('321.654.987-03', 'Laura Pereira', 'uploads/Laura_Pereira.jpg', 'Dermatologista Laura', '(11) 99876-5432', 'Dermatologia', 'Atua na estética há 12 anos. Especialista em limpeza de pele.', 'A Dra. Laura é uma dermatologista com 12 anos de experiência na área. Focada em cuidados faciais, ela utiliza tecnologias modernas para oferecer tratamentos eficazes que resultam em uma pele mais saudável e radiante. Cada paciente recebe um plano personalizado.', '@dermatologistalaura', 'facebook.com/dermatologistalaura', 'linkedin.com/in/dermatologistalaura', 'laura.pereira@email.com', 'senha123'),
-('456.789.123-06', 'Paulo Silva', 'uploads/Paulo_Silva.jpg', 'Esteticista Paulo', '(11) 97812-3456', 'Estética', 'Atua na estética há 6 anos. Especialista em limpeza de pele.', 'Paulo se destaca em limpeza de pele e tratamentos faciais, com 6 anos de experiência. Ele oferece um atendimento personalizado, utilizando produtos de alta qualidade para garantir resultados que superam as expectativas de seus pacientes.', '@esteticistapaulo', 'facebook.com/esteticistapaulo', 'linkedin.com/in/esteticistapaulo', 'paulo.silva@email.com', 'senha123'),
-('654.321.987-04', 'Maria Souza', 'uploads/Maria_Souza.jpg', 'Massagista Maria', '(11) 93456-7890', 'Massoterapia', 'Atua na estética há 8 anos. Especialista em massagem corporal.', 'Maria, com 8 anos de experiência, é uma massagista dedicada ao bem-estar e relaxamento. Suas técnicas de massoterapia são adaptadas às necessidades individuais de cada cliente, promovendo alívio do estresse e uma sensação de renovação em cada sessão.', '@massagistamaria', 'facebook.com/massagistamaria', 'linkedin.com/in/massagistamaria', 'maria.souza@email.com', 'senha123'),
-('741.852.963-08', 'Rafael Lima', 'uploads/Rafael_Lima.jpg', 'Dr. Rafael', '(11) 96712-3456', 'Medicina Estética', 'Atua na estética há 10 anos. Especialista em bioestimuladores.', 'O Dr. Rafael, com 10 anos de atuação, se destaca no uso de bioestimuladores para tratamentos estéticos. Ele prioriza a saúde e a beleza da pele, sempre atento às necessidades individuais de cada paciente e buscando resultados excepcionais.', '@drrafaellima', 'facebook.com/drrafaellima', 'linkedin.com/in/drrafaellima', 'rafael.lima@email.com', 'senha123'),
-('789.123.456-05', 'Nádia Oliveira', 'uploads/Paulo_Silva.jpg', 'Esteticista Nádia', '(11) 96543-2109', 'Estética', 'Experiente em radiofrequência e preenchimentos. Habilitada em pele negra.', 'A Esteticista Nádia é especialista em radiofrequência e tratamentos personalizados, especialmente para pele negra. Com uma abordagem única e técnica apurada, ela busca resultados visíveis, promovendo saúde e beleza para seus pacientes.', '@esteticistanadia', 'facebook.com/esteticistanadia', 'linkedin.com/in/esteticistanadia', 'nadia.oliveira@email.com', 'senha123'),
-('963.852.741-07', 'Jane Martins', 'uploads/Jane_Martins.jpg', 'Dermatologista Jane', '(11) 98712-3456', 'Dermatologia', 'Atua na estética há 12 anos. Especialista em peeling químico.', 'A Dra. Jane é uma dermatologista com 12 anos de experiência em rejuvenescimento facial. Ela utiliza peeling químico e técnicas avançadas para tratar e melhorar a saúde da pele, sempre buscando resultados que realçam a beleza natural de cada paciente.', '@dermatologistajane', 'facebook.com/dermatologistajane', 'linkedin.com/in/dermatologistajane', 'jane.martins@email.com', 'senha123'),
-('987.654.321-02', 'Silva Costa', 'uploads/Silva_Costa.jpg', 'Dr. Silva', '(11) 98765-4321', 'Medicina Estética', 'Atua na estética há 11 anos. Experiência em procedimentos labiais.', 'Com 11 anos de experiência em medicina estética, Dr. Silva é um especialista em procedimentos labiais. Ele se dedica a ajudar seus pacientes a alcançarem o sorriso perfeito, utilizando técnicas inovadoras e personalizadas, focando na beleza natural.', '@drsilvacosta', 'facebook.com/drsilvacosta', 'linkedin.com/in/drsilvacosta', 'silva.costa@email.com', 'senha123');
+INSERT INTO `esteticista` (`cpf_esteticista`, `nome_esteticista`, `foto_esteticista`, `apelido_esteticista`, `telefone_esteticista`, `formacao_esteticista`, `descricao_p_esteticista`, `descricao_g_esteticista`, `instagram_esteticista`, `facebook_esteticista`, `linkedin_esteticista`, `email_esteticista`, `senha_esteticista`, `token_esteticista`) VALUES
+('123.456.789-01', 'Henrique Santos', 'uploads/Henrique_Santos.jpg', 'Dr. Henrique', '(11) 91234-5678', 'Medicina Estética', 'Atua na estética há 7 anos. Especialista em procedimentos faciais.', 'Médico estético com 7 anos de experiência, Dr. Henrique oferece uma abordagem individualizada em cada procedimento. Ele utiliza as mais avançadas técnicas para garantir resultados naturais e a satisfação plena de seus pacientes. Seu foco é a saúde e a beleza da pele.', '@drhenriquesantos', 'facebook.com/drhenriquesantos', 'linkedin.com/in/drhenriquesantos', 'henrique.santos@email.com', 'senha123', ''),
+('321.654.987-03', 'Laura Pereira', 'uploads/Laura_Pereira.jpg', 'Dermatologista Laura', '(11) 99876-5432', 'Dermatologia', 'Atua na estética há 12 anos. Especialista em limpeza de pele.', 'A Dra. Laura é uma dermatologista com 12 anos de experiência na área. Focada em cuidados faciais, ela utiliza tecnologias modernas para oferecer tratamentos eficazes que resultam em uma pele mais saudável e radiante. Cada paciente recebe um plano personalizado.', '@dermatologistalaura', 'facebook.com/dermatologistalaura', 'linkedin.com/in/dermatologistalaura', 'laura.pereira@email.com', 'senha123', ''),
+('456.789.123-06', 'Paulo Silva', 'uploads/Paulo_Silva.jpg', 'Esteticista Paulo', '(11) 97812-3456', 'Estética', 'Atua na estética há 6 anos. Especialista em limpeza de pele.', 'Paulo se destaca em limpeza de pele e tratamentos faciais, com 6 anos de experiência. Ele oferece um atendimento personalizado, utilizando produtos de alta qualidade para garantir resultados que superam as expectativas de seus pacientes.', '@esteticistapaulo', 'facebook.com/esteticistapaulo', 'linkedin.com/in/esteticistapaulo', 'paulo.silva@email.com', 'senha123', ''),
+('654.321.987-04', 'Maria Souza', 'uploads/Maria_Souza.jpg', 'Massagista Maria', '(11) 93456-7890', 'Massoterapia', 'Atua na estética há 8 anos. Especialista em massagem corporal.', 'Maria, com 8 anos de experiência, é uma massagista dedicada ao bem-estar e relaxamento. Suas técnicas de massoterapia são adaptadas às necessidades individuais de cada cliente, promovendo alívio do estresse e uma sensação de renovação em cada sessão.', '@massagistamaria', 'facebook.com/massagistamaria', 'linkedin.com/in/massagistamaria', 'maria.souza@email.com', 'senha123', ''),
+('741.852.963-08', 'Rafael Lima', 'uploads/Rafael_Lima.jpg', 'Dr. Rafael', '(11) 96712-3456', 'Medicina Estética', 'Atua na estética há 10 anos. Especialista em bioestimuladores.', 'O Dr. Rafael, com 10 anos de atuação, se destaca no uso de bioestimuladores para tratamentos estéticos. Ele prioriza a saúde e a beleza da pele, sempre atento às necessidades individuais de cada paciente e buscando resultados excepcionais.', '@drrafaellima', 'facebook.com/drrafaellima', 'linkedin.com/in/drrafaellima', 'rafael.lima@email.com', 'senha123', ''),
+('789.123.456-05', 'Nádia Oliveira', 'uploads/Paulo_Silva.jpg', 'Esteticista Nádia', '(11) 96543-2109', 'Estética', 'Experiente em radiofrequência e preenchimentos. Habilitada em pele negra.', 'A Esteticista Nádia é especialista em radiofrequência e tratamentos personalizados, especialmente para pele negra. Com uma abordagem única e técnica apurada, ela busca resultados visíveis, promovendo saúde e beleza para seus pacientes.', '@esteticistanadia', 'facebook.com/esteticistanadia', 'linkedin.com/in/esteticistanadia', 'nadia.oliveira@email.com', 'senha123', ''),
+('963.852.741-07', 'Jane Martins', 'uploads/Jane_Martins.jpg', 'Dermatologista Jane', '(11) 98712-3456', 'Dermatologia', 'Atua na estética há 12 anos. Especialista em peeling químico.', 'A Dra. Jane é uma dermatologista com 12 anos de experiência em rejuvenescimento facial. Ela utiliza peeling químico e técnicas avançadas para tratar e melhorar a saúde da pele, sempre buscando resultados que realçam a beleza natural de cada paciente.', '@dermatologistajane', 'facebook.com/dermatologistajane', 'linkedin.com/in/dermatologistajane', 'jane.martins@email.com', 'senha123', ''),
+('987.654.321-02', 'Silva Costa', 'uploads/Silva_Costa.jpg', 'Dr. Silva', '(11) 98765-4321', 'Medicina Estética', 'Atua na estética há 11 anos. Experiência em procedimentos labiais.', 'Com 11 anos de experiência em medicina estética, Dr. Silva é um especialista em procedimentos labiais. Ele se dedica a ajudar seus pacientes a alcançarem o sorriso perfeito, utilizando técnicas inovadoras e personalizadas, focando na beleza natural.', '@drsilvacosta', 'facebook.com/drsilvacosta', 'linkedin.com/in/drsilvacosta', 'silva.costa@email.com', 'senha123', '');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `esteticista_procedimento`
+-- Estrutura da tabela `esteticista_procedimento`
 --
 
 CREATE TABLE `esteticista_procedimento` (
   `id` int(11) NOT NULL,
   `cpf_esteticista` varchar(14) DEFAULT NULL,
   `id_procedimento` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Despejando dados para a tabela `esteticista_procedimento`
+-- Extraindo dados da tabela `esteticista_procedimento`
 --
 
 INSERT INTO `esteticista_procedimento` (`id`, `cpf_esteticista`, `id_procedimento`) VALUES
@@ -173,16 +176,16 @@ INSERT INTO `esteticista_procedimento` (`id`, `cpf_esteticista`, `id_procediment
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `procedimento`
+-- Estrutura da tabela `procedimento`
 --
 
 CREATE TABLE `procedimento` (
   `id_procedimento` int(11) NOT NULL,
   `nome_procedimento` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Despejando dados para a tabela `procedimento`
+-- Extraindo dados da tabela `procedimento`
 --
 
 INSERT INTO `procedimento` (`id_procedimento`, `nome_procedimento`) VALUES
@@ -195,31 +198,53 @@ INSERT INTO `procedimento` (`id_procedimento`, `nome_procedimento`) VALUES
 (7, 'Massagem corporal'),
 (8, 'Bio-estimulador de colágeno');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `prontuario`
+--
+
+CREATE TABLE `prontuario` (
+  `id_prontuario` int(11) NOT NULL,
+  `cpf_cliente` varchar(14) NOT NULL,
+  `cor_pele` varchar(50) NOT NULL,
+  `tipo_pele` varchar(50) NOT NULL,
+  `observacoes_cliente` varchar(300) NOT NULL,
+  `alergias` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `prontuario`
+--
+
+INSERT INTO `prontuario` (`id_prontuario`, `cpf_cliente`, `cor_pele`, `tipo_pele`, `observacoes_cliente`) VALUES
+(1, '111.111.111-20', 'Branco', 'Mista', 'Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha Eu amo Pamonha ', '');
+
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `atendente`
+-- Índices para tabela `atendente`
 --
 ALTER TABLE `atendente`
   ADD PRIMARY KEY (`cpf_atendente`);
 
 --
--- Índices de tabela `avaliacoes`
+-- Índices para tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
   ADD PRIMARY KEY (`id_avaliacao`),
   ADD KEY `fk_cliente_avaliacao` (`cpf_cliente`);
 
 --
--- Índices de tabela `cliente`
+-- Índices para tabela `cliente`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`cpf_cliente`);
 
 --
--- Índices de tabela `consulta`
+-- Índices para tabela `consulta`
 --
 ALTER TABLE `consulta`
   ADD PRIMARY KEY (`id_consulta`),
@@ -228,13 +253,13 @@ ALTER TABLE `consulta`
   ADD KEY `cpf_cliente` (`cpf_cliente`);
 
 --
--- Índices de tabela `esteticista`
+-- Índices para tabela `esteticista`
 --
 ALTER TABLE `esteticista`
   ADD PRIMARY KEY (`cpf_esteticista`);
 
 --
--- Índices de tabela `esteticista_procedimento`
+-- Índices para tabela `esteticista_procedimento`
 --
 ALTER TABLE `esteticista_procedimento`
   ADD PRIMARY KEY (`id`),
@@ -242,13 +267,20 @@ ALTER TABLE `esteticista_procedimento`
   ADD KEY `id_procedimento` (`id_procedimento`);
 
 --
--- Índices de tabela `procedimento`
+-- Índices para tabela `procedimento`
 --
 ALTER TABLE `procedimento`
   ADD PRIMARY KEY (`id_procedimento`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- Índices para tabela `prontuario`
+--
+ALTER TABLE `prontuario`
+  ADD PRIMARY KEY (`id_prontuario`),
+  ADD KEY `cpf_cliente` (`cpf_cliente`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
@@ -276,17 +308,23 @@ ALTER TABLE `procedimento`
   MODIFY `id_procedimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Restrições para tabelas despejadas
+-- AUTO_INCREMENT de tabela `prontuario`
+--
+ALTER TABLE `prontuario`
+  MODIFY `id_prontuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `avaliacoes`
+-- Limitadores para a tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
   ADD CONSTRAINT `fk_cliente_avaliacao` FOREIGN KEY (`cpf_cliente`) REFERENCES `cliente` (`cpf_cliente`);
 
 --
--- Restrições para tabelas `consulta`
+-- Limitadores para a tabela `consulta`
 --
 ALTER TABLE `consulta`
   ADD CONSTRAINT `consulta_ibfk_1` FOREIGN KEY (`cpf_esteticista`) REFERENCES `esteticista` (`cpf_esteticista`),
@@ -294,7 +332,7 @@ ALTER TABLE `consulta`
   ADD CONSTRAINT `consulta_ibfk_3` FOREIGN KEY (`cpf_cliente`) REFERENCES `cliente` (`cpf_cliente`);
 
 --
--- Restrições para tabelas `esteticista_procedimento`
+-- Limitadores para a tabela `esteticista_procedimento`
 --
 ALTER TABLE `esteticista_procedimento`
   ADD CONSTRAINT `esteticista_procedimento_ibfk_1` FOREIGN KEY (`cpf_esteticista`) REFERENCES `esteticista` (`cpf_esteticista`),

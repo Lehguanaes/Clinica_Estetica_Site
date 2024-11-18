@@ -21,7 +21,7 @@
             
 
             $token = $_SESSION['usuario_token'];
-            $stmt = $conexao->prepare("SELECT * FROM cliente WHERE token_cliente = ?");
+            $stmt = $conexao->prepare("SELECT * FROM atendente WHERE token_atendente = ?");
 
              $stmt->bind_param("s", $token);
              $stmt->execute();
@@ -36,14 +36,86 @@
                     $message->setMessage("Cliente não encontrado", "Não encontramos um cliente com este token", "warning", "../login.php");
                     exit;
                 }
+
+
+                $cliente = new cliente();
+
+                if (isset($_GET['token_cliente'])) {
+                    $token_cliente = $_GET['token_cliente'];
         
-        ?>
+                    $sql = "SELECT * FROM cliente WHERE token_cliente = ?";
+        
+                    if ($stmt = $conexao->prepare($sql)) {
+                        $stmt->bind_param("s", $token_cliente);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+        
+                        if ($result->num_rows > 0) {
+                            $clienteData = $result->fetch_assoc();
+        
+                            $cliente->setToken($clienteData['token_cliente']);
+                            $cliente->setNome($clienteData['nome_cliente']);
+                            $cliente->setEmail($clienteData['email_cliente']);
+                            $cliente->setTelefone($clienteData['telefone_cliente']);
+                            $cliente->setSenha($clienteData['senha_cliente']);
+                            $cliente->setFoto($clienteData['foto_cliente']);
+                    
+                        } else {
+                            echo "<p>Nenhum cliente encontrado com o token informado.</p>";
+                        }
+                        $stmt->close();
+                    } else {
+                        echo "Erro na consulta: " . $conn->error;
+                    }
+                } else {
+                    echo "<p>token do cliente não foi informado.</p>";
+                }
+        
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token_cliente'])) {
+        
+                    $cliente->setNome($_POST['nome_cliente']);
+                    $cliente->setEmail($_POST['email_cliente']);
+                    $cliente->setTelefone($_POST['telefone_cliente']);
+        
+                    if (!empty($_POST['senha_cliente'])) {
+                        $cliente->setSenha($_POST['senha_cliente']);
+                    }
+        
+                    if (isset($_FILES['foto_cliente']) && $_FILES['foto_cliente']['error'] == UPLOAD_ERR_OK) {
+                        $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/uploads/";
+                        $target_file = $target_dir . basename($_FILES["foto_cliente"]["name"]);
+        
+                        // Move a nova foto para o diretório de uploads
+                        if (move_uploaded_file($_FILES["foto_cliente"]["tmp_name"], $target_file)) {
+                            $cliente->setFoto("uploads/" . basename($_FILES["foto_cliente"]["name"])); // Atualiza a foto com a nova
+                        } else {
+                            echo "<p>Erro ao fazer upload da foto.</p>";
+                        }
+                    } else {
+                        // Mantém a foto existente se nenhuma nova for enviada
+                        $cliente->setFoto($_POST['foto_atual']);
+                    }
+        
+                    // Atualiza os dados no banco de dados
+                    if ($cliente->atualizar()) {
+                        echo "<p>cliente atualizado com sucesso.</p>";
+                        header("Location: consultarcliente.php");
+                        exit();
+                    } else {
+                        echo "<p>Erro ao atualizar os dados.</p>";
+                    }
+        
+                }
+                // Verifica se os dados do cliente foram encontrados para exibir o formulário
+                if (isset($clienteData)) {
+                ?>
+        
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Perfil Cliente</title>
+    <title>Editar Perfil do Cliente</title>
     <!-- Links externos -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -71,19 +143,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                 <ul class="navbar-nav w-auto">
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="agenda.php">Agenda</a>
+                        <a class="nav-link active" aria-current="page" href="perfilAtendente.php">Perfil</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="cadastroEsteticista.php">Cadastro Esteticista</a>
+                        <a class="nav-link active" aria-current="page" href="../cliente/consultarcliente.php">Cadastrar clientes</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
+                        <a class="nav-link active" aria-current="page" href="../cliente/consultarCliente.php">Cadasrtrar Cliente</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
                         <a class="nav-link active" aria-current="page" href="/glow_schedule/controller/logout.php">Sair</a>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
+                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="consultasCliente.php" id="link_agendamentos_ativado">Agendamentos</a></button>
             </div>
         </div>
     </nav>
@@ -92,20 +164,20 @@
     <!-- Exibição do perfil para edição -->
     <section class="container">
         <!-- Início formulário de edição -->
-        <form method="POST" action="../controller/cliente/clienteController.php" enctype="multipart/form-data" class="form" id="form_perfil">
+        <form method="POST" action="" enctype="multipart/form-data" class="form" id="form_perfil">
             <!-- Definindo a ação como "atualizar" -->
             <input type="hidden" name="acao" value="atualizar">
             <!-- CPF do cliente como campo oculto -->
-            <input type="hidden" name="token_cliente" value="<?php echo htmlspecialchars($cliente['token_cliente']); ?>">
+            <input type="hidden" name="token_cliente" value="<?php echo htmlspecialchars($clienteData['token_cliente']); ?>">
             <!-- Campo oculto para armazenar o caminho da foto atual -->
-            <input type="hidden" name="foto_atual" value="<?php echo htmlspecialchars($cliente['foto_cliente']); ?>">
+            <input type="hidden" name="foto_atual" value="<?php echo htmlspecialchars($clienteData['foto_cliente']); ?>">
             <div class="column">
                 <div class="input-box">
                     <div class="profile-pic-container">
                         <?php
                         // Verifica se a foto do cliente existe e não está vazia
-                        $fotoPath = "/glow_schedule/" . htmlspecialchars($cliente['foto_cliente']);
-                        $fotoExibida = (file_exists($_SERVER['DOCUMENT_ROOT'] . $fotoPath) && !empty($cliente['foto_cliente']))
+                        $fotoPath = "/glow_schedule/" . htmlspecialchars($clienteData['foto_cliente']);
+                        $fotoExibida = (file_exists($_SERVER['DOCUMENT_ROOT'] . $fotoPath) && !empty($clienteData['foto_cliente']))
                             ? $fotoPath
                             : "../iconesPerfil/perfilPadrao.png"; // Caminho da imagem padrão
                         ?>
@@ -121,38 +193,20 @@
             <div class="column">
                 <div class="input-box">
                     <label for="nome_cliente">*Nome:</label>
-                    <input type="text" class="form-control" id="nome_cliente" name="nome_cliente"  placeholder="Digite o Nome Completo:" value="<?php echo htmlspecialchars($cliente['nome_cliente']); ?>" required>
+                    <input type="text" class="form-control" id="nome_cliente" name="nome_cliente"  placeholder="Digite o Nome Completo:" value="<?php echo htmlspecialchars($clienteData['nome_cliente']); ?>" required>
                 </div>
                 <div class="input-box">
                     <label for="telefone_cliente">*Telefone:</label>
-                    <input type="text" class="form-control" id="telefone_cliente" name="telefone_cliente"  placeholder="Digite o Telefone:" value="<?php echo htmlspecialchars($cliente['telefone_cliente']); ?>" required maxlength="15">
+                    <input type="text" class="form-control" id="telefone_cliente" name="telefone_cliente"  placeholder="Digite o Telefone:" value="<?php echo htmlspecialchars($clienteData['telefone_cliente']); ?>" required maxlength="15">
                 </div>
             </div>
             <div class="column">
                 <div class="input-box">
                     <label for="email_cliente">*E-mail:</label>
-                    <input type="email" class="form-control" id="email_cliente" name="email_cliente" placeholder="Digite o E-mail:" value="<?php echo htmlspecialchars($cliente['email_cliente']); ?>" required>
+                    <input type="email" class="form-control" id="email_cliente" name="email_cliente" placeholder="Digite o E-mail:" value="<?php echo htmlspecialchars($clienteData['email_cliente']); ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Salvar</button>
 
-                <div class="input-box">
-                    <label for="senha_cliente">*Senha Atual:</label>
-                    <div class="password-container">
-                        <input type="password" class="form-control" id="senha_cliente" name="senha_cliente" placeholder="Digite a Senha:"  >
-                        <span class="eye-icon" onclick="togglePasswordVisibility()">
-                            <i id="eye-icon" class="fa fa-eye"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="input-box">
-                    <label for="senha_cliente">*Senha nova:</label>
-                    <div class="password-container">
-                        <input type="password" class="form-control" id="nova_senha" name="nova_senha" placeholder="Digite a Senha:"  >
-                        <span class="eye-icon" onclick="togglePasswordVisibility()">
-                            <i id="eye-icon" class="fa fa-eye"></i>
-                        </span>
-                    </div>
-                </div>
             </div>
         </form>
    
@@ -196,6 +250,10 @@
             }
         }
     </script>
+       <?php
+    }
+    $conexao->close();
+    ?>
 </body>
 <!--  php da mensagem; se a mensagem não estiver vazia, ela é inserida na página  -->
 <?php if (!empty($flashMsg["msg"])): ?>

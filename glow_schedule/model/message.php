@@ -24,6 +24,7 @@ class Message {
             header("Location:" . $_SERVER["HTTP_REFERER"]);
         }
     }
+    
     public function getMessage() {
         if (!empty($_SESSION["msg"])) {
             return [

@@ -15,15 +15,70 @@
     <link rel="stylesheet" href="../css/perfil.css">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"> </a>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+            <div class="logo">
+                <a class="nav-link active" aria-current="page" href="home.php">Care Tones</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+                <ul class="navbar-nav w-auto">
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="../atendente/perfilAtendente.php">perfil</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="../esteticista/consultarEsteticista.php">Cadastrar Esteticista</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
+            </div>
+        </div>
+    </nav>
+<a href="../atendente/perfilAtendente.php"><i class="fa fa-plus"></i>Voltar</a>
+
     <div class="container">
         <h2>Clientes Cadastrados</h2>
         <?php
             // Caminho do arquivo de conexão com o banco de dados
             require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
-
-            // Cria uma nova instância da classe Conexao e obtém a conexão
+            require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
+            require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
+        
             $conexao = new Conexao();
             $conn = $conexao->getConexao();
+            
+            $message = new Message($BASE_URL);
+            $flashMsg = $message->getMessage();
+        
+           if (!empty($flashMsg["msg"])) {
+            $message->limparMessage();
+            }
+            
+            $token = $_SESSION['usuario_token'];
+            $stmt = $conn->prepare("SELECT * FROM atendente WHERE token_atendente = ?");
+
+            if ($stmt === false) {
+
+                die('Erro no sql: ' . $conn->error);
+            }
+            $stmt->bind_param("s", $token);
+            $stmt->execute();
+            
+
+            $resultado = $stmt->get_result();
+
+            $atendente = $resultado->fetch_assoc();
+
+            
 
             // Consulta SQL para buscar todos os clientes
             $sql = "SELECT * FROM cliente";
@@ -58,7 +113,7 @@
                     echo '<td>' . htmlspecialchars($row['email_cliente']) . '</td>';
                     echo '<td>' . htmlspecialchars($row['telefone_cliente']) . '</td>';
                     echo '<td>';
-                    echo '<a href="editarCliente.php?cpf_cliente=' . urlencode($row['cpf_cliente']) . '" class="btn btn-primary" id="editar_consultar_button">Editar</a>';
+                    echo '<a href="editarClienteAtendente.php?token_cliente=' . urlencode($row['token_cliente']) . '" class="btn btn-primary" id="editar_consultar_button">Editar</a>';
                     echo '</td>';
                     echo '</tr>';
                 }

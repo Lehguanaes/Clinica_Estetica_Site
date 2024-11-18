@@ -1,3 +1,30 @@
+<?php
+   require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
+   require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
+   require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
+
+   $conexaoMini = new Conexao();
+   $conexao = $conexaoMini->getConexao();
+   $message = new Message($BASE_URL);
+   $flashMsg = $message->getMessage();
+
+  if (!empty($flashMsg["msg"])) {
+   $message->limparMessage();
+   }
+   
+   $token = $_SESSION['usuario_token'];
+   $stmt = $conexao->prepare("SELECT * FROM atendente WHERE token_atendente = ?");
+
+   if ($stmt === false) {
+       die('Erro no sql: ' . $conexao->error);
+   }
+   
+   $stmt->bind_param("s", $token);
+   $stmt->execute();
+   
+   $resultado = $stmt->get_result();
+   $atendente = $resultado->fetch_assoc();
+   ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -116,15 +143,15 @@
             <div class="column">
                 <div class="input-box">
                     <label for="instagram_esteticista">*Instagram:</label>
-                    <input type="text" class="form-control" id="instagram_esteticista" name="instagram_esteticista" placeholder="Digite o Instagram:" required>
+                    <input type="text" class="form-control" id="instagram_esteticista" name="instagram_esteticista" placeholder="Digite o Instagram:" >
                 </div>
                 <div class="input-box">
                     <label for="facebook_esteticista">*Facebook:</label>
-                    <input type="text" class="form-control" id="facebook_esteticista" name="facebook_esteticista" placeholder="Digite o Facebook:" required>
+                    <input type="text" class="form-control" id="facebook_esteticista" name="facebook_esteticista" placeholder="Digite o Facebook:" >
                 </div>
                 <div class="input-box">
                     <label for="linkedin_esteticista">*LinkedIn:</label>
-                    <input type="text" class="form-control" id="linkedin_esteticista" name="linkedin_esteticista" placeholder="Digite o LinkedIn:" required>
+                    <input type="text" class="form-control" id="linkedin_esteticista" name="linkedin_esteticista" placeholder="Digite o LinkedIn:" >
                 </div>
             </div>
             <button id="botao_cadastrar" type="submit" class="btn btn-primary">Cadastrar</button>

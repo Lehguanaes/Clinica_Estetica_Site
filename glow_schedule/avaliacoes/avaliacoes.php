@@ -1,3 +1,33 @@
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/glow_schedule/controller/global.php";
+
+// Verifica se o token existe na sessão
+$token = isset($_SESSION['usuario_token']) ? $_SESSION['usuario_token'] : null;
+if (!$token) {
+    die("Usuário não autenticado");
+}
+
+$conexaoMini = new Conexao();
+$conexao = $conexaoMini->getConexao();
+$message = new Message($BASE_URL);
+$flashMsg = $message->getMessage();
+if (!empty($flashMsg["msg"])) {
+    $message->limparMessage();
+}
+
+$stmt = $conexao->prepare("SELECT cpf_cliente FROM cliente WHERE token_cliente = ?");
+if ($stmt === false) {
+    die('Erro no SQL: ' . $conexao->error);
+}
+
+$stmt->bind_param("s", $token);
+$stmt->execute();
+$resultado = $stmt->get_result();
+$cliente = $resultado->fetch_assoc();
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -39,34 +69,34 @@
     </nav>
     <!-- Fim da Navbar -->    
     <div class="container_avaliacao">
-        <h2>Avaliar Serviço</h2>
-        <label for="avaliacaoTipo">* Deseja avaliar:</label>
-        <select id="avaliacaoTipo" class="input-esteticista" onchange="mostrarProfissionalSelect()">
-            <option value="">* Escolha...</option>
-            <option value="clinica">A Clínica</option>
-            <option value="profissional">Profissional da Clínica</option>
+    <h2>Avaliar Serviço</h2>
+    <label for="avaliacaoTipo">* Deseja avaliar:</label>
+    <select id="avaliacaoTipo" class="input-esteticista" onchange="mostrarProfissionalSelect()">
+        <option value="">* Escolha...</option>
+        <option value="clinica">A Clínica</option>
+        <option value="profissional">Profissional da Clínica</option>
+    </select>
+
+    <div id="profissionalSelect" class="profissional-select">
+        <label for="esteticista">* Escolha o Profissional:</label>
+        <select id="esteticista" class="input-esteticista">
+            <!-- Profissionais carregados dinamicamente -->
         </select>
-
-        <div id="profissionalSelect" class="profissional-select">
-            <label for="esteticista">* Escolha o Profissional:</label>
-            <select id="esteticista" class="input-esteticista">
-                <!-- Opções carregadas dinamicamente -->
-            </select>
-        </div>
-
-        <div class="stars"> 
-            <input type="radio" name="star" id="star5" value="5"><label for="star5">★</label>
-            <input type="radio" name="star" id="star4" value="4"><label for="star4">★</label>
-            <input type="radio" name="star" id="star3" value="3"><label for="star3">★</label>
-            <input type="radio" name="star" id="star2" value="2"><label for="star2">★</label>
-            <input type="radio" name="star" id="star1" value="1"><label for="star1">★</label>
-        </div>
-        
-        <input type="hidden" id="cpf_cliente" name="cpf_cliente" value="">
-
-        <textarea id="review-text" class="review-text" placeholder="* Escreva sua avaliação aqui..."></textarea>
-        <button class="submit-btn" onclick="cadastrarAvaliacao()">Enviar Avaliação</button>
     </div>
+
+    <div class="stars"> 
+        <input type="radio" name="star" id="star5" value="5"><label for="star5">★</label>
+        <input type="radio" name="star" id="star4" value="4"><label for="star4">★</label>
+        <input type="radio" name="star" id="star3" value="3"><label for="star3">★</label>
+        <input type="radio" name="star" id="star2" value="2"><label for="star2">★</label>
+        <input type="radio" name="star" id="star1" value="1"><label for="star1">★</label>
+    </div>
+    
+    <input type="hidden" id="cpf_cliente" name="cpf_cliente" value="<?php echo htmlspecialchars($cliente['cpf_cliente']); ?>">
+
+    <textarea id="review-text" class="review-text" placeholder="* Escreva sua avaliação aqui..."></textarea>
+    <button class="submit-btn" onclick="cadastrarAvaliacao()">Enviar Avaliação</button>
+</div>
             <!-- Início do Footer-->
             <footer>
             <div id="footer_content">
@@ -130,9 +160,6 @@
         profissionalSelect.classList.toggle('show', tipo === 'profissional');
     }
 
-    // Captura o CPF do cliente da URL
-    const cpf_cliente = new URLSearchParams(window.location.search).get('cpf_cliente');
-    document.getElementById('cpf_cliente').value = cpf_cliente || '';
 
     // Função de cadastro da avaliação com SweetAlert e redirecionamento condicional
     function cadastrarAvaliacao() {
@@ -141,6 +168,7 @@
     var esteticista = (tipo === 'profissional') ? esteticistaSelect.value : 'Clínica';
     var stars = document.querySelector('input[name="star"]:checked');
     var reviewText = document.getElementById('review-text').value;
+    var cpf_cliente = document.getElementById('cpf_cliente').value; 
 
     // Verificação para todos os campos obrigatórios
     if (!tipo || tipo === 'Escolha uma opção' || !stars || reviewText.trim() === '' || (tipo === 'profissional' && (!esteticista || esteticista === 'Escolha o Profissional'))) {
@@ -187,7 +215,7 @@
             }
         };
 
-        xhr.send('tipo=' + tipo + '&stars=' + stars.value + '&reviewText=' + encodeURIComponent(reviewText) + '&cpf_cliente=' + cpf_cliente + '&avaliado=' + encodeURIComponent(esteticista));
+        xhr.send('tipo=' + tipo + '&stars=' + stars.value + '&reviewText=' + encodeURIComponent(reviewText) + '&cpf_cliente=' +  encodeURIComponent(cpf_cliente) + '&avaliado=' + encodeURIComponent(esteticista));
         document.querySelector('input[name="star"]:checked').checked = false;
         document.getElementById('review-text').value = '';
         document.getElementById('avaliacaoTipo').value = 'clinica';

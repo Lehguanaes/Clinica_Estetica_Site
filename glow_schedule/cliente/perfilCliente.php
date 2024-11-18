@@ -1,20 +1,30 @@
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/usuarioController.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
 
     $conexaoMini = new Conexao();
     $conexao = $conexaoMini->getConexao();
+    
+    $message = new Message($BASE_URL);
+    $flashMsg = $message->getMessage();
 
-    $cpf = $_SESSION['usuario_cpf'];
+   if (!empty($flashMsg["msg"])) {
+    $message->limparMessage();
+    }
+    
+
+    $token = $_SESSION['usuario_token'];
     //smt com placeholder ?, pq o método ':cpf', $cpf não funcionou
-    $stmt = $conexao->prepare("SELECT * FROM cliente WHERE cpf_cliente = ?");
+    $stmt = $conexao->prepare("SELECT * FROM cliente WHERE token_cliente = ?");
     // um if para a verificação se o statement resulta em algo
     if ($stmt === false) {
         // Exibe o erro da preparação da consulta
         die('Erro no sql: ' . $conexao->error);
     }
     //smt com placeholder ?, pq o método ':cpf', $cpf não funcionou
-    $stmt->bind_param("s", $cpf);
+    $stmt->bind_param("s", $token);
     $stmt->execute();
     
     // atribui o resultado da consulta  do stmt ao vetor $resultado
@@ -27,7 +37,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Atendente</title>
+    <title>Perfil do Cliente</title>
     <!-- Links externos -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -54,16 +64,23 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                 <ul class="navbar-nav w-auto">
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="">Alguma Coisa</a>
+                        <a class="nav-link active" aria-current="page" href="consultasCliente.php">Minhas Condultas</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="">Coisas</a>
+                        <a class="nav-link active" aria-current="page" href="editarCliente.php">Editar</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="">Algo Ai</a>
+                        <a class="nav-link active" aria-current="page" href="/glow_schedule/controller/logout.php">Sair</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="/glow_schedule/avaliacoes/avaliacoes.php">Avaliar</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="/glow_schedule/agendamento/agendamento.php">Agendar</a>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
+                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="/glow_schedule/agendamento/agendamento.php" id="link_agendamentos_ativado">Agendamentos</a></button>
+           
             </div>
         </div>
     </nav>
@@ -89,14 +106,31 @@
                     <p><strong>Nome Completo:</strong> <?php echo ($cliente['nome_cliente']); ?></p>
                     <p><strong>CPF:</strong> <?php echo ($cliente['cpf_cliente']); ?></p>
                     <p><strong>Telefone:</strong> <?php echo ($cliente['telefone_cliente']); ?></p>
-                    <p><strong>Email:</strong> <?php echo ($cliente['email_cliente']); ?></p>
+                    <p><strong>Email:</strong> <?php echo ($cliente['email_cliente']); ?></p>        
+
                 </div>
             </div>
+            
+        </div>
+        <div class="link">
+        <a href="../prontuario/cadastroProntuario.php">aaaaaaa</a>  
         </div>
         <!-- Botão para editar o perfil -->
-        <div class="text-center mt-4">
-            <a href="http://localhost/glow_schedule/cliente/editarCliente.php?cpf_cliente=<?php echo ($cliente['cpf_cliente']); ?>" class="btn btn-primary" id="editar_perfil_button">Editar Perfil</a>
+        <div>
+            <a href="http://localhost/glow_schedule/cliente/editarCliente.php" class="btn btn-primary" id="editar_perfil_button">Editar Perfil</a>
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!--  php da mensagem; se a mensagem não estiver vazia, ela é inserida na página  -->
+  <?php if (!empty($flashMsg["msg"])): ?>
+            <script>
+                Swal.fire({
+                       icon: "<?= $flashMsg['type'] ?>",
+                       title: "<?= $flashMsg['titulo'] ?>",
+                       text: "<?= $flashMsg['msg'] ?>",
+                       toast: true
+                    });
+            </script>      
+<?php endif; ?>
 </html>

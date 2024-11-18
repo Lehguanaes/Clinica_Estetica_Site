@@ -1,31 +1,3 @@
-<?php
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/atendente/atendente.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
-
-    $conexaoMini = new Conexao();
-    $conexao = $conexaoMini->getConexao();
-    $message = new Message($BASE_URL);
-    $flashMsg = $message->getMessage();
-
-   if (!empty($flashMsg["msg"])) {
-    $message->limparMessage();
-    }
-    
-    $token = $_SESSION['usuario_token'];
-    $stmt = $conexao->prepare("SELECT * FROM atendente WHERE token_atendente = ?");
-
-    if ($stmt === false) {
-
-        die('Erro no sql: ' . $conexao->error);
-    }
-    $stmt->bind_param("s", $token);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    $atendente = $resultado->fetch_assoc();
-       ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -53,7 +25,7 @@
             <div class="logo">
                 <a class="nav-link active" aria-current="page" href="home.php">Care Tones</a>
             </div>
-            <button class="navbar-toggler" type="button" -bs-toggle="collapse" -bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent" >
@@ -75,24 +47,94 @@
     <!-- Fim da Navbar -->
     <h2>Editar Perfil</h2>
     <!-- Exibição do perfil para edição -->
-    <section class="container">       
+    <section class="container">
+        <?php
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/atendente/atendente.php";
+
+        $mensagem = "";
+        $atendente = new Atendente();
+
+        if (isset($_GET['cpf_atendente'])) {
+            $cpf_atendente = $_GET['cpf_atendente'];
+
+            $sql = "SELECT * FROM atendente WHERE cpf_atendente = ?";
+            $conn = (new Conexao())->getConexao();
+
+            if ($stmt = $conn->prepare($sql)) {
+                $stmt->bind_param("s", $cpf_atendente);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows > 0) {
+                    $atendenteData = $result->fetch_assoc();
+                    $atendente->setCpf($atendenteData['cpf_atendente']);
+                    $atendente->setNome($atendenteData['nome_atendente']);
+                    $atendente->setEmail($atendenteData['email_atendente']);
+                    $atendente->setTelefone($atendenteData['telefone_atendente']);
+                    $atendente->setSenha($atendenteData['senha_atendente']);
+                    $atendente->setFoto($atendenteData['foto_atendente']);
+                } else {
+                    echo "<p>Nenhum atendente encontrado com o CPF informado.</p>";
+                }
+                $stmt->close();
+            } else {
+                echo "Erro na consulta: " . $conn->error;
+            }
+        } else {
+            echo "<p>CPF do atendente não foi informado.</p>";
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cpf_atendente'])) {
+            $atendente->setCpf($_POST['cpf_atendente']);
+            $atendente->setNome($_POST['nome_atendente']);
+            $atendente->setEmail($_POST['email_atendente']);
+            $atendente->setTelefone($_POST['telefone_atendente']);
+            $atendente->setSenha($_POST['senha_atendente']);
+
+            // Verifica se uma nova foto foi enviada
+            if (isset($_FILES['foto_atendente']) && $_FILES['foto_atendente']['error'] == UPLOAD_ERR_OK) {
+                $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/uploads/";
+                $target_file = $target_dir . basename($_FILES["foto_atendente"]["name"]);
+
+                if (move_uploaded_file($_FILES["foto_atendente"]["tmp_name"], $target_file)) {
+                    $atendente->setFoto("uploads/" . basename($_FILES["foto_atendente"]["name"]));
+                } else {
+                    echo "<p>Erro ao fazer upload da foto.</p>";
+                }
+            } else {
+                // Mantém a foto existente se nenhuma nova for enviada
+                $atendente->setFoto($_POST['foto_atual']);
+            }
+
+            if ($atendente->atualizar()) {
+                echo "<p>Atendente atualizado com sucesso.</p>";
+                header("Location: consultarAtendente.php");
+                exit();
+            } else {
+                echo "<p>Erro ao atualizar atendente.</p>";
+            }
+        }
+
+        if (isset($atendenteData)) {
+        ?>
         <!-- Início formulário de edição -->
-        <form method="POST" action="../controller/atendente/atendenteController.php" enctype="multipart/form-data" class="form" id="form_perfil">
+        <form method="POST" action="" enctype="multipart/form-data" class="form" id="form_perfil">
             <!-- Definindo a ação como "atualizar" -->
             <input type="hidden" name="acao" value="atualizar">
-            <!-- token do atendente como campo oculto -->
-            <input type="hidden" name="token_atendente" value="<?php echo htmlspecialchars($atendente['token_atendente']); ?>">
+            <!-- CPF do atendente como campo oculto -->
+            <input type="hidden" name="cpf_atendente" value="<?php echo htmlspecialchars($atendenteData['cpf_atendente']); ?>">
             <!-- Campo oculto para armazenar o caminho da foto atual -->
-            <input type="hidden" name="foto_atual" value="<?php echo htmlspecialchars($atendente['foto_atendente']); ?>">
+            <input type="hidden" name="foto_atual" value="<?php echo htmlspecialchars($atendenteData['foto_atendente']); ?>">
             <div class="column">
                 <div class="input-box">
                     <div class="profile-pic-container">
                         <?php
                         // Verifica se a foto do atendente existe e não está vazia
-                        $fotoPath = "/glow_schedule/" . htmlspecialchars($atendente['foto_atendente']);
-                        $fotoExibida = (file_exists($_SERVER['DOCUMENT_ROOT'] . $fotoPath) && !empty($atendente['foto_atendente']))
+                        $fotoPath = "/glow_schedule/" . htmlspecialchars($atendenteData['foto_atendente']);
+                        $fotoExibida = (file_exists($_SERVER['DOCUMENT_ROOT'] . $fotoPath) && !empty($atendenteData['foto_atendente']))
                             ? $fotoPath
-                            : "../iconesPerfil/perfilPadrao.png"; 
+                            : "../iconesPerfil/perfilPadrao.png"; // Caminho da imagem padrão
                         ?>
                         <img src="<?php echo $fotoExibida; ?>" alt="Foto de perfil do atendente" class="profile-pic" id="profile-pic-preview">
                         <label class="upload-button" for="foto_atendente">
@@ -106,17 +148,17 @@
             <div class="column">
                 <div class="input-box">
                     <label for="nome_atendente">*Nome:</label>
-                    <input type="text" class="form-control" id="nome_atendente" name="nome_atendente"  placeholder="Digite o Nome Completo:" value="<?php echo htmlspecialchars($atendente['nome_atendente']); ?>" required>
+                    <input type="text" class="form-control" id="nome_atendente" name="nome_atendente"  placeholder="Digite o Nome Completo:" value="<?php echo htmlspecialchars($atendenteData['nome_atendente']); ?>" required>
                 </div>
                 <div class="input-box">
                     <label for="telefone_atendente">*Telefone:</label>
-                    <input type="text" class="form-control" id="telefone_atendente" name="telefone_atendente"  placeholder="Digite o Telefone:" value="<?php echo htmlspecialchars($atendente['telefone_atendente']); ?>" required maxlength="15">
+                    <input type="text" class="form-control" id="telefone_atendente" name="telefone_atendente"  placeholder="Digite o Telefone:" value="<?php echo htmlspecialchars($atendenteData['telefone_atendente']); ?>" required maxlength="15">
                 </div>
             </div>
             <div class="column">
                 <div class="input-box">
                     <label for="email_atendente">*E-mail:</label>
-                    <input type="email" class="form-control" id="email_atendente" name="email_atendente" placeholder="Digite o E-mail:" value="<?php echo htmlspecialchars($atendente['email_atendente']); ?>" required>
+                    <input type="email" class="form-control" id="email_atendente" name="email_atendente" placeholder="Digite o E-mail:" value="<?php echo htmlspecialchars($atendenteData['email_atendente']); ?>" required>
                 </div>
                 <div class="input-box">
                     <label for="senha_atendente">*Senha Atual:</label>
@@ -165,7 +207,7 @@
 
             // Se um arquivo foi selecionado, lê como URL de dados
             if (file) {
-                reader.readAsURL(file);
+                reader.readAsDataURL(file);
             }
         }
 
@@ -187,5 +229,9 @@
             }
         }
     </script>
+    <?php
+    }
+    $conn->close();
+    ?>
 </body>
 </html>

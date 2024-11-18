@@ -1,25 +1,28 @@
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/usuarioController.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/conexao.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
 
     $conexaoMini = new Conexao();
     $conexao = $conexaoMini->getConexao();
+    $message = new Message($BASE_URL);
+    $flashMsg = $message->getMessage();
 
-    $cpf = $_SESSION['usuario_cpf'];
-    //smt com placeholder ?, pq o método ':cpf', $cpf não funcionou
-    $stmt = $conexao->prepare("SELECT * FROM atendente WHERE cpf_atendente = ?");
-    // um if para a verificação se o statement resulta em algo
+   if (!empty($flashMsg["msg"])) {
+    $message->limparMessage();
+    }
+    
+    $token = $_SESSION['usuario_token'];
+    $stmt = $conexao->prepare("SELECT * FROM atendente WHERE token_atendente = ?");
+
     if ($stmt === false) {
-        // Exibe o erro da preparação da consulta
+
         die('Erro no sql: ' . $conexao->error);
     }
-    //smt com placeholder ?, pq o método ':cpf', $cpf não funcionou
-    $stmt->bind_param("s", $cpf);
+    $stmt->bind_param("s", $token);
     $stmt->execute();
-    
-    // atribui o resultado da consulta  do stmt ao vetor $resultado
     $resultado = $stmt->get_result();
-    // atribui o $cliente a uma linha do $resultado
     $atendente = $resultado->fetch_assoc();
 ?>
 <!DOCTYPE html>
@@ -54,16 +57,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                 <ul class="navbar-nav w-auto">
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="agenda.php">Agenda</a>
+                    <a class="nav-link active" aria-current="page" href="perfilAtendente.php">Perfil</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="cadastroEsteticista.php">Cadastro Esteticista</a>
+                    <a class="nav-link active" aria-current="page" href="../esteticista/consultarEsteticista.php">Cadastrar Esteticistas</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
+                    <a class="nav-link active" aria-current="page" href="../cliente/consultarCliente.php">Cadasrtrar Cliente</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="/glow_schedule/controller/logout.php">Sair</a>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
+                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="/glow_schedule/agendamento/agendamentoAt.php" id="link_agendamentos_ativado">Agendamentos</a></button>
             </div>
         </div>
     </nav>
@@ -100,4 +106,16 @@
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!--  php da mensagem; se a mensagem não estiver vazia, ela é inserida na página  -->
+  <?php if (!empty($flashMsg["msg"])): ?>
+            <script>
+                Swal.fire({
+                       icon: "<?= $flashMsg['type'] ?>",
+                       title: "<?= $flashMsg['titulo'] ?>",
+                       text: "<?= $flashMsg['msg'] ?>",
+                       toast: true
+                    });
+            </script>      
+<?php endif; ?>
 </html>

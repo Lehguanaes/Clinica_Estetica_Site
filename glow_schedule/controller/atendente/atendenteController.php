@@ -1,11 +1,17 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/atendente/atendente.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/model/message.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/controller/global.php";
 
 class AtendenteController {
     private $atendente;
+    private $mensagem;
 
     public function __construct() {
         $this->atendente = new Atendente();
+
+        global $BASE_URL;
+        $this->mensagem = new Message($BASE_URL); 
 
         if (isset($_POST['acao'])) {
             try {
@@ -25,8 +31,8 @@ class AtendenteController {
                 header("Location: /glow_schedule/atendente/consultarAtendente.php?status=error&message=" . urlencode($e->getMessage()));
                 exit();
             }
-        } elseif (isset($_GET['cpf'])) {
-            $this->buscarPorCpf($_GET['cpf']);
+        } elseif (isset($_GET['token'])) {
+            $this->buscarPorToken($_GET['token']);
         } else {
             $this->listar();
         }
@@ -34,27 +40,32 @@ class AtendenteController {
 
     private function inserir() {
         $fotoPath = null;
-    
-        // Tenta fazer o upload da foto, se houver uma imagem enviada
+
         if (isset($_FILES['foto_atendente']) && $_FILES['foto_atendente']['error'] == 0) {
             $fotoPath = $this->uploadFoto();
-            
-            if ($fotoPath) {
-                // Atribui o caminho da foto ao objeto antes de salvar
-                $this->atendente->setFoto($fotoPath);
-            } else {
-                throw new Exception("Erro ao fazer upload da foto.");
-            }
+            $this->atendente->setFoto($fotoPath);
         }
-    
-        // Mapeia os outros campos
+
         $this->mapAtendenteFromPost();
-    
+        $this->atendente->setToken($this->atendente->gerarToken());
+
         try {
-            // Chama o método de inserção na classe Atendente
-            $this->atendente->inserir();
-            header("Location: /glow_schedule/atendente/consultarAtendente.php");
-            exit();
+            if ($this->atendente->inserir($this->atendente, $this->atendente->getSenha())) { 
+                $this->mensagem->setMessage("Perfil Atualizado", "atendente inserido com sucesso!", "success", "../consultaratendente");
+                header("Location: /glow_schedule/atendente/consultaratendente.php?status=success");
+                exit();
+            } else {
+                throw new Exception("Erro ao inserir atendente.");
+            }
+
+        $token = $this->atendente->gerarToken(); 
+        $atendenteEncontrado = $this->atendente->buscarPorToken($token);
+
+        if ($atendenteEncontrado) {
+            var_dump("atendente encontrado:", $atendenteEncontrado);
+        } else {
+         echo "Erro: atendente não encontrado para o token fornecido.";
+        }
         } catch (Exception $e) {
             die("Erro ao inserir: " . $e->getMessage());
         }
@@ -65,21 +76,67 @@ class AtendenteController {
         include $_SERVER['DOCUMENT_ROOT'] . '../glow_schedule/atendente/consultarAtendente.php';
     }
 
-    private function buscarPorCpf($cpf_atendente) {
-        $atendente = $this->atendente->buscarPorCpf($cpf_atendente);
+    private function buscarPorToken($token) {
+        $atendente = $this->atendente->buscarPorToken($token);
+
+        if (!$atendente) {
+            throw new Exception("Atendente não encontrado para o token fornecido.");
+        }
+
         include $_SERVER['DOCUMENT_ROOT'] . '../glow_schedule/atendente/editarAtendente.php';
     }
 
     private function atualizar() {
-        $this->mapAtendenteFromPost();
+        $this->mapAtendenteFromPost();  
+
         try {
-            $fotoPath = $this->uploadFoto();
-            if ($fotoPath) {
-                $this->atendente->setFoto($fotoPath);
+            if (empty($_POST['token_atendente'])) {
+                throw new Exception("Token de atendente não fornecido.");
             }
-            $this->atendente->atualizar($_POST['cpf_atendente']);
-            header("Location: /glow_schedule/atendente/consultarAtendente.php");
-            exit();
+
+            $token = $_POST['token_atendente'];
+            $atendenteAtual = $this->atendente->buscarPorToken($token);
+
+            if (!$atendenteAtual) {
+                throw new Exception("Atendente não encontrado para o token fornecido.");
+            }
+
+            $this->mapAtendenteFromPost();
+
+            if (isset($_FILES['foto_atendente']) && $_FILES['foto_atendente']['error'] == 0) {
+                $fotoPath = $this->uploadFoto();
+                $this->atendente->setFoto($fotoPath);
+            } else {
+                $this->atendente->setFoto($atendenteAtual['foto_atendente']);
+            }
+
+            $senha_atual_atendente = filter_input(INPUT_POST, "senha_atendente");
+            $nova_senha = filter_input(INPUT_POST, "nova_senha");
+    
+            $token = $_POST['token_atendente']; 
+            $atendente3 = $this->atendente->buscarPorToken($token);
+
+            if (!$atendente3) {
+                throw new Exception("atendente não encontrado para o token fornecido.");
+            }
+
+            if (!empty($nova_senha)) {
+            if(password_verify($senha_atual_atendente, $atendente3['senha_atendente'])) {
+                $hash_nova_senha = $this->atendente->gerarSenha($nova_senha);
+    
+                var_dump('Senha atual verificada', $senha_atual_atendente, $nova_senha, $hash_nova_senha);
+    
+                $this->atendente->setSenha($hash_nova_senha); 
+                $this->atendente->setToken($token); 
+            } else {
+                throw new Exception("Senha atual incorreta.");
+            }
+        }
+
+            if (!$this->atendente->atualizar()) {
+                throw new Exception("Falha ao atualizar o atendente.");
+            }
+            echo "Atualização concluída com sucesso.";
         } catch (Exception $e) {
             die("Erro ao atualizar: " . $e->getMessage());
         }
@@ -97,10 +154,10 @@ class AtendenteController {
                 throw new Exception("O arquivo deve ter menos de 2MB.");
             }
 
-            $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/glow_schedule/uploads/';
+            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/glow_schedule/uploads/';
             $fotoPath = 'uploads/' . basename($foto['name']);
 
-            if (move_uploaded_file($foto['tmp_name'], $upload_dir . basename($foto['name']))) {
+            if (move_uploaded_file($foto['tmp_name'], $uploadDir . basename($foto['name']))) {
                 return $fotoPath;
             } else {
                 throw new Exception("Erro ao fazer upload da foto.");
@@ -110,13 +167,13 @@ class AtendenteController {
     }
 
     private function mapAtendenteFromPost() {
-        $this->atendente->setCpf($_POST['cpf_atendente']);
-        $this->atendente->setNome($_POST['nome_atendente']);
-        $this->atendente->setTelefone($_POST['telefone_atendente']);
-        $this->atendente->setEmail($_POST['email_atendente']);
-        $this->atendente->setSenha($_POST['senha_atendente']);
+        $this->atendente->setCpf($_POST['cpf_atendente'] ?? null);
+        $this->atendente->setNome($_POST['nome_atendente'] ?? null);
+        $this->atendente->setTelefone($_POST['telefone_atendente'] ?? null);
+        $this->atendente->setEmail($_POST['email_atendente'] ?? null);
+        $this->atendente->setSenha($_POST['senha_atendente'] ?? null);
     }
-    
 }
+
 new AtendenteController();
 ?>

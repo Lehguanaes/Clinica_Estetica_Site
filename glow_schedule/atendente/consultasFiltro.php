@@ -56,7 +56,7 @@ if ($cpf_cliente && $data_consulta) {
 } else {
     // Consulta apenas por data
     $sql_consultas = "
-        SELECT c.id_consulta, c.data_consulta, c.hora_consulta, e.apelido_esteticista, p.nome_procedimento, cl.nome_cliente
+        SELECT c.id_consulta, c.data_consulta, c.hora_consulta, e.apelido_esteticista, p.nome_procedimento,c.cpf_cliente, cl.nome_cliente
         FROM consulta AS c
         JOIN esteticista AS e ON c.cpf_esteticista = e.cpf_esteticista
         JOIN procedimento AS p ON c.id_procedimento = p.id_procedimento
@@ -69,24 +69,32 @@ if ($cpf_cliente && $data_consulta) {
 // Executa a consulta de agendamentos
 $result_consultas = mysqli_query($conn, $sql_consultas);
 echo "<h3 style='color: #CF6F7A; text-align: center;'>$titulo</h3>";
-
 // Exibe os resultados das consultas ou uma mensagem caso não haja resultados
 if ($result_consultas && mysqli_num_rows($result_consultas) > 0) {
     while ($consulta = mysqli_fetch_assoc($result_consultas)) {
-        echo "
-        <div class='card-corpo-dicas'>
-            <h5 class='card-title'>{$consulta['nome_procedimento']}</h5>
-            <p>Cliente: {$consulta['nome_cliente']}</p>
-            <p>Data: {$consulta['data_consulta']}</p>
-            <p>Hora: {$consulta['hora_consulta']}</p>
-            <p>Profissional: {$consulta['apelido_esteticista']}</p>
-            <button style='background-color: #1A7F83; color: #fff; padding: 5px; border-radius: 5px; border: none; cursor: pointer;'>
-                Mais Informações
-            </button>
-        </div>";
+        // Formata a data
+        $data_formatada = DateTime::createFromFormat('Y-m-d', $consulta['data_consulta'])->format('d/m/Y');
+        
+        echo '
+            <div class="container">
+                <div class="card-simples">
+                    <div class="card-content">
+                        <h2 class="titulo-card">' . htmlspecialchars($consulta['nome_procedimento']) . '</h2>
+                        <div class="cor-falsificada">
+                            <p class="mais-texto" style="font-size:15px">Cliente: ' . htmlspecialchars($consulta['nome_cliente']) . '</p>
+                            <p class="mais-texto" style="font-size:15px">Às: ' . htmlspecialchars($consulta['hora_consulta']) . '</p>
+                            <p class="mais-texto" style="font-size:15px">Procedimento: ' . htmlspecialchars($consulta['nome_procedimento']) . '.</p>
+                            <p class="mais-texto" style="font-size:15px">Para a data: ' . $data_formatada . '</p>
+                            <p class="mais-texto" style="font-size:15px">Marcada com o(a) profissional: ' . htmlspecialchars($consulta['apelido_esteticista']) . '.</p>
+                        </div>
+                    </div>
+                </div>
+        </div>';        
     }
 } else {
-    echo "<p style='color: #CF6F7A; text-align: center;'>Nenhuma consulta encontrada.</p>";
+    echo "<div class='separacao'>";
+    echo "<p style='color: #CF6F7A;'>Nenhuma consulta encontrada.</p>"; // Removido o text-align aqui
+    echo "</div>";     
 }
 
 mysqli_close($conn);

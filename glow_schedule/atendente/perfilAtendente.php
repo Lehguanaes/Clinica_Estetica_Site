@@ -181,7 +181,9 @@
         </div>
     </footer>
 </body>
+<!-- Link Js Navbar -->
 <script src="../js/navbar.js"></script>
+<!-- Link Sweet Alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--  php da mensagem; se a mensagem não estiver vazia, ela é inserida na página  -->
 <?php if (!empty($flashMsg["msg"])): ?>

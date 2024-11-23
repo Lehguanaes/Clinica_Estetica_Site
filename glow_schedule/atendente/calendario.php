@@ -10,10 +10,9 @@ if (isset($_GET['mes']) && isset($_GET['ano'])) {
     $diasNoMes = date('t', $primeiroDiaMes);
     $diaDaSemana = date('w', $primeiroDiaMes);
     $nomeMes = strftime('%B', $primeiroDiaMes);
-
-    // Calcula o mês e ano anteriores e próximos
     $mesAnterior = $mesAtual - 1;
     $mesProximo = $mesAtual + 1;
+
     if ($mesAnterior < 1) {
         $mesAnterior = 12;
         $anoAnterior = $anoAtual - 1;
@@ -27,41 +26,42 @@ if (isset($_GET['mes']) && isset($_GET['ano'])) {
         $anoProximo = $anoAtual;
     }
 
-    echo "<table class='table table-bordered'>";
+    echo "<table>";
     echo "<tr>
-            <th><span class='prev-next' onclick='carregarMes($mesAnterior, $anoAnterior)'>&lt;&lt;</span></th>
-            <th colspan='5'>" . ucfirst($nomeMes) . " $anoAtual</th>
-            <th><span class='prev-next' onclick='carregarMes($mesProximo, $anoProximo)'>&gt;&gt;</span></th>
-          </tr>";
+            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesAnterior, $anoAnterior)'>&lt;&lt;</span></th>
+            <th id='titulo_calendario' colspan='5'>" . ucfirst($nomeMes) . " $anoAtual</th>
+            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesProximo, $anoProximo)'>&gt;&gt;</span></th>
+        </tr>";
     echo "<tr>
-            <th>Dom</th>
-            <th>Seg</th>
-            <th>Ter</th>
-            <th>Qua</th>
-            <th>Qui</th>
-            <th>Sex</th>
-            <th>Sáb</th>
-          </tr>";
+            <th id='nome_dia'>Dom</th>
+            <th id='nome_dia'>Seg</th>
+            <th id='nome_dia'>Ter</th>
+            <th id='nome_dia'>Qua</th>
+            <th id='nome_dia'>Qui</th>
+            <th id='nome_dia'>Sex</th>
+            <th id='nome_dia'>Sáb</th>
+        </tr>";
     echo "<tr>";
-
-    // Preenche os primeiros dias vazios da semana
+    
     for ($i = 0; $i < $diaDaSemana; $i++) {
         echo "<td></td>";
     }
 
-    // Preenche os dias do mês
     for ($dia = 1; $dia <= $diasNoMes; $dia++) {
         if (($i + $dia - 1) % 7 == 0) {
             echo "</tr><tr>";
         }
 
-        // Define a data no formato YYYY-MM-DD
         $data = $anoAtual . '-' . str_pad($mesAtual, 2, '0', STR_PAD_LEFT) . '-' . str_pad($dia, 2, '0', STR_PAD_LEFT);
-
-        // Verifica se é o dia atual para adicionar a classe "today"
-        $class = ($dia == $diaAtual && $mesAtual == date('n') && $anoAtual == date('Y')) ? 'today' : '';
-
-        echo "<td class='date-select $class' onclick=\"selecionarData('$data', this)\">$dia</td>";
+        $hoje = date('Y-m-d');
+        
+        if ($data < $hoje) {
+            echo "<td class='date-select' style='color: #ccc;'>$dia</td>";
+        } elseif ($dia == $diaAtual && $mesAtual == date('m') && $anoAtual == date('Y')) {
+            echo "<td class='today date-select' onclick=\"selecionarData('$data', this)\">$dia</td>";
+        } else {
+            echo "<td class='date-select' onclick=\"selecionarData('$data', this)\">$dia</td>";
+        }
     }
 
     echo "</tr>";

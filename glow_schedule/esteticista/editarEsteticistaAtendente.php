@@ -56,31 +56,36 @@ if (isset($_GET['token_esteticista'])) {
     <link rel="stylesheet" href="../css/perfil.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"> </a>
-            <div class="logo">
-                <a class="nav-link active" aria-current="page" href="home.php">Care Tones</a>
+<header>
+        <nav class="nav-bar">
+          <a class="logo" href="Home.html"><img src="../logo/Logo.png" class="logoIMG">Care Tones</a>
+          <ul class="nav-list">
+            <li><a href="./atendente/visualizarConsultas.php" class="nav">Agenda</a></li>
+            <li><a href="../atendente/visualizarDuvidas.php" class="nav">Dúvidas</a></li>
+            <li><a href="../avaliacoes/avaliacoes.php" class="nav">Avaliações</a></li>
+            <li><a href="../agendamento/agendamentoAtendente.php" class="nav">Agendar Consulta</a></li>
+            <li><a href="esteticistas.php" class="nav">Esteticistas</a></li>
+          </ul>
+          <div class="dropdown">
+            <div class="login-icon">
+                <a href="../atendente/perfilAtendente.php">
+                <i class="fa-solid fa-circle-user fa-xl" style="color: #fff;"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="perfilAtendente.php"><i class="fa-solid fa-right-to-bracket" style="color: #cf6f7a;"></i> Perfil </a>
+                    <a href="cadastroEsteticistaAtendente.php"><i class="fa-solid fa-address-card" style="color: #cf6f7a;"></i> Cadastrar Esteticista </a>
+                    <a href="../cliente/cadastrarClienteAtendente.php"><i class="fa-solid fa-address-card" style="color: #cf6f7a;"></i> Cadastrar Cliente </a>
+                    <a href="../procedimento/cadastrarProcedimento.php"><i class="fa-solid fa-address-card" style="color: #cf6f7a;"></i> Cadastrar Procedimento </a>
+                </div>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav w-auto">
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="../atendente/perfilAtendente.php">perfil</a>
-                    </li>
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="../cliente/consultarCliente.php">Cadastrar Cliente</a>
-                    </li>
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
-                    </li>
-                </ul>
-                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado"> <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
-            </div>
+         </div>
+         <div class="mobile-menu">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
         </div>
-    </nav>
+        </nav>
+      </header>
     <h2>Editar Perfil</h2>
     <section class="container">
         <form method="POST" action="../controller\esteticista\esteticistaController.php" enctype="multipart/form-data" class="form" id="form_perfil">

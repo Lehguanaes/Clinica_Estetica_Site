@@ -128,7 +128,8 @@
                 mysqli_close($conn);
             ?>
         </div>
-    </div><!-- Inicio Footer -->
+    </div>
+    <!-- Inicio Footer -->
     <footer>
         <div id="footer_content">
             <div id="footer_contacts">

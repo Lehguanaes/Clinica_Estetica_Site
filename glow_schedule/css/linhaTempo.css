@@ -1,0 +1,406 @@
+
+/* Timeline defaults */
+/* --------------------------------------- */
+.h--timeline-container *,
+.h--timeline-events *{
+  outline: 0;
+}
+.h--timeline-container,
+.h--timeline-events{
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.h--timeline-navigation-container ul, .h--timeline-navigation-container li,
+.h--timeline-events ol, .h--timeline-events li,
+.h--timeline-line ol, .h--timeline-line li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.h--timeline-navigation-container{
+    background-color: #FFF;
+}
+.h--timeline{
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-family: sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.5;
+}
+.h--timeline--loaded{
+    opacity: 1
+}
+.h--timeline-container{
+    height: 100px;
+}
+.h--timeline-dates{
+    position: relative;
+    height: 100%;
+    margin: 0 40px;
+    overflow: hidden;
+}
+
+/* Timeline blur effect for start and end */
+/* --------------------------------------- */
+.h--timeline-dates::after,.h--timeline-dates::before{
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    height: 100%;
+    width: 50px;
+}
+.h--timeline-dates::before{
+    left: 0;
+    background: linear-gradient(to right, hsl(0, 0%, 100%), hsla(0, 0%, 100%, 0));
+}
+.h--timeline-dates::after{
+    right: 0;
+    background: linear-gradient(to left, hsl(0, 0%, 100%), hsla(0, 0%, 100%, 0));
+}
+
+/* Timeline horizontal line */
+/* --------------------------------------- */
+.h--timeline-line{
+    position: absolute;
+    z-index: 1;
+    left: -20px;
+    top: 49px;
+    height: 2px;
+    background-color: #f7f7f7;
+    transition: -webkit-transform 0.4s;
+    transition: transform 0.4s;
+    transition: transform 0.4s, -webkit-transform 0.4s;
+}
+.h--timeline-filling-line{
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #1A7F83;
+    -webkit-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: left center;
+    -ms-transform-origin: left center;
+    transform-origin: left center;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+}
+
+
+/* Bullet points */
+/* --------------------------------------- */
+.h--timeline-date{
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-bottom: 0.75rem;
+    color: #000;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+}
+.h--timeline-date:hover{
+    font-weight: 600;
+}
+.h--timeline-date::after,
+.h--timeline-date::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    bottom: -8px;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #1A7F83;
+    background-color: #f7f7f7;
+    transition: background-color 0.3s, border-color 0.3s, top 0.3s;
+    
+}
+.h--timeline-date::before{
+    bottom: -3px;
+    height: 9px;
+    width: 9px;
+    border-width: 0px;
+    border-color: transparent;
+    background-color: transparent;
+    z-index: 2;
+}
+.h--timeline-date:hover::before,
+.h--timeline-date:hover::after{
+    transition: background-color 0.3s, border-color .3s, top .3s;
+}
+.h--timeline-date:hover::after{
+    background-color: #f7f7f7;
+    border-color: #1A7F83;
+}
+.h--timeline-date--selected{
+    pointer-events: none 
+}
+.h--timeline-date--selected::after{
+    background-color: #f7f7f7;
+    border-color: #1A7F83;
+}
+.h--timeline-date--selected::before{
+    background-color: #1A7F83;
+}
+.h--timeline-date--older-event::after{
+    background-color: #1A7F83;
+    border-color: #1A7F83;
+}
+.h--timeline-event-description{
+    font-weight: bold;
+    padding: 3vh;
+    font-size: 1.2rem;
+}
+
+.h--timeline-event-date{
+    font-weight: bold;
+    font-size: 1.4em;
+}
+/* Caroussel navigation */
+/* --------------------------------------- */
+.h--timeline-navigation{
+    font-size: 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #f7f7f7;
+    transition: border-color 0.3s;
+}
+.h--timeline-navigation::after{
+    content: '';
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgCAYAAAAbifjMAAABQUlEQVRIS9XUwWrCQBAG4JnEhiRHBQut+AY+gEq8tLSvUuih9Ek8iL5K0YMEvPkEHjwo2lYQek2IMdOJJ7tuki5LDnoKyHzZnZn8CJo/1KwHKfB299iMKcHh93Rd9IIL4OX2qX5j0QwRLTpG3uDT3+YhF8B747kaY+Iz0OLCVRxE7dHe32Uh0iucI0SwhIPZGew+9jIks4l/EIAFRGZPhuROQUQqCXb72/HP+UnKA7SuoNVEsfgYRp7SGF/vH2qmacwB0CjagbSZmat8AINGX5ON8ioXFYj/l/M1qpyinBMEQdBMG+w4jnoeEFE9DMMZAxY/e67rquUBF1UZ8Bk45YFt223OBrU8EJAlIx1G1PJAQBaM9GRI7hQkSJeR/+eBFqB1Ba0mSoo9pTEyUOM94DwAo2gHMvMgXWWGiLfwCvLgF1jY2yHNUya7AAAAAElFTkSuQmCC) no-repeat 0 0;}
+.h--timeline-navigation:hover{
+    border-color: #1A7F83;
+}
+.h--timeline-navigation--prev{
+    left: 0;
+    -webkit-transform: translateY(-50%) rotate(180deg);
+    -ms-transform: translateY(-50%) rotate(180deg);
+    transform: translateY(-50%) rotate(180deg);
+}
+.h--timeline-navigation--next{
+    right: 0;
+}
+.h--timeline-navigation--inactive{
+    cursor: not-allowed;
+}
+.h--timeline-navigation--inactive::after{
+    background-position: 0 -16px;
+}
+.h--timeline-navigation--inactive:hover{
+    border-color: #f7f7f7;
+}
+
+/* Timeline events container */
+/* --------------------------------------- */
+.h--timeline-events{
+    overflow: hidden;
+    transition: height .4s;
+	padding-top: 1rem;
+	padding-bottom: 3rem;
+}
+.h--timeline-event{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    top: 1rem;
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+    padding: 1px 5%;
+    opacity: 0;
+    -webkit-animation-duration: 0.4s;
+    animation-duration: 0.4s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+}
+.h--timeline-event-content{
+    max-width: 800px;
+    margin: 2rem auto 0;
+	padding: 3rem;
+	border: 3px solid #ebebeb;
+	border-radius: 10px;
+	box-shadow: 0 0 20px 0 rgba(0,0,0,.4);
+    transition: border-color 0.8s ease-in-out, background-color 0.6s ease-in-out;
+    overflow: hidden; /* Garante que a imagem não ultrapasse as bordas arredondadas */
+    
+}
+.h--timeline-event-content img{
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 5vh;
+   width: 100%; /* Ajusta a largura da imagem para preencher a div */
+    height: 100%;
+    object-fit: cover; /* Faz com que a imagem cubra a div completamente */
+    z-index: -1; /* Coloca a imagem atrás do conteúdo */
+    filter: brightness(1) blur(7px); /* Ajuste opcional: escurece a imagem para dar destaque ao texto */
+}
+.h--timeline-event-content:hover{
+    border-color: #1A7F83;
+    background-color: rgba(207, 111, 122, 0.1);
+}
+.h--timeline-event--selected{
+    position: relative;
+	top: 0;
+    z-index: 2;
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+}
+
+/* Timeline animations */
+/* --------------------------------------- */
+.h--timeline-event--enter-right,.h--timeline-event--leave-right{
+    -webkit-animation-name: cd-enter-right;
+    animation-name: cd-enter-right;
+}
+.h--timeline-event--enter-left,.h--timeline-event--leave-left{
+    -webkit-animation-name: cd-enter-left;
+    animation-name: cd-enter-left ;
+}
+.h--timeline-event--leave-right,.h--timeline-event--leave-left{
+    animation-direction: reverse;
+}
+.h--timeline-event-title{
+    color: #000;
+    font-size: 3rem;
+    font-weight: 600;
+}
+.h--timeline-event-date{
+    display: block;
+    font-style: italic;
+    margin: 0.5rem auto;
+    margin: 1rem auto;
+}
+.h--timeline-event-date::before{
+    content: '- ';
+}
+@-webkit-keyframes cd-enter-right{
+    0%{
+        opacity: 0;
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+    100%{
+        opacity: 1;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+    }
+}
+@keyframes cd-enter-right{
+    0%{
+        opacity: 0;
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+    100%{
+        opacity: 1;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+    }
+}
+@-webkit-keyframes cd-enter-left{
+    0%{
+        opacity: 0;
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+    }
+    100%{
+        opacity:1;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+    }
+}
+@keyframes cd-enter-left{
+    0%{
+        opacity: 0;
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+    }
+    100%{
+        opacity: 1;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+    }
+}
+
+
+/* Overwrites */
+/* Change the position of dates top / botom / top */
+/* --------------------------------------- */
+.h--timeline-date::after,
+.h--timeline-date::before{
+    background-color: #1A7F83;
+}
+.h--timeline-date--selected::after{
+    background-color: #f7f7f7;
+    border-color: #1A7F83;
+}
+.h--timeline-date--older-event::after{
+    background-color: #1A7F83;
+    border-color: #1A7F83;
+}
+.h--timeline-line li:nth-child(even) .h--timeline-date{
+    bottom: -48px;
+}
+.h--timeline-line li .h--timeline-date--selected::after,
+.h--timeline-line li .h--timeline-date:hover::after{
+    width: 21px;
+    height: 21px;
+    bottom: -11px;
+    background-color: #f7f7f7;
+    border-color: #1A7F83;
+}
+.h--timeline-line li:nth-child(even) .h--timeline-date::after{
+    bottom: 40px;
+}
+.h--timeline-line li:nth-child(even) .h--timeline-date:hover::after,
+.h--timeline-line li:nth-child(even) .h--timeline-date--selected::after{
+    bottom: 37px;
+}
+.h--timeline-line li:nth-child(even) .h--timeline-date::before{
+    bottom: 45px;
+}
+.h--timeline-line li:nth-child(odd) .h--timeline-date:hover::before,
+.h--timeline-line li:nth-child(odd) .h--timeline-date--selected::before{
+    bottom: -3px;
+}
+/**/

@@ -1,0 +1,497 @@
+/* css cards gerais, adição do mota*/
+
+.divisor3{
+  background: linear-gradient(180deg, #1A7F83, #69bdc0);
+  border-radius: 15px;
+  width: fit-content;
+ height: auto;
+ display: flex;
+ flex-direction: column;
+ align-items: center; /* Centraliza horizontalmente */
+ text-align: center; /* Centraliza o texto */
+}
+.divisor3 h2{
+  color: #FFF;
+  margin: 2vh;
+  text-align: center;
+  font-size: 1.8em;
+  }
+  .divisor3 .texto{
+    color: #FFF;
+    word-wrap: break-word; /* Quebra a linha em palavras longas */
+    overflow-wrap: break-word; /* Quebra o texto automaticamente, mesmo em palavras longas */
+    hyphens: auto; /* Adiciona hifens automaticamente para palavras longas */
+    font-size: 1.6em;
+    word-break: keep-all;
+  }
+  .divisor3 p{
+    width: 80%; /* Ajuste a largura para quebrar o texto mais cedo */
+    word-wrap: break-word; /* Quebra a linha em palavras longas */
+    overflow-wrap: break-word; /* Quebra o texto automaticamente, mesmo em palavras longas */
+    hyphens: auto; /* Adiciona hifens automaticamente para palavras longas */
+    font-size: 1.4em;
+    color: #FFF;
+  margin-top: -10px;
+  padding-bottom: 10px;
+  margin-bottom: 7vh;
+  }
+.divisor2{
+  background: linear-gradient(180deg, #1A7F83, #69bdc0);
+  border-radius: 15px;
+  width: fit-content;
+ height: auto;
+ display: flex;
+ flex-direction: column;
+ align-items: center; /* Centraliza horizontalmente */
+ text-align: center; /* Centraliza o texto */
+}
+.divisor2 h2{
+color: #FFF;
+margin: 2vh;
+text-align: center;
+font-size: 1.8em;
+}
+.divisor2 .texto{
+  color: #FFF;
+  word-wrap: break-word; /* Quebra a linha em palavras longas */
+  overflow-wrap: break-word; /* Quebra o texto automaticamente, mesmo em palavras longas */
+  hyphens: auto; /* Adiciona hifens automaticamente para palavras longas */
+  font-size: 1.6em;
+  word-break: keep-all;
+}
+@media(max-width:470){
+  .texto{
+   font-size: 40%;
+  }
+}
+.divisor2 p{
+  width: 80%; /* Ajuste a largura para quebrar o texto mais cedo */
+  word-wrap: break-word; /* Quebra a linha em palavras longas */
+  overflow-wrap: break-word; /* Quebra o texto automaticamente, mesmo em palavras longas */
+  hyphens: auto; /* Adiciona hifens automaticamente para palavras longas */
+  font-size: 1.4em;
+  color: #FFF;
+margin-top: -10px;
+padding-bottom: 10px;
+}
+
+
+.container-cards-home {
+  display: flex;
+  width: 100%; /* Ou ajuste conforme necessário */
+  padding: 20px;
+  justify-content: center; /* Alinha os cards ao centro */
+  overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
+  flex-wrap: wrap; /* Permite que os cards quebrem para a linha seguinte */
+  max-width: 100%;
+}
+
+
+.separador-de-tela {
+  display: flex; /* Para usar flexbox */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  margin-top: -5vh;
+}
+.separador-de-tela-2 {
+  display: flex; /* Para usar flexbox */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  margin-bottom: 1vh;
+}
+.separador-de-tela-2  h2{
+color:#1A7F83;
+padding: 10px 20px; /* Adiciona um padding */
+font-size: 2.8em;
+}
+.texto-linha{
+  color: #000;
+}
+.geral-linha{
+  margin-top: -5%
+}
+
+.separador-de-tela h2 {
+  color: #FFF; /* Cor do texto */
+  padding: 10px 20px; /* Adiciona um padding */
+}
+.divisor{
+  background: linear-gradient(180deg, #1A7F83, #69bdc0);
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  margin-top: 10%;
+}
+/* css para a pagina sobre-nós, adição do mota */
+.sobre-nos-imagem-texto {
+  display: flex;
+  flex-direction: column;  /* Alinha os itens em coluna */
+  align-items: center;      /* Centraliza horizontalmente */
+  margin-left: 4%;
+}
+
+.titulo-sobre-nos {
+  display: flex; 
+  justify-content: center;   /* Centraliza a imagem horizontalmente */
+  align-items: center;       /* Centraliza a imagem verticalmente */
+  margin-bottom: -5%;
+}
+.titulo-sobre-nos-2{
+  display: flex; 
+  justify-content: center;   /* Centraliza a imagem horizontalmente */
+  align-items: center;       /* Centraliza a imagem verticalmente */
+  margin-bottom: 4%;
+  margin-top: 8vh;
+}
+.interro{
+  margin-left: 6vh;
+  color: gold;
+}
+.care-tones{
+  color: #1A7F83;
+}
+.o-que-e-a {
+  color: gold;
+  margin-left: 0;
+  margin-bottom: 30px;
+}
+.o-que-e-a-inte{
+  color: gold;
+  margin-left: 5%;
+}
+.continuacao {
+  color: #1A7F83;
+  margin: 50px;
+}
+@media (max-width: 538px) {
+  .continuacao {
+    font-size: 70px;
+  }
+}
+@media (max-width: 488px) {
+  .continuacao {
+    font-size: 40px;
+  }
+  .o-que-e-a-inte{
+    font-size: 40px;
+  }
+}
+.imagem-sobre-nos img {
+  max-width: 40%;            /* Define a largura máxima da imagem */
+  height: auto;              /* Mantém a proporção da imagem */
+}
+
+.texto-sobre-nos {
+  text-align: center;        
+  margin-top: 20px;         
+  padding: 20px;             /* Espaçamento interno */
+  border-radius: 10px;      /* Bordas arredondadas */
+  max-width: 600px;         /* Largura máxima da div do texto */
+  width: 70%;                /* Largura padrão */
+  font-size: 1.15rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  border: 1px;
+}
+/* css para a pagina sobre-nós, adição do mota */
+
+/* Media query para telas menores & maiores, adição do mota */
+
+/* Media query para telas menores & maiores, adição do mota */
+
+  /* css cards gerais, adição do mota */
+.container{
+display: flex;
+justify-content: center; /* Centraliza horizontalmente */
+align-items: center; /* Centraliza verticalmente */
+flex-wrap: wrap;
+width: 100%;
+height: 100%;
+}
+.dicas{
+color: #FFF;
+}
+.card{
+width: 325px;
+height: auto;
+background-color: #FFF;
+color: #000;
+border-radius: 10px;
+box-shadow: 0  8px 12px rgba(0, 0, 0, 0.4);
+overflow: hidden;
+margin: 15px;
+transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+margin-bottom: 15vh;
+text-align: center;
+}
+.card-simples{
+width: 325px;
+height: auto;
+background-color: #FFF;
+color: #000;
+border-radius: 10px;
+box-shadow: 0  8px 12px rgba(0, 0, 0, 0.4);
+overflow: hidden;
+margin: 15px;
+transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+margin-bottom: 15vh;
+text-align: center;
+margin-top: 10vh;
+}
+.card-simples:hover{
+transform: scale(1.06);
+box-shadow: 0  16px 24px rgba(0, 0, 0, 0.6);
+}
+.card:hover{
+transform: scale(1.06);
+box-shadow: 0  16px 24px rgba(0, 0, 0, 0.6);
+}
+.mais-texto{
+text-align: center;
+margin-top: -1.5vh;
+background-color: #1A7F83;
+
+}
+.cor-falsificada{
+background-color: #1A7F83;
+overflow: hidden; /* Esconde conteúdo extra */
+transition: all 0.6s; /* Transição suave */
+height: 30px;
+overflow: auto hidden;
+}
+.cor-falsificada-2{
+background-color: #1A7F83;
+overflow: hidden; /* Esconde conteúdo extra */
+transition: all 0.6s; /* Transição suave */
+height: 30px;
+overflow: auto hidden;
+}
+.cor-falsificada-3{
+background-color: #1A7F83;
+overflow: hidden; /* Esconde conteúdo extra */
+transition: all 0.6s; /* Transição suave */
+height: 30px;
+overflow: auto hidden;
+}
+.cor-falsificada:hover{
+height: 265px;
+overflow: auto;
+}
+.cor-falsificada-2:hover{
+height: 265px;
+overflow: auto;
+}
+.cor-falsificada-3:hover{
+height: 265px;
+overflow: auto;
+}
+.card img{
+width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+.card-content a{
+margin-bottom: 3vh;
+}
+.card-content p{
+padding-left: 2vh;
+padding-top: 2vh;
+color: #FFF;
+overflow-wrap: break-word;
+hyphens: auto;
+text-decoration: none;
+}
+.position-button{
+text-align: center;
+}
+.card-content h2{
+font-size: 1.8em;
+margin-bottom: 10px;
+}
+.card-content p{
+font-size: 14px;
+margin-bottom: 20px;
+}
+.card-button{
+display: inline-block;
+background-color: #1A7F83;
+color: #FFF;
+padding: 10px 40px;
+border-radius: 5px;
+border: 2px solid;
+text-decoration: none;
+transition: 0.5s ease-in-out;
+}
+.card-button:hover{
+background-color: #FFF;
+border-color: #1A7F83;
+color: #000;
+}
+.titulo-card{
+text-align: center;
+color: #1A7F83;
+hyphens: auto;
+word-break: break-all;
+}
+.titulo-card-simples{
+text-align: center;
+color: #1A7F83;
+hyphens: auto;
+word-break: break-all;
+}
+/*Cards de perfil*/
+img {
+max-width: 100%;
+}
+
+h1 {
+text-align: center;
+margin-bottom: 4rem;
+}
+.alinhador{
+display: flex;
+justify-content: center; /* Alinha horizontalmente ao centro */
+align-items: center; /* Alinha verticalmente ao centro */
+margin-bottom: 10vh;
+}
+.box {
+width: 350px;
+height: fit-content;
+border-radius: 20px;
+padding: 10px;
+text-align: center;
+background: #f8f6f6;
+border: 2px solid #1A7F83;
+box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.7);
+transition: all 0.6s ease-in-out;
+margin-top: 5vh;
+}
+.box:hover {
+transform: scale(1.1); 
+box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.9);
+}
+.linha {
+display: flex; /* Alinha os itens na linha */
+align-items: center; /* Alinha verticalmente ao centro */
+justify-content: center; /* Alinha horizontalmente ao centro */
+width: 100%; /* Garante que a linha ocupe toda a largura do container */
+margin-top: 2vh;
+}
+
+.linha img {
+width: 24px; /* Define o tamanho da imagem */
+height: 24px; /* Tamanho fixo para manter proporção */
+margin-right: 10px;
+}
+
+.linha p {
+margin: 0; /* Remove margens do texto */
+font-size: 16px; /* Ajusta o tamanho do texto */
+color: #333; /* Cor do texto */
+font-weight: bold; 
+}
+.box1 {
+margin-top: 10px;
+}
+
+.content {
+margin: 15px 2px;
+}
+.image img {
+height: 120px;
+width: 120px;
+border-radius: 50%;
+
+display: block;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 5px;
+}
+
+.level {
+font-size: 0.7em;
+background-color: rgb(164, 189, 183, 0.5);
+width: 50px;
+border-radius: 5px;
+font-weight: bolder;
+letter-spacing: 1px;
+display: block;
+margin: 0px auto 10px;
+}
+
+.name {
+font-size: 1.25em;
+font-weight: bolder;
+letter-spacing: 1px;
+color: #1A7F83;
+}
+
+.job_title {
+font-size: 1.1em;
+font-weight: bolder;
+color: #333;
+font-weight: bold;
+margin-top: -2px;
+}
+
+.job_discription {
+font-size: 0.8em;
+color: #333;
+font-weight: bold;
+margin: 10px 30px 20px;
+}
+
+.icons {
+margin: 0px 30px;
+font-size: 1.5em;
+display: flex;
+justify-content: space-around;
+}
+
+.icons button {
+width: fit-content;
+height: fit-content;
+border: none;
+font-size: 1em;
+}
+
+.ion-icon:hover {
+color: #58a497;
+transition: 0.5s;
+}
+
+button {
+width: 130px;
+height: 40px;
+border-radius: 10px;
+font-weight: bolder;
+}
+
+.button {
+display: flex;
+justify-content: space-around;
+flex-direction: row;
+margin: 20px 30px 0px;
+}
+
+.button .message {
+background: #ededed;
+border: 2px solid #000;
+}
+
+.button .connect {
+background-color: #000;
+color: #ededed;
+border: none;
+}
+button.connect:hover {
+letter-spacing: 1px;
+transition: 0.5s;
+}
+button.message:hover {
+letter-spacing: 1px;
+transition: 0.5s;
+background: rgba(88, 164, 151, 0.5);
+}
+/* css cards gerais, adição do mota */

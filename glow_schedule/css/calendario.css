@@ -1,0 +1,87 @@
+/* Estilo para a tabela */
+table {
+    border-collapse: collapse; /* Faz com que as bordas das células se fundam (sem espaço entre elas) */
+    height: 40px;
+    table-layout: fixed; /* Define a largura fixa para as células da tabela */
+    margin-top: 20px;
+}
+
+/* Estilo para células (th e td) da tabela */
+th, td {
+    border: 1px solid #ddd !important; /* Define uma borda fina e cinza claro */
+    padding: 10px; /* Define um espaçamento interno nas células para que o texto não fique encostado nas bordas */
+    text-align: center !important; /* Centraliza o conteúdo das células */
+}
+
+/* Estilo para o cabeçalho da tabela (th) */
+th {
+    background-color:  #1A7F83; ; /* Define um fundo cinza claro para o cabeçalho */
+}
+
+/* Estilo para as células da tabela */
+td {
+    height: 10px; /* Define uma altura fixa de 10px para as células da tabela */
+}
+
+#titulo_calendario{
+    color: #fff;
+    border-color: #1A7F83 !important;
+    height: 11px;
+}
+
+#nome_dia{
+    background-color: #fff ;
+    color:  #1A7F83;
+    transition: 0.6s;
+}
+
+/* Estilo para o dia atual no calendário */
+.today {
+    color: #1A7F83; /* Define uma cor de texto em tom azul esverdeado */
+    background-color: #f4f4f4 !important; /* Define um fundo cinza claro para o dia atual */
+    font-weight: bold; /* Deixa o texto em negrito */
+}
+
+/* Estilo para a célula de data selecionada no calendário */
+.selected {
+    background-color: #1A7F83 !important; /* Define um fundo azul esverdeado para a célula selecionada */
+    color: white; /* Define a cor do texto como branco */
+}
+
+/* Estilo para as setas de navegação (anterior e próximo mês) */
+.prev-next {
+    cursor: pointer; /* Indica que o elemento é clicável */
+}
+
+i{
+    color: #fff;
+}
+i:hover{
+    color: #CF6F7A;
+} 
+/* Estilo para as células de data clicáveis no calendário */
+.date-select {
+    cursor: pointer; /* Indica que a célula é clicável */
+    padding: 5px; /* Adiciona um espaçamento interno nas células de datas */
+    height: 30px;
+    width: 10px;
+}
+
+/* Estilo para as células de data quando o mouse passa por cima (hover) */
+.date-select:hover {
+    background-color: #ddd; /* Muda o fundo para um cinza mais escuro ao passar o mouse */
+}
+.consulta-titulo {
+    color: #CF6F7A;
+    margin-bottom: 20px;
+}
+
+#saiba_consulta{
+    margin-bottom: 10px !important;
+    font-size: 15px;
+    transition: 0.6s;
+}
+h3{
+    font-family: ramole;
+    color: #1A7F83;
+}

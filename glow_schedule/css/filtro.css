@@ -1,0 +1,136 @@
+.container-filtro {
+    margin-left: 60px;
+}
+
+/* Container do filtro */
+.filter-container {
+    position: relative;
+    display: inline-block;
+    margin: 15px;
+    font-size: 1.5em;
+    color: #1A7F83;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.filter-container:hover {
+    transform: scale(1.05);
+    color: #CF6F7A;
+}
+
+/* Ícone de filtro */
+.filter-container .fa-filter {
+    font-size: 1.2em;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.filter-container:hover .fa-filter {
+    transform: rotate(20deg);
+    color: #1A7F83;
+}
+
+/* Opções do filtro aparecem ao passar o mouse */
+.filter-container:hover .filter-options {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease 0.9s, transform 0.6s ease 0.9s; 
+}
+
+/* Estilo das opções do filtro */
+.filter-options {
+    display: none;
+    position:absolute;
+    top: 110%;
+    left: 0;
+    background-color: #1A7F83;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 140px;
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    z-index: 1;
+}
+
+.filter-options.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.filter-options.hide {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+/* Botões dentro das opções */
+.filter-options button {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 14.5px;
+    text-align: left;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.filter-options button:hover {
+    background-color: #CF6F7A;
+    color: white;
+    transform: scale(1.05);
+}
+
+.fa-check-to-slot{
+    color: white;
+}
+
+.fa-clock-rotate-left{
+    color: white;
+}
+.btn-leitura{
+    color: #1A7F83;
+    background-color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 7px;
+    padding: 5px 7px;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+}
+
+.btn-leitura:hover{
+    background-color: #83b0b1;
+    color: #EDF0F2;
+}
+
+.btn-respondida{
+    color: #EDF0F2;
+    background-color: #cf6f92;
+    text-decoration: none;
+    border: none;
+    border-radius: 7px;
+    padding: 5px 7px;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+}
+.btn-respondida:hover{
+    background-color: #ac5474;
+    color: #EDF0F2;
+}
+
+.mensagem-expandida {
+    display: none; /* Oculta a mensagem expandida inicialmente */
+    opacity: 0; /* Torna invisível para animação */
+    transform: translateY(-10px); /* Move para cima para efeito */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transição suave */
+}
+
+.mensagem-expandida.show {
+    display: block; /* Exibe o elemento */
+    opacity: 1; /* Torna visível */
+    transform: translateY(0); /* Remove o deslocamento */
+}

@@ -384,6 +384,7 @@ form .btn:hover {
   footer {
     width: 100%;
     color: #1A7F83;
+    margin-top: 15px;
   }
 
   .footer-link {
@@ -403,9 +404,14 @@ form .btn:hover {
   margin-bottom: 0px !important;
   }
 
+  .navbar-brand:hover{
+    transform: rotate(10deg);
+    opacity: 0.8;
+  }
+
   #footer_social_media {
     display: flex;
-    gap: 1rem;
+    gap: 1.1rem;
     margin-top: 1rem;
   } 
 
@@ -417,35 +423,43 @@ form .btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1.7rem;
+    width: 1.7rem;
     color: white;
     border-radius: 50%;
     transition: all 0.4s;
   }
 
   #footer_social_media .footer-link i {
-    font-size: 1.12rem;    
+    font-size: 18px;    
   }
+
 
   #footer_social_media .footer-link:hover {
-    opacity: 0.6;
-  }
+    transform: rotate(20deg);
+    opacity: 0.8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
 
   #instagram {
-    background: linear-gradient(#7f37c9, #ff2992, #ff9807);
+    background: white;
+    color: #1A7F83 !important;
   }
 
   #facebook {
-    background-color: #4267b3;
+    background-color: white;
+    color: #CF6F7A !important;
   }
 
   #whatsapp {
-    background-color: #25d366;
+    background-color:white;
+    color: #1A7F83 !important;
   }
 
   #localizacao {
-  background-color: #3E8AFF;
+  background-color:white;
+  color: #CF6F7A !important;
   }
 
   .footer-list {
@@ -462,17 +476,19 @@ form .btn:hover {
   }
 
   .footer-list .footer-link:hover {
-    color: #1A7F83;
+    color: #CF6F7A;
+    transform: scale(1.05);
+  }
+  #footer_subscribe p{
+    color: #CF6F7A !important; 
+    font-size: 19px !important;
+    font-family: ramole;
   }
 
   #footer_subscribe {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-  }
-
-  #footer_subscribe p {
-    color: black;
   }
 
   #input_group {
@@ -486,11 +502,6 @@ form .btn:hover {
     all: unset;
     padding: 0.2rem;
     width: 100%;
-  }
-
-  textarea{
-    background-color: #D3DFE5 !important;
-    border-radius: 2px;
   }
 
   #input_group button {
@@ -509,24 +520,33 @@ form .btn:hover {
     opacity: 0.8;
   }
 
-  #icone_botao_cadastrar{
-  margin: 5px !important;
-  }
-
-  #botao_cadastrar{
-    display: flex;
-    justify-content: center;
-    padding-top: 7px;
-    width: 29%;
-  }
-
   #footer_copyright {
     display: flex;
     justify-content: center;
     background-color: black;
-    color: white;
+    color: #CF6F7A;
     padding: 5px;
   }
+
+
+  @media screen and (max-width: 768px) {
+    #footer_content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 426px) {
+    #footer_content {
+        grid-template-columns: repeat(1, 1fr);
+        padding: 3rem 2rem;
+    }
+  }
+/* Fim footer */
+   
+
+
+
 /* css cards gerais, adição do mota*/
 
 .botao-card {

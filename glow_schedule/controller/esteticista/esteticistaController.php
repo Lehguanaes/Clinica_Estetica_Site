@@ -26,7 +26,7 @@ class EsteticistaController {
                         throw new Exception("Ação inválida.");
                 }
             } catch (Exception $e) {
-                header("Location:  /glow_schedule/esteticista/consultarEsteticista.php?status=error&message=" . urlencode($e->getMessage()));
+                header("Location:  /glow_schedule/esteticista/esteticistas.php?status=error&message=" . urlencode($e->getMessage()));
                 exit();
             }
         } elseif (isset($_GET['token'])) {
@@ -49,7 +49,7 @@ class EsteticistaController {
 
         try {
             if ($this->esteticista->inserir($this->esteticista, $this->esteticista->getSenha())) { 
-                $this->mensagem->setMessage("Perfil Atualizado", "esteticista inserido com sucesso!", "success", "../consultaresteticista");
+                $this->mensagem->setMessage("Perfil Atualizado", "esteticista inserido com sucesso!", "success", "../esteticistas.php");
                 exit();
             } else {
                 throw new Exception("Erro ao inserir esteticista.");
@@ -71,7 +71,7 @@ class EsteticistaController {
 
     private function listar() {
         $esteticistas = $this->esteticista->listar();
-        include $_SERVER['DOCUMENT_ROOT'] . '../glow_schedule/esteticista/consultaEsteticista.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '../glow_schedule/esteticista/esteticistas.php';
     }
 
     private function buscarPorToken($token) {
@@ -109,7 +109,7 @@ class EsteticistaController {
 
             $this->esteticista->setToken($token);
             if ($this->esteticista->atualizar()) {
-                $this->mensagem->setMessage("Sucesso", "Perfil atualizado com sucesso", "success", "../../esteticista/consultarEsteticista.php");
+                $this->mensagem->setMessage("Sucesso", "Perfil atualizado com sucesso", "success", "../../esteticista/esteticistas.php");
             } else {
                 throw new Exception("Erro ao atualizar perfil.");
             }

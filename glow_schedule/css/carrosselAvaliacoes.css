@@ -83,3 +83,50 @@
     background-color: #ac5474;
     color: #EDF0F2;
 }
+
+/* Estilização do Formulário */
+#form-selecao-esteticista {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#form-selecao-esteticista label {
+    font-size: 1.1rem;
+    font-weight:500;
+    margin-bottom: 8px;
+    display: block;
+    color: #18676C;
+}
+
+#form-selecao-esteticista select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+}
+
+#form-selecao-esteticista select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#form-selecao-esteticista option {
+    padding: 10px;
+}
+
+/* Adicionando um estilo para a opção 'Escolha...' */
+#form-selecao-esteticista option:first-child {
+    color: #bbb;
+}

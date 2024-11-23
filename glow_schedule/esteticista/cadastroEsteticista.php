@@ -32,6 +32,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Esteticista</title>
     <!-- Links externos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
@@ -39,31 +40,43 @@
     <link rel="stylesheet" href="../css/style.css">
     <!-- Estilização formulários de Perfis -->
     <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <!-- Link Js Navbar -->
+    <script src="../js/navbar.js"></script>
 </head>
 <body>
-    <!-- Início da Navbar -->
-    <nav class="navbar navbar-expand-lg">
+<!-- Início da Navbar -->
+<nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"> </a>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
             <div class="logo">
                 <a class="nav-link active" aria-current="page" href="home.php">Care Tones</a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                 <ul class="navbar-nav w-auto">
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="agenda.php">Agenda</a>
+                    <a class="nav-link active" aria-current="page" href="../atendente/visualizarConsultas.php">Consultas</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="cadastroEsteticista.php">Cadastro Esteticista</a>
+                    <a class="nav-link active" aria-current="page" href="../atendente/consultarEsteticista.php">Cadastrar Esteticistas</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
+                    <a class="nav-link active" aria-current="page" href="../atendente/consultarCliente.php">Cadastrar Cliente</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="/glow_schedule/controller/logout.php">Sair</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="/glow_schedule/procedimento/cadastrarProcedimento.php">cadastrarProcedimento</a>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado"><a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
+                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="/glow_schedule/agendamentoAtendente/agendamento.php" id="link_agendamentos_ativado">Agendamentos</a></button>
             </div>
         </div>
     </nav>

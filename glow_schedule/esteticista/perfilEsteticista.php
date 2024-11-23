@@ -6,6 +6,7 @@
 
     $conexaoMini = new Conexao();
     $conexao = $conexaoMini->getConexao();
+  
     $message = new Message($BASE_URL);
     $flashMsg = $message->getMessage();
 
@@ -59,13 +60,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav w-auto">
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="agenda.php">Agenda</a>
+                        <a class="nav-link active" aria-current="page" href="esteticistas.php">Profissionais</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="cadastroEsteticista.php">Cadastro Esteticista</a>
+                        <a class="nav-link active" aria-current="page" href="../procedmento/procedimento.php">Procedimentos</a>
                     </li>
                     <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
+                        <a class="nav-link active" aria-current="page" href="visualizarConsultas.php">Agenda</a>
+                    </li>
+                    <li class="nav-item pe-4 ps-4">
+                        <a class="nav-link active" aria-current="page" href="perfilEsteticista.php">Perfil</a>
                     </li>
                 </ul>
                 <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado"> <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>

@@ -72,7 +72,6 @@
         
         $resultado = $stmt->get_result();
         $atendente = $resultado->fetch_assoc();
-        
         $sql = "SELECT * FROM esteticista";
         $result = $conexao->query($sql);
 
@@ -101,7 +100,7 @@
                 ? "/glow_schedule/" . htmlspecialchars($row['foto_esteticista']) 
                 : "../iconesPerfil/perfilPadrao.png"; // URL da imagem padrão
                 // Exibe a foto do atendente com formatação
-                echo '<td class="text-center align-middle"><img src="' . $foto . '" alt="Foto do Atendente" id="consultar_fotos"></td>';
+                echo '<td class="text-center align-middle"><img src="' . $foto . '" alt="Foto do Esteticista" id="consultar_fotos"></td>';
                 echo '<td>' . htmlspecialchars($row['cpf_esteticista']) . '</td>';
                 echo '<td>' . htmlspecialchars($row['nome_esteticista']) . '</td>';
                 echo '<td>' . htmlspecialchars($row['apelido_esteticista']) . '</td>';

@@ -43,51 +43,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Perfil Cliente</title>
+    <!-- Início da Navbar -->
+    <title>Care Tones</title>
+    <!-- Ícone para navegadores modernos -->
+    <link rel="icon" href="../logo/Logo.png" type="image/png">
+    <!-- Ícone para navegadores antigos -->
+    <link rel="shortcut icon" href="../logo/Logo.png" type="image/x-icon">
     <!-- Links externos -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Estilização padrão do web site -->
     <link rel="stylesheet" href="../css/style.css">
     <!-- Estilização formulários de Perfis -->
     <link rel="stylesheet" href="../css/perfil.css">
+    <!-- Estilização Navbar -->
+    <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
     <!-- Início da Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"> </a>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
-            <div class="logo">
-                <a class="nav-link active" aria-current="page" href="home.php">Care Tones</a>
+    <header>
+        <nav class="nav-bar">
+            <a class="logo" href="#"><img src="../logo/Logo.png" class="logoIMG">Care Tones</a>
+            <ul class="nav-list">
+                <li><a href="visualizarDuvidas.php" class="nav">Dúvidas</a></li>
+                <li><a href="visualizarAvaliacoes.php" class="nav">Avaliações</a></li>
+                <li><a href="../procedimento/consultarProcedimento.php" class="nav">Procedimentos</a></li>
+                <li><a href="visualizarConsultas.php" class="nav">Agenda</a></li>
+                <li><a href="../agendamentoAtendente/agendamento.php" class="nav">Agendamento</a></li>
+            </ul>
+            <div class="dropdown">
+                <div class="login-icon">
+                    <a href="perfilAtendente.php">
+                        <i class="fa-solid fa-circle-user fa-xl" style="color: #fff;"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="perfilAtendente.php"><i class="fa-solid fa-user fa-sm" style="color: #cf6f7a;"></i> Perfil </a>
+                        <a href="../atendente/consultarCliente.php"><i class="fa-solid fa-users-line" style="color: #cf6f7a;"></i> Clientes </a>
+                        <a href="../atendente/consultarAtendente.php"><i class="fa-solid fa-user-tie" style="color: #cf6f7a;"></i> Atendentes</a>
+                        <a href="../atendente/consultarEsteticista.php"><i class="fa-solid fa-user-doctor" style="color: #cf6f7a;"></i> Profissionais </a>
+                        <a href="../procedimento/consultarProcedimento.php"><i class="fa-brands fa-shopify" style="color: #cf6f7a;"></i> Procedimentos </a>
+                        <a href="/glow_schedule/controller/logout.php"><i class="fa-solid fa-right-to-bracket fa-sm"></i> Sair</a>
+                    </div>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-                <ul class="navbar-nav w-auto">
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="agenda.php">Agenda</a>
-                    </li>
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="cadastroEsteticista.php">Cadastro Esteticista</a>
-                    </li>
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="FormularioDuvidas.php">Formulário de dúvidas</a>
-                    </li>
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="/glow_schedule/controller/logout.php">Sair</a>
-                    </li>
-                </ul>
-                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado" > <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
             </div>
-        </div>
-    </nav>
-    <!-- Fim da Navbar -->
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
     <h2>Editar Perfil</h2>
     <!-- Exibição do perfil para edição -->
     <section class="container">

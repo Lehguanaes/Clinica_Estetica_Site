@@ -31,7 +31,11 @@ if (session_status() == PHP_SESSION_NONE){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamento</title>
+    <title>Agendar Consultas</title>
+    <!-- Links externos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Estilização padrão do web site -->
     <link rel="stylesheet" href="../css/style.css">
     <!-- Bootstrap CSS -->
@@ -40,6 +44,15 @@ if (session_status() == PHP_SESSION_NONE){
     <link rel="stylesheet" href="../css/perfil.css">
     <!-- Link para o arquivo CSS -->
     <link rel="stylesheet" href="../css/styleAgendamento.css">
+    <link rel="icon" href="../logo/Logo.png" type="image/png">
+    <!-- Ícone para navegadores antigos -->
+    <link rel="shortcut icon" href="../logo/Logo.png" type="image/x-icon">
+    <!-- Estilização padrão do web site -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Estilização formulários de Perfis -->
+    <link rel="stylesheet" href="../css/perfil.css">
+    <!-- Estilização Navbar -->
+    <link rel="stylesheet" href="../css/navbar.css">
     <!-- Link para o arquivo JavaScript -->
     <script src="../js/agendamento.js" defer></script>
     <script>
@@ -141,27 +154,39 @@ if (session_status() == PHP_SESSION_NONE){
     </script>
 </head>
 <body>
+
     <!-- Início da Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand"><img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"></a>
-            <div class="logo">
-                <a class="nav-link active" aria-current="page" href="Home.html">Care Tones</a>
+    <header>
+        <nav class="nav-bar">
+            <a class="logo" href="#"><img src="../logo/Logo.png" class="logoIMG">Care Tones</a>
+            <ul class="nav-list">
+                <li><a href="../atendente/visualizarDuvidas.php" class="nav">Dúvidas</a></li>
+                <li><a href="../atendente/visualizarAvaliacoes.php" class="nav">Avaliações</a></li>
+                <li><a href="../procedimento/consultarProcedimento.php" class="nav">Procedimentos</a></li>
+                <li><a href="../atendente/visualizarConsultas.php" class="nav">Agenda</a></li>
+            </ul>
+            <div class="dropdown">
+                <div class="login-icon">
+                    <a href="perfilAtendente.php">
+                        <i class="fa-solid fa-circle-user fa-xl" style="color: #fff;"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="perfilAtendente.php"><i class="fa-solid fa-user fa-sm" style="color: #cf6f7a;"></i> Perfil </a>
+                        <a href="../atendente/consultarCliente.php"><i class="fa-solid fa-users-line" style="color: #cf6f7a;"></i> Clientes </a>
+                        <a href="../atendente/consultarAtendente.php"><i class="fa-solid fa-user-tie" style="color: #cf6f7a;"></i> Atendentes</a>
+                        <a href="../procedimento/consultarProcedimento.php"><i class="fa-brands fa-shopify" style="color: #cf6f7a;"></i> Procedimentos </a>
+                        <a href="../atendente/consultarEsteticista.php"><i class="fa-solid fa-user-doctor" style="color: #cf6f7a;"></i> Profissionais  </a>
+                        <a href="/glow_schedule/controller/logout.php"><i class="fa-solid fa-right-to-bracket fa-sm"></i> Sair</a>
+                    </div>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav w-auto">
-                    <li class="nav-item pe-4 ps-4"><a class="nav-link active" aria-current="page" href="Home.html">Home</a></li>
-                    <li class="nav-item pe-4 ps-4"><a class="nav-link active" aria-current="page" href="Sobre_nos.html">Sobre nós</a></li>
-                    <li class="nav-item pe-4 ps-4"><a class="nav-link active" aria-current="page" href="Procedimentos.html">Procedimentos</a></li>
-                    <li class="nav-item pe-4 ps-4"><a class="nav-link active" aria-current="page" href="Profissionais.html">Profissionais</a></li>
-                </ul>
-                <button type="button" class="btn btn-sm btn-link me-4 ms-4"><a href="Agendamentos.html" id="link_agendamentos">Agendamentos</a></button>
             </div>
-        </div>
-    </nav>
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
     <!-- Fim da Navbar -->
     <div class="container">
         <div class="calendar">

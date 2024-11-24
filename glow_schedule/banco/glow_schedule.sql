@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21-Nov-2024 às 19:24
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.1.2
+-- Tempo de geração: 24/11/2024 às 03:04
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `atendente`
+-- Estrutura para tabela `atendente`
 --
 
 CREATE TABLE `atendente` (
@@ -35,10 +35,10 @@ CREATE TABLE `atendente` (
   `email_atendente` varchar(50) NOT NULL,
   `senha_atendente` varchar(100) NOT NULL,
   `token_atendente` varchar(300) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `atendente`
+-- Despejando dados para a tabela `atendente`
 --
 
 INSERT INTO `atendente` (`cpf_atendente`, `nome_atendente`, `foto_atendente`, `telefone_atendente`, `email_atendente`, `senha_atendente`, `token_atendente`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `atendente` (`cpf_atendente`, `nome_atendente`, `foto_atendente`, `t
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `avaliacoes`
+-- Estrutura para tabela `avaliacoes`
 --
 
 CREATE TABLE `avaliacoes` (
@@ -56,13 +56,29 @@ CREATE TABLE `avaliacoes` (
   `estrelas_avaliacao` int(11) NOT NULL CHECK (`estrelas_avaliacao` between 1 and 5),
   `comentario_avaliacao` text DEFAULT NULL,
   `data_criacao_avaliacao` date NOT NULL,
-  `cpf_cliente` varchar(14) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `cpf_cliente` varchar(14) NOT NULL,
+  `avaliado` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `avaliacoes`
+--
+
+INSERT INTO `avaliacoes` (`id_avaliacao`, `estrelas_avaliacao`, `comentario_avaliacao`, `data_criacao_avaliacao`, `cpf_cliente`, `avaliado`) VALUES
+(1, 5, 'Excelente atendimento! Dr. Henrique foi muito atencioso e profissional.', '2024-11-23', '519.127.728-76', 'Dr. Henrique'),
+(2, 4, 'Ótimo serviço, mas o tempo de espera foi um pouco longo.', '2024-11-23', '999.555.599-99', 'Dr. Henrique'),
+(3, 5, 'Fiquei muito satisfeita com o resultado, o Dr. Henrique é incrível!', '2024-11-23', '519.127.728-76', 'Dr. Henrique'),
+(4, 3, 'Atendimento bom, mas esperava mais explicações sobre o procedimento.', '2024-11-23', '999.555.599-99', 'Dr. Henrique'),
+(5, 4, 'Gostei bastante, resultado natural e ótima orientação.', '2024-11-23', '519.127.728-76', 'Dr. Henrique'),
+(6, 5, 'Recomendo de olhos fechados! Muito cuidadoso e detalhista.', '2024-11-23', '999.555.599-99', 'Dr. Henrique'),
+(7, 2, 'O resultado ficou abaixo das minhas expectativas.', '2024-11-23', '519.127.728-76', 'Dr. Henrique'),
+(8, 4, 'Muito bom, apenas achei a consulta um pouco rápida.', '2024-11-23', '999.555.599-99', 'Dr. Henrique'),
+(9, 5, 'Dr. Henrique é excelente, minha pele ficou maravilhosa após o procedimento!', '2024-11-23', '519.127.728-76', 'Dr. Henrique');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cliente`
+-- Estrutura para tabela `cliente`
 --
 
 CREATE TABLE `cliente` (
@@ -73,21 +89,20 @@ CREATE TABLE `cliente` (
   `email_cliente` varchar(50) NOT NULL,
   `senha_cliente` varchar(100) NOT NULL,
   `token_cliente` varchar(300) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `cliente`
+-- Despejando dados para a tabela `cliente`
 --
 
 INSERT INTO `cliente` (`cpf_cliente`, `nome_cliente`, `foto_cliente`, `telefone_cliente`, `email_cliente`, `senha_cliente`, `token_cliente`) VALUES
-('123.123.122-22', 'cliente', 'uploads/PAPEL_LABORATÓRIOS.png', '(11) 91982-3912', 'cliente@gmail.com', '$2y$10$OMUPHh2eSGZJLglIcFUDKeKgQAIvIIVyoGkT8JsdjiC', 'aada8f2485e1a8157f7b2a1b775d7a48a6b68814fbdebd1b6afb704bda753323ab237e6131e9a77b8171219db53170691f46'),
 ('519.127.728-76', 'João Mota', 'uploads/atendendente.jfif', '(11) 93346-5766', 'mota@gmail.com', '$2y$10$s0L13Xwb2nD6k3FiyEl83ew9G6ul8ppdvnJw3n//8OZIc1GWTeiy6', '8a2b657275cf65c85e5263f249ca70f463eff4a01b341643bb2b93c241993cc41063fc7ed70804d47056402ca5d25b4e0497'),
 ('999.555.599-99', 'nino', 'uploads/WhatsApp Image 2024-06-19 at 21.39.52.jpeg', '(99) 95555-9999', 'ni@gmail.com', '$2y$10$8vUBCGTMDHOLc4cL3kxSDOYcgQQnoqMIWircHv88nBgsTi7fp6ze6', '95f4cde50e73b8623266b0627f80dcc622389c2214e270ab8228b17e95dc44bc0392d8924d0cbe8b66876499726ef55d7e0e');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `consulta`
+-- Estrutura para tabela `consulta`
 --
 
 CREATE TABLE `consulta` (
@@ -97,12 +112,12 @@ CREATE TABLE `consulta` (
   `cpf_esteticista` varchar(14) NOT NULL,
   `id_procedimento` int(11) NOT NULL,
   `cpf_cliente` varchar(14) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `esteticista`
+-- Estrutura para tabela `esteticista`
 --
 
 CREATE TABLE `esteticista` (
@@ -120,10 +135,10 @@ CREATE TABLE `esteticista` (
   `email_esteticista` varchar(50) NOT NULL,
   `senha_esteticista` varchar(100) NOT NULL,
   `token_esteticista` varchar(300) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `esteticista`
+-- Despejando dados para a tabela `esteticista`
 --
 
 INSERT INTO `esteticista` (`cpf_esteticista`, `nome_esteticista`, `foto_esteticista`, `apelido_esteticista`, `telefone_esteticista`, `formacao_esteticista`, `descricao_p_esteticista`, `descricao_g_esteticista`, `instagram_esteticista`, `facebook_esteticista`, `linkedin_esteticista`, `email_esteticista`, `senha_esteticista`, `token_esteticista`) VALUES
@@ -139,17 +154,17 @@ INSERT INTO `esteticista` (`cpf_esteticista`, `nome_esteticista`, `foto_estetici
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `esteticista_procedimento`
+-- Estrutura para tabela `esteticista_procedimento`
 --
 
 CREATE TABLE `esteticista_procedimento` (
   `id` int(11) NOT NULL,
   `cpf_esteticista` varchar(14) DEFAULT NULL,
   `id_procedimento` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `esteticista_procedimento`
+-- Despejando dados para a tabela `esteticista_procedimento`
 --
 
 INSERT INTO `esteticista_procedimento` (`id`, `cpf_esteticista`, `id_procedimento`) VALUES
@@ -177,32 +192,38 @@ INSERT INTO `esteticista_procedimento` (`id`, `cpf_esteticista`, `id_procediment
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `procedimento`
+-- Estrutura para tabela `procedimento`
 --
 
 CREATE TABLE `procedimento` (
   `id_procedimento` int(11) NOT NULL,
-  `nome_procedimento` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nome_procedimento` varchar(100) NOT NULL,
+  `foto_procedimento` varchar(300) DEFAULT NULL,
+  `duracao_procedimento` varchar(50) DEFAULT NULL,
+  `manutencao_procedimento` varchar(300) DEFAULT NULL,
+  `descricao_p_procedimento` varchar(300) DEFAULT NULL,
+  `descricao_g_procedimento` varchar(300) DEFAULT NULL,
+  `preco_procedimento` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `procedimento`
+-- Despejando dados para a tabela `procedimento`
 --
 
-INSERT INTO `procedimento` (`id_procedimento`, `nome_procedimento`) VALUES
-(1, 'Botox'),
-(2, 'Hidratação'),
-(3, 'Radiofrequência'),
-(4, 'Redução de rugas'),
-(5, 'Limpeza de Pele'),
-(6, 'Peeling químico'),
-(7, 'Massagem corporal'),
-(8, 'Bio-estimulador de colágeno');
+INSERT INTO `procedimento` (`id_procedimento`, `nome_procedimento`, `foto_procedimento`, `duracao_procedimento`, `manutencao_procedimento`, `descricao_p_procedimento`, `descricao_g_procedimento`, `preco_procedimento`) VALUES
+(1, 'Botox', 'uploads/6742816164ef1.jpg', '1 h', 'Manutenção a cada 4 a 6 meses.', '\r\nEste procedimento consiste na aplicação do ácido polilático na região desejada.', 'O botox é uma substância que pode ser utilizada no tratamento de diversas doenças, como microcefalia, paraplegia e espasmos musculares, isso porque é capaz de impedir a contração muscular e atua promovendo a paralisia temporária do músculo, o que ajuda a reduzir os sintomas relacionados com essas si', '2.100'),
+(2, 'Hidratação', 'uploads/674281f758c9c.jpg', '40 min', 'Importante sempre se manter hidratada.', 'Uma pele hidratada é um sinônimo de pele saudável, uma vez que o equilíbrio é atingido.', 'A hidratação da pele é muito importante e consiste em fornecer água e nutrientes para as células da pele, evitando o ressecamento, a descamação, a irritação e o envelhecimento precoce.', 'O preço varia em rel'),
+(3, 'Radiofrequência', 'uploads/6742827a8574e.jpg', 'Duração em média de 7 a 14 dias.', 'Aplicação varia da indicação do profissional.', 'Radiofrequência estética é uma terapia que, através de um aparelho de radiofrequência...', 'A radiofrequência é uma técnica terapêutica utilizada em diversos tratamentos, incluindo condições musculares e problemas de pele, como flacidez, celulite e rugas. Através do uso de ondas eletromagnéticas de alta frequência, essa técnica gera um aquecimento controlado nas camadas mais profundas da p', 'R$ 70,00'),
+(4, 'Redução de rugas', 'uploads/6742838a07166.jpg', 'Varia se o procedimento é cirúrgico ou químico.', 'A aplicação regular – a cada 4 ou 6 meses – da toxina botulínica, por um profissional.', 'Recurso estético para a redução de rugas e linhas de expressão na região aplicada.', 'Para eliminar as rugas do rosto, pescoço e colo é recomendado usar cremes antirrugas e, em alguns casos, tratamentos estéticos, como microagulhamento, radiofrequência e peeling com ácidos, por exemplo, que devem ser feitos por um profissional capacitado.', 'O preço varia, venha'),
+(5, 'Limpeza de Pele', 'uploads/674283fe454e3.jpg', 'Aplicação leva em média 1 hora.', 'Precisa ser feita de 2 em 2 meses.', 'Capaz de deixar a pele mais saudável e mais bonita, proporcionando possível bem-estar.', 'A limpeza de pele profunda é indicada para remover cravos, impurezas, células mortas e milium da pele, que se caracteriza pelo aparecimento de pequenas bolinhas brancas ou amareladas na pele, principalmente do rosto.', 'O preço varia, venha'),
+(6, 'Peeling químico', 'uploads/67428494ce5c3.jpg', 'Aplicação varia da indicação do profissional.', 'Duração em média de 7 a 14 dias.', 'O peeling é uma das técnicas de clareamento da pele que utiliza ácidos controlados.', 'O peeling químico é um tipo de tratamento estético que é feito com a aplicação de ácidos sobre a pele para retirar as camadas danificadas e promover o crescimento de uma camada lisa.', 'O preço varia, venha'),
+(7, 'Massagem corporal', 'uploads/6742852470a71.jpg', '1h', 'Por não ser um procedimento que faz algum tipo de tratamento, não existe tempo de manutenção.', 'Para você que precisa desestressar e cuidar do corpo.', 'A massagem corporal é uma técnica terapêutica que proporciona alívio de tensões musculares, melhora a circulação sanguínea e promove o bem-estar físico e mental.', 'O preço varia, venha'),
+(8, 'Bio-estimulador de colágeno', 'uploads/6742857d620b8.jpg', 'Aplicação leva em média de 45 minutos.', 'Manutenção ao menos 1 vez ao ano, mantendo o estímulo.', 'É uma substância que alcança camadas profundas da pele.', 'Os bioestimuladores são substâncias que estimulam a produção natural e biológica de colágeno quando injetadas em determinadas camadas da pele.', 'O preço varia, venha');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `prontuario`
+-- Estrutura para tabela `prontuario`
 --
 
 CREATE TABLE `prontuario` (
@@ -212,10 +233,10 @@ CREATE TABLE `prontuario` (
   `tipo_pele` varchar(50) NOT NULL,
   `observacoes_cliente` varchar(300) NOT NULL,
   `alergias` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `prontuario`
+-- Despejando dados para a tabela `prontuario`
 --
 
 INSERT INTO `prontuario` (`id_prontuario`, `cpf_cliente`, `cor_pele`, `tipo_pele`, `observacoes_cliente`, `alergias`) VALUES
@@ -228,28 +249,28 @@ INSERT INTO `prontuario` (`id_prontuario`, `cpf_cliente`, `cor_pele`, `tipo_pele
 --
 
 --
--- Índices para tabela `atendente`
+-- Índices de tabela `atendente`
 --
 ALTER TABLE `atendente`
   ADD PRIMARY KEY (`cpf_atendente`),
   ADD UNIQUE KEY `token_atendente` (`token_atendente`);
 
 --
--- Índices para tabela `avaliacoes`
+-- Índices de tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
   ADD PRIMARY KEY (`id_avaliacao`),
   ADD KEY `fk_cliente_avaliacao` (`cpf_cliente`);
 
 --
--- Índices para tabela `cliente`
+-- Índices de tabela `cliente`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`cpf_cliente`),
   ADD UNIQUE KEY `token_cliente` (`token_cliente`);
 
 --
--- Índices para tabela `consulta`
+-- Índices de tabela `consulta`
 --
 ALTER TABLE `consulta`
   ADD PRIMARY KEY (`id_consulta`),
@@ -258,14 +279,14 @@ ALTER TABLE `consulta`
   ADD KEY `cpf_cliente` (`cpf_cliente`);
 
 --
--- Índices para tabela `esteticista`
+-- Índices de tabela `esteticista`
 --
 ALTER TABLE `esteticista`
   ADD PRIMARY KEY (`cpf_esteticista`),
   ADD UNIQUE KEY `token_esteticista` (`token_esteticista`);
 
 --
--- Índices para tabela `esteticista_procedimento`
+-- Índices de tabela `esteticista_procedimento`
 --
 ALTER TABLE `esteticista_procedimento`
   ADD PRIMARY KEY (`id`),
@@ -273,27 +294,27 @@ ALTER TABLE `esteticista_procedimento`
   ADD KEY `id_procedimento` (`id_procedimento`);
 
 --
--- Índices para tabela `procedimento`
+-- Índices de tabela `procedimento`
 --
 ALTER TABLE `procedimento`
   ADD PRIMARY KEY (`id_procedimento`);
 
 --
--- Índices para tabela `prontuario`
+-- Índices de tabela `prontuario`
 --
 ALTER TABLE `prontuario`
   ADD PRIMARY KEY (`id_prontuario`),
   ADD KEY `cpf_cliente` (`cpf_cliente`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
-  MODIFY `id_avaliacao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_avaliacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `consulta`
@@ -320,17 +341,17 @@ ALTER TABLE `prontuario`
   MODIFY `id_prontuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `avaliacoes`
+-- Restrições para tabelas `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
   ADD CONSTRAINT `fk_cliente_avaliacao` FOREIGN KEY (`cpf_cliente`) REFERENCES `cliente` (`cpf_cliente`);
 
 --
--- Limitadores para a tabela `consulta`
+-- Restrições para tabelas `consulta`
 --
 ALTER TABLE `consulta`
   ADD CONSTRAINT `consulta_ibfk_1` FOREIGN KEY (`cpf_esteticista`) REFERENCES `esteticista` (`cpf_esteticista`),

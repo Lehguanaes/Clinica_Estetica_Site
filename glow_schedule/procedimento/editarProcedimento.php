@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../css/perfil.css">
     <!-- Estilização padrão do web site -->
     <link rel="stylesheet" href="../css/style.css">
+      <!-- Estilização Navbar -->
+      <link rel="stylesheet" href="/glow_schedule/css/navbar.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
@@ -152,25 +154,25 @@
                 <div class="column">
                     <div class="input-box">
                         <label for="manutencao_procedimento">Manutenção:</label>
-                        <input type="text" class="form-control" id="manutencao_procedimento" name="manutencao_procedimento" placeholder="Digite a manutenção" value="<?php echo htmlspecialchars($procedimentoData['manutencao_procedimento']); ?>">
+                        <input type="text" class="form-control" id="manutencao_procedimento" name="manutencao_procedimento" placeholder="Digite a manutenção" value="<?php echo htmlspecialchars($procedimentoData['manutencao_procedimento']); ?>" required>
                     </div>
                 </div>
                 <div class="column">
                     <div class="input-box">
                         <label for="descricao_p_procedimento">Descrição Pequena:</label>
-                        <textarea class="form-control" id="descricao_p_procedimento" name="descricao_p_procedimento" placeholder="Digite uma breve descrição"><?php echo htmlspecialchars($procedimentoData['descricao_p_procedimento']); ?></textarea>
+                        <textarea class="form-control" id="descricao_p_procedimento" name="descricao_p_procedimento" placeholder="Digite uma breve descrição"><?php echo htmlspecialchars($procedimentoData['descricao_p_procedimento']); ?></textarea required>
                     </div>
                 </div>
                 <div class="column">
                     <div class="input-box">
                         <label for="descricao_g_procedimento">Descrição Grande:</label>
-                        <textarea class="form-control" id="descricao_g_procedimento" name="descricao_g_procedimento" placeholder="Digite uma descrição completa"><?php echo htmlspecialchars($procedimentoData['descricao_g_procedimento']); ?></textarea>
+                        <textarea class="form-control" id="descricao_g_procedimento" name="descricao_g_procedimento" placeholder="Digite uma descrição completa"><?php echo htmlspecialchars($procedimentoData['descricao_g_procedimento']); ?></textarea required>
                     </div>
                 </div>
                 <div class="column">
                     <div class="input-box">
                         <label for="preco_procedimento">*Preço:</label>
-                        <input type="number" class="form-control" id="preco_procedimento" name="preco_procedimento" placeholder="Digite o preço do procedimento" value="<?php echo htmlspecialchars($procedimentoData['preco_procedimento']); ?>" required>
+                        <input type="text" class="form-control" id="preco_procedimento" name="preco_procedimento" placeholder="Digite o preço do procedimento" value="<?php echo htmlspecialchars($procedimentoData['preco_procedimento']); ?>" required>
                     </div>
                 </div>
             </div>

@@ -28,9 +28,9 @@ if (isset($_GET['mes']) && isset($_GET['ano'])) {
 
     echo "<table>";
     echo "<tr>
-            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesAnterior, $anoAnterior)'>&lt;&lt;</span></th>
+            <th id='titulo_calendario' ><span class='prev-next' onclick='carregarMes($mesAnterior, $anoAnterior)'><i class='fa-solid fa-arrow-left-long'></i></span></th>
             <th id='titulo_calendario' colspan='5'>" . ucfirst($nomeMes) . " $anoAtual</th>
-            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesProximo, $anoProximo)'>&gt;&gt;</span></th>
+            <th id='titulo_calendario' ><span class='prev-next' onclick='carregarMes($mesProximo, $anoProximo)'><i class='fa-solid fa-arrow-right-long'></i></span></th>
         </tr>";
     echo "<tr>
             <th id='nome_dia'>Dom</th>
@@ -58,12 +58,11 @@ if (isset($_GET['mes']) && isset($_GET['ano'])) {
         if ($data < $hoje) {
             echo "<td class='date-select' style='color: #ccc;'>$dia</td>";
         } elseif ($dia == $diaAtual && $mesAtual == date('m') && $anoAtual == date('Y')) {
-            echo "<td class='today date-select' onclick=\"selecionarData('$data', this)\">$dia</td>";
+            echo "<td class='today date-select' onclick=\"selecionarAData('$data', this)\">$dia</td>";
         } else {
-            echo "<td class='date-select' onclick=\"selecionarData('$data', this)\">$dia</td>";
+            echo "<td class='date-select' onclick=\"selecionarAData('$data', this)\">$dia</td>";
         }
     }
-
     echo "</tr>";
     echo "</table>";
 }

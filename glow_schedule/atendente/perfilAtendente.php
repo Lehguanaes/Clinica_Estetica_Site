@@ -54,7 +54,7 @@
             <ul class="nav-list">
                 <li><a href="visualizarDuvidas.php" class="nav">Dúvidas</a></li>
                 <li><a href="visualizarAvaliacoes.php" class="nav">Avaliações</a></li>
-                <li><a href="../procedimento/consultarProcedimento.php" class="nav">Procedimentos</a></li>
+                <li><a href="visualizarConsultas.php" class="nav">Procedimentos</a></li>
                 <li><a href="visualizarConsultas.php" class="nav">Agenda</a></li>
                 <li><a href="../agendamentoAtendente/agendamento.php" class="nav">Agendamento</a></li>
             </ul>
@@ -112,6 +112,7 @@
             <a href="http://localhost/glow_schedule/atendente/editarAtendente.php?cpf_atendente=<?php echo htmlspecialchars($atendente['cpf_atendente']); ?>" class="btn btn-primary" id="editar_perfil_button">Editar Perfil</a>
         </div>
     </div>
+    <!-- Inicio Footer -->
     <footer>
         <div id="footer_content">
             <div id="footer_contacts">
@@ -181,9 +182,7 @@
         </div>
     </footer>
 </body>
-<!-- Link Js Navbar -->
 <script src="../js/navbar.js"></script>
-<!-- Link Sweet Alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--  php da mensagem; se a mensagem não estiver vazia, ela é inserida na página  -->
 <?php if (!empty($flashMsg["msg"])): ?>

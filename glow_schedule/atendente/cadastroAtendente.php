@@ -108,6 +108,75 @@
         </form>
     </section>
     <!-- Fim formulário de cadastro -->
+         <!-- Inicio Footer -->
+    <footer>
+        <div id="footer_content">
+            <div id="footer_contacts">
+                <a class="navbar-brand" href="#"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"></a>
+                <h3>Care Tones</h3>  
+                <div id="footer_social_media">
+                    <a href="#" class="footer-link" id="instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="footer-link" id="facebook">
+                        <i class="fa-brands fa-facebook-f fa-xs"></i>
+                    </a>
+                    <a href="#" class="footer-link" id="whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="footer-link" id="localizacao">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </a>
+                </div>
+            </div>
+            <ul class="footer-list">
+                <li>
+                    <h4 id="subtitulo-footer">Cadastros</h4>
+                </li>
+                <li>
+                    <a href="cadastrarClienteAtendente.php" class="footer-link">Cadastrar Cliente</a>
+                </li>
+                <li>
+                    <a href="cadastroAtendente.php" class="footer-link">Cadastrar Atendentes</a>
+                </li>
+                <li>
+                    <a href="cadastroEsteticista.php" class="footer-link">Cadastrar Profissionais</a>
+                </li>
+            </ul>
+            <ul class="footer-list">
+                <li>
+                    <h4 id="subtitulo-footer">Interesses</h4>
+                </li>
+                <li>
+                    <a href="visualizarConsultas.php" class="footer-link">Agenda</a>
+                </li>
+                <li>
+                    <a href="visualizarAvaliacoes.php" class="footer-link">Avaliações</a>
+                </li>
+                <li>
+                    <a href="visualizarDuvidas.php" class="footer-link">Dúvidas</a>
+                </li>
+            </ul>
+            <div id="footer_subscribe">
+                <h4 id="subtitulo-footer">Clínica</h4>
+                <p>
+                    Venha visualizar o que temos!
+                </p>
+                <ul class="footer-list">
+                <li>
+                    <a href="../esteticista/esteticistas.php" class="footer-link">Profissionais</a>
+                </li>
+                <li>
+                    <a href="../procedimento/procedimentos.php" class="footer-link">Procedimentos</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer_copyright">
+            &#169
+            2024 all rights reserved
+        </div>
+    </footer>
     <script>
         // Função para pré-visualizar a imagem selecionada do perfil
         function previewProfilePic() {

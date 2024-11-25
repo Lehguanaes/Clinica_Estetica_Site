@@ -28,9 +28,9 @@ if (isset($_GET['mes']) && isset($_GET['ano'])) {
 
     echo "<table>";
     echo "<tr>
-            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesAnterior, $anoAnterior)'>&lt;&lt;</span></th>
+            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesAnterior, $anoAnterior)'><i class='fa-solid fa-arrow-left'></i></span></th>
             <th id='titulo_calendario' colspan='5'>" . ucfirst($nomeMes) . " $anoAtual</th>
-            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesProximo, $anoProximo)'>&gt;&gt;</span></th>
+            <th id='titulo_calendario'><span class='prev-next' onclick='carregarMes($mesProximo, $anoProximo)'><i class='fa-solid fa-arrow-right'></i></span></th>
         </tr>";
     echo "<tr>
             <th id='nome_dia'>Dom</th>

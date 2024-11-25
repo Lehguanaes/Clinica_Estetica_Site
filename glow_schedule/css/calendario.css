@@ -27,12 +27,21 @@ td {
     color: #fff;
     border-color: #1A7F83 !important;
     height: 11px;
+    transition: 0.6s;
+}
+
+#titulo_calendario:hover{
+    color: #CF6F7A;
 }
 
 #nome_dia{
     background-color: #fff ;
     color:  #1A7F83;
     transition: 0.6s;
+}
+
+#nome_dia:hover{
+    color: #CF6F7A;
 }
 
 /* Estilo para o dia atual no calendário */
@@ -46,6 +55,8 @@ td {
 .selected {
     background-color: #1A7F83 !important; /* Define um fundo azul esverdeado para a célula selecionada */
     color: white; /* Define a cor do texto como branco */
+    transform: scale(1); /* Destaque maior para a célula selecionada */
+    transition: transform 0.3s ease, background-color 0.3s ease
 }
 
 /* Estilo para as setas de navegação (anterior e próximo mês) */
@@ -53,10 +64,12 @@ td {
     cursor: pointer; /* Indica que o elemento é clicável */
 }
 
-i{
-    color: #fff;
+#titulo_calendario i{
+    color: #fff; 
+    transition: 0.6s;
 }
-i:hover{
+
+#titulo_calendario i:hover{
     color: #CF6F7A;
 } 
 /* Estilo para as células de data clicáveis no calendário */
@@ -65,11 +78,18 @@ i:hover{
     padding: 5px; /* Adiciona um espaçamento interno nas células de datas */
     height: 30px;
     width: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+#calendario-dinamico {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(0);
+    opacity: 1;
 }
 
 /* Estilo para as células de data quando o mouse passa por cima (hover) */
 .date-select:hover {
     background-color: #ddd; /* Muda o fundo para um cinza mais escuro ao passar o mouse */
+    transform: scale(1.1); /* Aumenta o tamanho ao passar o mouse */
 }
 .consulta-titulo {
     color: #CF6F7A;

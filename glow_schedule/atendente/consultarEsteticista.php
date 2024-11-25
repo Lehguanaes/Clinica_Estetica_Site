@@ -131,7 +131,7 @@
                 echo '<td>' . htmlspecialchars($row['email_esteticista']) . '</td>';
                 echo '<td>' . htmlspecialchars($row['telefone_esteticista']) . '</td>';
                 echo '<td>';
-                echo '<a href="../esteticista/editarEsteticistaAtendente.php?token_esteticista=' . urlencode($row['token_esteticista']) . '" class="btn btn-primary" id="editar_consultar_button">Perfil</a> ';
+                echo '<a href="../atendente/editarEsteticistaAtendente.php?token_esteticista=' . urlencode($row['token_esteticista']) . '" class="btn btn-primary" id="editar_consultar_button">Perfil</a> ';
                 echo '</td>';
                 echo '</tr>';
             }

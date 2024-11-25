@@ -4,31 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Care Tones</title>
-    <!-- Ícone para navegadores modernos -->
+    <!-- Ícones -->
     <link rel="icon" href="../logo/Logo.png" type="image/png">
-    <!-- Ícone para navegadores antigos -->
     <link rel="shortcut icon" href="../logo/Logo.png" type="image/x-icon">
-    <!-- Links externos -->
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <!-- Estilização padrão do web site -->
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- SwiperJS CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+
+    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Estilização formulários de Perfis -->
     <link rel="stylesheet" href="../css/perfil.css">
-    <!-- Estilização Filtro -->
     <link rel="stylesheet" href="../css/filtro.css">
-    <!-- Estilização Avaliações -->
     <link rel="stylesheet" href="../css/carrosselAvaliacoes.css">
-    <!-- Estilização Navbar -->
     <link rel="stylesheet" href="../css/navbar.css">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-    <!-- Início da Navbar -->
+    <!-- Navbar -->
     <header>
         <nav class="nav-bar">
-            <a class="logo" href="#"><img src="../logo/Logo.png" class="logoIMG">Care Tones</a>
+            <a class="logo" href="#">
+                <img src="../logo/Logo.png" class="logoIMG">Care Tones
+            </a>
             <ul class="nav-list">
                 <li><a href="visualizarDuvidas.php" class="nav">Dúvidas</a></li>
                 <li><a href="visualizarAvaliacoes.php" class="nav">Avaliações</a></li>
@@ -42,14 +49,14 @@
                         <i class="fa-solid fa-circle-user fa-xl" style="color: #fff;"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="perfilAtendente.php"><i class="fa-solid fa-user fa-sm" style="color: #cf6f7a;"></i> Perfil </a>
-                        <a href="../atendente/consultarCliente.php"><i class="fa-solid fa-users-line" style="color: #cf6f7a;"></i> Clientes </a>
-                        <a href="../atendente/consultarAtendente.php"><i class="fa-solid fa-user-tie" style="color: #cf6f7a;"></i> Atendentes</a>
-                        <a href="../atendente/consultarEsteticista.php"><i class="fa-solid fa-user-doctor" style="color: #cf6f7a;"></i> Profissionais </a>
-                        <a href="../procedimento/consultarProcedimento.php"><i class="fa-brands fa-shopify" style="color: #cf6f7a;"></i> Procedimentos </a>
+                        <a href="perfilAtendente.php"><i class="fa-solid fa-user fa-sm"></i> Perfil</a>
+                        <a href="../atendente/consultarCliente.php"><i class="fa-solid fa-users-line"></i> Clientes</a>
+                        <a href="../atendente/consultarAtendente.php"><i class="fa-solid fa-user-tie"></i> Atendentes</a>
+                        <a href="../atendente/consultarEsteticista.php"><i class="fa-solid fa-user-doctor"></i> Profissionais</a>
+                        <a href="../procedimento/consultarProcedimento.php"><i class="fa-brands fa-shopify"></i> Procedimentos</a>
                         <a href="/glow_schedule/controller/logout.php"><i class="fa-solid fa-right-to-bracket fa-sm"></i> Sair</a>
                     </div>
-            </div>
+                </div>
             </div>
             <div class="mobile-menu">
                 <div class="line1"></div>
@@ -58,11 +65,12 @@
             </div>
         </nav>
     </header>
-    <!-- Fim da Navbar -->
+
     <!-- Título -->
     <h2>Avaliações da Clínica</h2>
-        <!-- Swiper para avaliações -->
-        <div class="swiper">
+
+    <!-- Carrossel de Avaliações da Clínica -->
+    <div class="swiper">
         <div class="swiper-wrapper">
             <?php
             require_once $_SERVER['DOCUMENT_ROOT'] . '/glow_schedule/controller/conexao.php';
@@ -98,13 +106,13 @@
 
                 if ($result_avaliacoes->num_rows > 0) {
                     while ($avaliacao = $result_avaliacoes->fetch_assoc()) {
+                        $foto_cliente = isset($avaliacao['foto_cliente']) && file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/uploads/" . $avaliacao['foto_cliente'])
+                            ? "/glow_schedule/uploads/" . htmlspecialchars($avaliacao['foto_cliente'])
+                            : "../iconesPerfil/perfilPadrao.png";
+
                         echo '<div class="swiper-slide">';
                         echo '    <div class="card-review">';
-                        echo '        <img src="' . 
-                        (isset($avaliacao['foto_cliente']) && file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/uploads/" . $avaliacao['foto_cliente']) 
-                            ? "/glow_schedule/uploads/" . htmlspecialchars($avaliacao['foto_cliente']) 
-                            : "../iconesPerfil/perfilPadrao.png") . 
-                        '" alt="Foto do Cliente" class="avatar mb-3">';
+                        echo '        <img src="' . $foto_cliente . '" alt="Foto do Cliente" class="avatar mb-3">';
                         echo '        <p class="text-muted small">' . formatarData($avaliacao['data_criacao_avaliacao']) . '</p>';
                         echo '        <h5 class="card-title">' . htmlspecialchars($avaliacao['nome_cliente']) . '</h5>';
                         echo '        <p class="card-text">' . htmlspecialchars($avaliacao['comentario_avaliacao']) . '</p>';
@@ -133,6 +141,8 @@
             $conn->close();
             ?>
         </div>
+        <div class="swiper-pagination"></div>
+        <div>&nbsp;</div>
     </div>
     <h2>Avaliações dos Profissionais</h2>
     <!-- Formulário para seleção de esteticista -->
@@ -172,86 +182,15 @@
     <!-- Swiper para exibir as avaliações -->
     <div class="swiper">
         <div class="swiper-wrapper" id="avaliacoes-container">
-            <div class="swiper-slide">
-            </div>
+            <!-- Slides serão carregados dinamicamente pelo JavaScript -->
         </div>
+        <div class="swiper-pagination"></div>
+        <div>&nbsp;</div>
     </div>
-    <!-- Inicio Footer -->
-    <footer>
-        <div id="footer_content">
-            <div id="footer_contacts">
-                <a class="navbar-brand" href="#"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"></a>
-                <h3>Care Tones</h3>  
-                <div id="footer_social_media">
-                    <a href="#" class="footer-link" id="instagram">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a href="#" class="footer-link" id="facebook">
-                        <i class="fa-brands fa-facebook-f fa-xs"></i>
-                    </a>
-                    <a href="#" class="footer-link" id="whatsapp">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-                    <a href="#" class="footer-link" id="localizacao">
-                        <i class="fa-solid fa-location-dot"></i>
-                    </a>
-                </div>
-            </div>
-            <ul class="footer-list">
-                <li>
-                    <h4 id="subtitulo-footer">Cadastros</h4>
-                </li>
-                <li>
-                    <a href="cadastrarClienteAtendente.php" class="footer-link">Cadastrar Cliente</a>
-                </li>
-                <li>
-                    <a href="cadastroAtendente.php" class="footer-link">Cadastrar Atendentes</a>
-                </li>
-                <li>
-                    <a href="cadastroEsteticista.php" class="footer-link">Cadastrar Profissionais</a>
-                </li>
-            </ul>
-            <ul class="footer-list">
-                <li>
-                    <h4 id="subtitulo-footer">Interesses</h4>
-                </li>
-                <li>
-                    <a href="visualizarConsultas.php" class="footer-link">Agenda</a>
-                </li>
-                <li>
-                    <a href="visualizarAvaliacoes.php" class="footer-link">Avaliações</a>
-                </li>
-                <li>
-                    <a href="visualizarDuvidas.php" class="footer-link">Dúvidas</a>
-                </li>
-            </ul>
-            <div id="footer_subscribe">
-                <h4 id="subtitulo-footer">Clínica</h4>
-                <p>
-                    Venha visualizar o que temos!
-                </p>
-                <ul class="footer-list">
-                <li>
-                    <a href="../esteticista/esteticistas.php" class="footer-link">Profissionais</a>
-                </li>
-                <li>
-                    <a href="../procedimento/procedimentos.php" class="footer-link">Procedimentos</a>
-                </li>
-                </ul>
-            </div>
-        </div>
-        <div id="footer_copyright">
-            &#169
-            2024 all rights reserved
-        </div>
-    </footer>
-    <!-- SwiperJS Script -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <!-- Link Sweet Alert -->
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Link Js Carrossel -->
     <script src="../js/carrosselAvaliacao.js"></script>
-    <!-- Link Js Navbar -->
     <script src="../js/navbar.js"></script>
     <script>
         $(document).on('click', '.delete-btn', function() {
@@ -263,38 +202,35 @@
                 icon: 'warning',
                 iconColor: '#CF6F7A',
                 showCancelButton: true,
-                showCancelButton: true,
-                confirmButtonColor: '#1A7F83',
-                cancelButtonColor: '#CF6F7A',
+                confirmButtonColor: '#CF6F7A',
+                cancelButtonColor: '#8a8a8a',
                 confirmButtonText: 'Sim, deletar!',
-                cancelButtonText: 'Cancelar',
+                cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: 'deletarAvaliacao.php',
+                        url: 'deletarAvaliacoes.php',
                         type: 'POST',
-                        data: { id: idAvaliacao },
+                        data: { id_avaliacao: idAvaliacao },
                         success: function(response) {
-                            if (response === 'sucesso') {
-                                Swal.fire(
-                                    'Deletado!',
-                                    'A avaliação foi deletada.',
-                                    'success'
-                                ).then(() => location.reload());
-                            } else {
-                                Swal.fire(
-                                    'Erro!',
-                                    'Não foi possível deletar a avaliação.',
-                                    'error'
-                                );
-                            }
+                            Swal.fire({
+                                width: '450px',
+                                title: 'Deletado!',
+                                text: 'A avaliação foi excluída com sucesso.',
+                                icon: 'success',
+                                iconColor: '#CF6F7A',
+                                confirmButtonColor: '#CF6F7A'
+                            }).then(() => location.reload());
                         },
                         error: function() {
-                            Swal.fire(
-                                'Erro!',
-                                'Houve um problema com a solicitação.',
-                                'error'
-                            );
+                            Swal.fire({
+                                width: '450px',
+                                title: 'Erro!',
+                                text: 'Não foi possível deletar a avaliação.',
+                                icon: 'error',
+                                iconColor: '#CF6F7A',
+                                confirmButtonColor: '#CF6F7A'
+                            });
                         }
                     });
                 }

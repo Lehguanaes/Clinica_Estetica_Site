@@ -39,18 +39,8 @@ try {
 
     // Função para formatar a data
     function formatarData($data) {
-        $meses = [
-            '01' => 'janeiro', '02' => 'fevereiro', '03' => 'março',
-            '04' => 'abril', '05' => 'maio', '06' => 'junho',
-            '07' => 'julho', '08' => 'agosto', '09' => 'setembro',
-            '10' => 'outubro', '11' => 'novembro', '12' => 'dezembro'
-        ];
-        
-        $dia = date('d', strtotime($data));
-        $mes = $meses[date('m', strtotime($data))];
-        $ano = date('Y', strtotime($data));
-        
-        return "{$dia} de {$mes} de {$ano}";
+        // Certifique-se de que o formato de data seja ISO 8601 (YYYY-MM-DDTHH:MM:SS)
+        return date('Y-m-d\TH:i:s', strtotime($data));
     }
 
     // Array para armazenar as avaliações

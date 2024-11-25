@@ -56,7 +56,7 @@
                 <div class="line2"></div>
                 <div class="line3"></div>
             </div>
-        </nav>
+        </nav> 
     </header>
     <!-- Fim da Navbar -->
     <div id="Duvidas">

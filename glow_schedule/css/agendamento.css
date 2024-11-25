@@ -1,0 +1,308 @@
+body {
+    font-family: Arial, sans-serif; /* Define a fonte da página como Arial, com uma alternativa sans-serif */
+}
+
+/* Estilo para o container principal que contém o calendário e os horários */
+.container {
+    display: flex; /* Define um layout flexível para posicionar os elementos */
+    justify-content: space-between; /* Distribui os elementos uniformemente com espaço entre eles */
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+/* Estilo para as seções de calendário e horários */
+.calendar, .horarios {
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius: 5px; /* Arredonda as bordas */
+    background-color: #fff; /* Define o fundo branco */
+    width: 50%; /* Define a largura de cada seção como 50% do container pai */
+}
+
+h3{
+    color: #1A7F83;
+    font-family: ramole;
+    font-family: 15px !important;
+    margin-bottom: 20px;
+}
+/* Estilo para a tabela */
+table {
+    border-collapse: collapse; /* Faz com que as bordas das células se fundam (sem espaço entre elas) */
+    width: 100%; /* A tabela ocupa 100% da largura disponível */
+    height: 30px;
+    table-layout: fixed; /* Define a largura fixa para as células da tabela */
+    margin-top: 20px;
+}
+
+/* Estilo para células (th e td) da tabela */
+th, td {
+    border: 1px solid #ddd !important; /* Define uma borda fina e cinza claro */
+    padding: 10px; /* Define um espaçamento interno nas células para que o texto não fique encostado nas bordas */
+    text-align: center !important; /* Centraliza o conteúdo das células */
+}
+
+/* Estilo para o cabeçalho da tabela (th) */
+th {
+    background-color:  #1A7F83; ; /* Define um fundo cinza claro para o cabeçalho */
+}
+
+/* Estilo para as células da tabela */
+td {
+    height: 10px; /* Define uma altura fixa de 10px para as células da tabela */
+}
+
+#titulo_calendario{
+    color: #fff;
+    border-color: #1A7F83 !important;
+    height: 11px;
+    transition: 0.6s;
+}
+
+#titulo_calendario:hover{
+    color: #CF6F7A;
+}
+
+#nome_dia{
+    background-color: #fff ;
+    color:  #1A7F83;
+    transition: 0.6s;
+}
+
+#nome_dia:hover{
+    color: #CF6F7A;
+}
+
+/* Estilo para o dia atual no calendário */
+.today {
+    color: #1A7F83; /* Define uma cor de texto em tom azul esverdeado */
+    background-color: #f4f4f4 !important; /* Define um fundo cinza claro para o dia atual */
+    font-weight: bold; /* Deixa o texto em negrito */
+}
+
+/* Estilo para a célula de data selecionada no calendário */
+.selected {
+    background-color: #1A7F83 !important; /* Define um fundo azul esverdeado para a célula selecionada */
+    color: white; /* Define a cor do texto como branco */
+    transform: scale(1); /* Destaque maior para a célula selecionada */
+    transition: transform 0.3s ease, background-color 0.3s ease
+}
+
+/* Estilo para as setas de navegação (anterior e próximo mês) */
+.prev-next {
+    cursor: pointer; /* Indica que o elemento é clicável */
+}
+
+#titulo_calendario i{
+    color: #fff;
+    transition: 0.6s;
+}
+#titulo_calendario i:hover{
+    color: #CF6F7A;
+} 
+/* Estilo para as células de data clicáveis no calendário */
+.date-select {
+    cursor: pointer; /* Indica que a célula é clicável */
+    padding: 5px; /* Adiciona um espaçamento interno nas células de datas */
+    height: 30px;
+    width: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+#calendario-dinamico {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Estilo para as células de data quando o mouse passa por cima (hover) */
+.date-select:hover {
+    background-color: #ddd; /* Muda o fundo para um cinza mais escuro ao passar o mouse */
+    transform: scale(1.1); /* Aumenta o tamanho ao passar o mouse */
+}
+
+/* Estilo para os botões de horários */
+.horarios button {
+    margin: 5px; /* Define um espaçamento de 5px ao redor de cada botão */
+    padding: 8px; /* Define um espaçamento interno para os botões */
+    font-size: 15px;
+    background-color: #1A7F83; /* Define a cor de fundo azul */
+    color: white; /* Define a cor do texto como branco */
+    border: none; /* Remove a borda do botão */
+    border-radius: 5px; /* Arredonda as bordas do botão */
+    cursor: pointer; /* Indica que o botão é clicável */
+    transition: 0.6s;
+}
+
+/* Estilo para o botão de horário quando o mouse passa por cima (hover) */
+.horarios button:hover {
+    background-color:  #CF6F7A; /* Muda o fundo para um tom de azul mais escuro ao passar o mouse */
+}
+
+.horarios button:focus  {
+    border-color: #CF6F7A;
+    background-color: #CF6F7A ; /* Muda o fundo para um tom de rosa ao ser pressionado */
+}
+
+#confirmar-btn {
+    background-color: #1A7F83; /* Define a cor de fundo do botão de confirmação */
+    color: white; /* Define a cor do texto como branco */
+    border: none; /* Remove a borda do botão */
+    padding: 10px 20px; /* Define espaçamento interno para o botão */
+    font-size: 15px; /* Define o tamanho da fonte */
+    cursor: pointer; /* Indica que o botão é clicável */
+    border-radius: 5px; /* Arredonda as bordas do botão */
+    display: block; /* Exibe o botão como bloco */
+    margin: 0 auto; /* Centraliza o botão horizontalmente */
+    transition: 0.6s;
+}
+
+/* Estilo para o botão de confirmação quando o mouse passa por cima (hover) */
+#confirmar-btn:hover {
+    background-color: #CF6F7A;/* Muda a cor de fundo para um tom de azul mais escuro ao passar o mouse */
+}
+
+#resumo-container {
+    padding: 10px; /* Define o espaçamento interno do container de resumo */
+}
+
+.input-box{
+    display: flex;
+    flex-direction: column; /* Coloca o input abaixo do label */
+    margin-bottom: 15px; /* Adiciona espaço entre os elementos */
+}
+
+.input-box label{
+    margin-bottom: 5px;
+}
+
+#cpf_cliente{
+    font-size: 15px !important;
+    margin-top: 2px !important;
+    padding: 9px 19px;
+    font-size: 16px;
+    color: #555;
+    background-color: #e4ebef;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s; 
+}
+/* Estilo do select */
+.select-box select {
+    background-color: #e4ebef !important; /* Define o fundo branco */
+    border: 1px solid #ccc !important; /* Define a borda, se necessário */
+    font-size: 15px !important;
+    margin-top: 2px !important;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #555;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Cor de fundo e borda quando o select estiver em foco */
+.select-box select:focus {
+    border-color: #7d4cdb;
+    box-shadow: 0 0 5px rgba(125, 76, 219, 0.4);
+}
+
+/* Estilo da opção inicial */
+.select-box select option {
+    color: #888;
+}
+
+
+/* Para dispositivos com largura de tela até 768px (tablets e smartphones) */
+@media (max-width: 768px) {
+    /* Ajuste o container para coluna única e centralizado */
+    .container {
+        display: flex;
+        flex-direction: column; /* Muda o layout para coluna */
+        justify-content: center; /* Centraliza o conteúdo */
+        align-items: center; /* Alinha os itens ao centro */
+        padding: 10px; /* Reduz o padding do container */
+        width: 100%; /* Garantir que o container ocupe toda a largura */
+    }
+
+    /* Ajuste as seções de calendário e horários para ocupar 100% da largura */
+    .calendar, .horarios {
+        width: 100%; /* As seções ocupam toda a largura */
+        max-width: 600px; /* Limita a largura para não ficar muito largo */
+        padding: 20px; /* Reduz o padding interno */
+        margin-bottom: 20px; /* Adiciona espaço entre as seções */
+    }
+
+    /* Ajusta o tamanho dos selects e dos botões para telas menores */
+    select, .horarios button, #confirmar-btn {
+        font-size: 14px; /* Diminui o tamanho da fonte */
+        padding: 8px; /* Reduz o padding */
+    }
+
+    /* Ajuste para os elementos do calendário com fonte maior */
+    .date-select, td, th {
+        font-size: 16px; /* Aumenta o tamanho da fonte */
+        padding: 5px; /* Reduz o padding das células */
+    }
+
+    /* Ajusta o cabeçalho da tabela */
+    th {
+        font-size: 16px; /* Aumenta o tamanho da fonte do cabeçalho */
+    }
+}
+.custom-ok-button{
+    background-color: #1A7F83;
+}
+/* Para dispositivos com largura de tela até 480px (smartphones menores) */
+@media (max-width: 480px) {
+    h3{
+        font-family: 12px !important;
+    }
+    /* Ajusta o padding e fontes para telas menores */
+    .calendar, .horarios {
+        padding: 15px; /* Reduz ainda mais o padding */
+    }
+
+    /* Ajusta o texto dos títulos para telas pequenas */
+    .calendar h4, .horarios h3 {
+        font-family: ramole;
+    }
+
+    /* Ajusta o layout dos selects e botões */
+    select, .horarios button, #confirmar-btn {
+        font-size: 13px; /* Diminui ainda mais o tamanho da fonte */
+        padding: 8px; /* Reduz o padding */
+    }
+
+    /* Ajusta o tamanho dos elementos do calendário */
+    .date-select, td, th {
+        font-size: 14px; /* Aumenta um pouco o tamanho da fonte para telas pequenas */
+    }
+
+    /* Estilo geral do contêiner do select */
+.select-box {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 0;
+    font-family: Arial, sans-serif;
+}
+
+.select-box label {
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+    /* Ajuste de altura das células do calendário */
+    .date-select {
+        height: 25px;
+        width: 25px;
+    }
+
+    /* Centraliza o conteúdo dentro do container */
+    .container {
+        justify-content: center;
+        align-items: center;
+    }
+}

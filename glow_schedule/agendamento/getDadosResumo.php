@@ -6,8 +6,9 @@ $conn = $conexao->getConexao();
 
 $procedimentoId = $_GET['procedimento'] ?? '';
 $profissionalCpf = $_GET['profissional'] ?? '';
-$data = $_GET['data'] ?? ''; // Capturando a data
-$horario = $_GET['horario'] ?? ''; // Capturando a hora
+$data = $_GET['data'] ?? '';
+$horario = $_GET['horario'] ?? '';
+$cpfCliente = $_GET['cpf_cliente'] ?? '';
 
 // Função para obter o nome do procedimento
 function obterNomeProcedimento($conn, $id_procedimento) {
@@ -27,15 +28,27 @@ function obterApelidoEsteticista($conn, $cpf_esteticista) {
     return $result->fetch_assoc()['apelido_esteticista'] ?? 'Desconhecido';
 }
 
+// Função para obter o nome do cliente
+function obterNomeCliente($conn, $cpf_cliente) {
+    $stmt = $conn->prepare("SELECT nome_cliente FROM Cliente WHERE cpf_cliente = ?");
+    $stmt->bind_param('s', $cpf_cliente);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc()['nome_cliente'] ?? 'Desconhecido';
+}
+
 // Obtendo os dados
 $nomeProcedimento = obterNomeProcedimento($conn, $procedimentoId);
 $apelidoEsteticista = obterApelidoEsteticista($conn, $profissionalCpf);
+$nomeCliente = obterNomeCliente($conn, $cpfCliente);
 
-// Retorna os dados em formato JSON, incluindo data e hora
+// Retorna os dados como JSON, incluindo o CPF do cliente
 echo json_encode([
     'nome_procedimento' => $nomeProcedimento,
     'apelido_esteticista' => $apelidoEsteticista,
-    'data' => $data, // Passando a data
-    'horario' => $horario // Passando a hora
+    'nome_cliente' => $nomeCliente,
+    'cpf_cliente' => $cpfCliente, // Adicionando o CPF do cliente
+    'data' => $data,
+    'horario' => $horario
 ]);
 ?>

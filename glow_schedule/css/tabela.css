@@ -1,0 +1,185 @@
+
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.table thead th {
+    background-color: #1A7F83;
+    color: white;
+    text-align: center;
+}
+#editar_perfil_button_consultar {
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px !important;
+    font-size: 1rem;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+    transition: all 0.6s ease; /* Suaviza a transição de hover */
+    background: #1A7F83; /* Cor do botão */
+    margin-left: 0; /* Remove qualquer margem à esquerda */
+    text-align: left; /* Alinha o texto à esquerda */
+    margin-bottom: 15px;
+}
+
+#editar_perfil_button_consultar:hover {
+    background: #758e91; /* Cor do botão */
+}
+
+#editar_consultar_button{
+    background-color: #CF6F7A;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.text-center img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Botões */
+.btn {
+    padding: 8px 9px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Mobile menu (opcional, se necessário) */
+.mobile-menu {
+    display: none;
+}
+.filter-section {
+    display: flex !important;
+    flex-direction: column!important;
+    justify-content: center!important; /* Centraliza o conteúdo verticalmente */
+    align-items: center!important;/* Centraliza o conteúdo horizontalmente */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 450px; /* Ajuste o tamanho máximo */
+    width: 100%!important; /* Ocupa toda a largura do contêiner */
+}
+
+.filter-section input {
+    margin-left: 15px;
+    width: 90%!important;/* Faz o input ocupar 90% do contêiner */
+    height: 40px;
+    padding: 10px; /* Adiciona espaçamento interno */
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+    margin-top: 10px; /* Espaço entre o label e o input */
+}
+
+.filter-section label {
+    margin-left: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 12px; /* Maior espaçamento entre o label e o input */
+    color: #18676C;
+    text-align: center; /* Centraliza o texto do label */
+}
+
+
+/* Estilo do input ao focar */
+.filter-section input:focus {
+    border-color: #18676C; /* Muda a borda para a cor do tema */
+    outline: none; /* Remove o contorno padrão */
+}
+/* Estilo padrão da tabela */
+.table {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaçamentos entre células */
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd; /* Borda para separação */
+}
+
+.table thead {
+    background-color: #1A7F83;
+    color: white;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa; /* Efeito hover */
+}
+@media (max-width: 768px) {
+    .table {
+        display: block; /* Transforma a tabela em bloco */
+        width: 100%; /* Ocupa toda a largura do contêiner */
+        border: none;
+    }
+    .table thead {
+        display: none; /* Oculta o cabeçalho */
+    }
+    .table tbody {
+        display: block; /* Cada linha vira um bloco */
+        margin: 10px auto; /* Centraliza os cards horizontalmente */
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 90%; /* Ocupa 90% da largura da tela */
+        max-width: 100%; /* Garante que não ultrapasse o limite */
+        border: 1px solid #ddd; /* Adiciona uma borda para separar os cards */
+        border-radius: 5px;
+    }
+
+    .table tr {
+        display: block; /* Cada linha vira um bloco */
+        margin: 10px auto; /* Centraliza os cards horizontalmente */
+        width: 90%; /* Ocupa 90% da largura da tela */
+        max-width: 100%; /* Garante que não ultrapasse o limite */
+        border: 1px solid #ddd; /* Adiciona uma borda para separar os cards */
+        border-radius: 5px;
+        text-align: center; /* Centraliza o conteúdo da linha */
+    }
+
+    .table td {
+        display: flex; /* Usa flexbox para alinhamento */
+        flex-direction: column; /* Alinha o texto e os títulos verticalmente */
+        justify-content: center; /* Centraliza o conteúdo verticalmente */
+        align-items: center; /* Centraliza o conteúdo horizontalmente */
+        padding: 10px 15px;
+        word-wrap: break-word; /* Quebra palavras longas */
+        text-align: center; /* Centraliza o texto dentro da célula */
+        border: none;
+    }
+
+    .table td::before {
+        content: attr(data-label); /* Exibe o título do campo */
+        font-weight: bold;
+        color: #18676C;
+        flex-basis: 100%; /* Permite que ocupe 100% da largura */
+        text-align: center; /* Centraliza o texto do título */
+        margin-bottom: 8px; /* Adiciona espaçamento entre título e valor */
+    }
+
+    .table td:last-child {
+        text-align: center; /* Centraliza as ações */
+    }
+}

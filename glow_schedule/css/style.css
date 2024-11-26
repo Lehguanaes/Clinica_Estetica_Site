@@ -11,14 +11,20 @@
   font-size: 1.66rem;
 }
 
+h3{
+  color: #1A7F83;
+  font-family: ramole;
+  font-family: 15px !important;
+}
+
 h2 /* Títulos das páginas */
 {
  color: #CF6F7A;
+ font-family: ramole;
  text-align: center; 
  margin-top:37px !important;
  margin-bottom: 37px !important;
 }
-
 #Procedimentos_titulo
 {
   margin-top:15px !important;

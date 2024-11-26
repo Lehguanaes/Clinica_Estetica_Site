@@ -95,6 +95,8 @@
             </form>
         </div>
         <a href="../atendente/cadastrarClienteAtendente.php" class="btn btn-success" id="editar_perfil_button_consultar"><i class="fa-solid fa-user-plus fa-xs"></i> Adicionar Novo Cliente</a>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
         <div id="results">
             <!-- A tabela será carregada aqui via AJAX -->
         </div>

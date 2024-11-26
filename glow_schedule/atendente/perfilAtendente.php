@@ -54,7 +54,7 @@
             <ul class="nav-list">
                 <li><a href="visualizarDuvidas.php" class="nav">Dúvidas</a></li>
                 <li><a href="visualizarAvaliacoes.php" class="nav">Avaliações</a></li>
-                <li><a href="visualizarConsultas.php" class="nav">Procedimentos</a></li>
+                <li><a href="../procedimento/procedimentos.php" class="nav">Procedimentos</a></li>
                 <li><a href="visualizarConsultas.php" class="nav">Agenda</a></li>
                 <li><a href="../agendamentoAtendente/agendamento.php" class="nav">Agendamento</a></li>
             </ul>

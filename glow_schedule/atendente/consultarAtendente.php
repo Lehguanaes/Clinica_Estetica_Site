@@ -104,6 +104,8 @@
             </form>
         </div>
         <a href="cadastroAtendente.php" class="btn btn-success" id="editar_perfil_button_consultar"><i class="fa-solid fa-user-plus fa-xs"></i> Adicionar Novo Atendente</a>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
         <p id="noResultsMessage" style="color: #cf6f7a; font-size:18px; text-align:center;">Nenhum atendente encontrado. Por favor, Verifique novamente.</p>
         <?php
             if ($resultado2->num_rows > 0) {

@@ -17,6 +17,7 @@
     text-align: center;
 }
 #editar_perfil_button_consultar {
+    float: right !important; /* Move o botão para o lado direito */
     border-radius: 5px;
     color: #fff;
     font-size: 15px !important;
@@ -32,6 +33,24 @@
 }
 
 #editar_perfil_button_consultar:hover {
+    background: #758e91; /* Cor do botão */
+}
+#editar_perfil_button_consultarr {
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px !important;
+    font-size: 1rem;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+    transition: all 0.6s ease; /* Suaviza a transição de hover */
+    background: #1A7F83; /* Cor do botão */
+    margin-left: 0; /* Remove qualquer margem à esquerda */
+    text-align: left; /* Alinha o texto à esquerda */
+    margin-bottom: 15px;
+}
+
+#editar_perfil_button_consultarr:hover {
     background: #758e91; /* Cor do botão */
 }
 
@@ -181,5 +200,10 @@
 
     .table td:last-child {
         text-align: center; /* Centraliza as ações */
+    }
+}
+@media (max-width: 768px) {
+    #editar_perfil_button_consultar{
+        float:initial!important;
     }
 }

@@ -97,6 +97,7 @@
             </form>
         </div>
     <a href="../atendente/cadastroEsteticista.php" class="btn btn-success"  id="editar_perfil_button_consultar" id="editar_perfil_button"><i class="fa fa-plus"></i> Adicionar Novo Esteticista</a>
+    <a href="../atendente/cadastrarEsteticista_Procedimento.php" class="btn btn-success"  id="editar_perfil_button_consultarr" id="editar_perfil_button"><i class="fa-solid fa-pen-to-square"></i> Credenciar Esteticista ao Procedimento</a>
     <p id="noResultsMessage" style="color: #cf6f7a; font-size:18px; text-align:center;">Nenhum esteticista encontrado. Por favor, Verifique novamente.</p>
     <?php
         // Verifica se há resultados

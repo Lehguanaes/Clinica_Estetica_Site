@@ -36,7 +36,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Esteticista</title>
+    <title>Care Tones</title>
+    <!-- Ícone para navegadores modernos -->
+    <link rel="icon" href="../logo/Logo.png" type="image/png">
+    <!-- Ícone para navegadores antigos -->
+    <link rel="shortcut icon" href="../logo/Logo.png" type="image/x-icon">
     <!-- Links externos -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -45,37 +49,37 @@
     <link rel="stylesheet" href="../css/style.css">
     <!-- Estilização formulários de Perfis -->
     <link rel="stylesheet" href="../css/perfil.css">
+    <!-- Estilização Navbar -->
+    <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
     <!-- Início da Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"> </a>
-            <div class="logo">
-                <a class="nav-link active" aria-current="page" href="home.php">Care Tones</a>
+    <header>
+    <nav class="nav-bar">
+            <a class="logo" href="#"><img src="../logo/Logo.png" class="logoIMG">Care Tones</a>
+            <ul class="nav-list">
+                <li><a href="esteticistas.php" class="nav">Profissionais</a>
+                <li><a href="../procedimento/procedimentos.php" class="nav">Procedimentos</a>
+                <li><a href="visualizarConsultas.php" class="nav">Agenda</a></li>
+            </ul>
+            <div class="dropdown">
+                <div class="login-icon">
+                    <a href="perfilAtendente.php">
+                        <i class="fa-solid fa-circle-user fa-xl" style="color: #fff;"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="perfilEsteticista.php"><i class="fa-solid fa-user fa-sm" style="color: #cf6f7a;"></i> Perfil </a>
+                        <a href="/glow_schedule/controller/logout.php"><i class="fa-solid fa-right-to-bracket fa-sm"></i> Sair</a>
+                    </div>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav w-auto">
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="esteticistas.php">Profissionais</a>
-                    </li>
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="../procedmento/procedimento.php">Procedimentos</a>
-                    </li>
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="visualizarConsultas.php">Agenda</a>
-                    </li>
-                    <li class="nav-item pe-4 ps-4">
-                        <a class="nav-link active" aria-current="page" href="perfilEsteticista.php">Perfil</a>
-                    </li>
-                </ul>
-                <button type="button" class="btn btn-sm btn-link me-4 ms-4" id="link_agendamentos_ativado"> <a href="cadastrarConsulta.php" id="link_agendamentos_ativado">Agendamentos</a></button>
             </div>
-        </div>
-    </nav>
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
     <!-- Fim da Navbar -->
     <h2>Minhas Informações</h2>
     <!-- Exibição do perfil -->
@@ -107,6 +111,73 @@
         </div>
     </div>
     &nbsp;
+    <!-- Inicio Footer -->
+    <footer>
+        <div id="footer_content">
+            <div id="footer_contacts">
+                <a class="navbar-brand" href="#"> <img class="rounded-circle ms-4" src="../logo/Logo.png" alt="Logo care tones" width="69px"></a>
+                <h3>Care Tones</h3>  
+                <div id="footer_social_media">
+                    <a href="#" class="footer-link" id="instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="footer-link" id="facebook">
+                        <i class="fa-brands fa-facebook-f fa-xs"></i>
+                    </a>
+                    <a href="#" class="footer-link" id="whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="footer-link" id="localizacao">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </a>
+                </div>
+            </div>
+            <ul class="footer-list">
+                <li>
+                    <h4 id="subtitulo-footer">Cadastros</h4>
+                </li>
+                <li>
+                    <a href="perfilEsteticista.php" class="footer-link">Perfil</a>
+                </li>
+                <li>
+                    <a href="cadastroAtendente.php" class="footer-link">Editar Perfil</a>
+                </li>
+            </ul>
+            <ul class="footer-list">
+                <li>
+                    <h4 id="subtitulo-footer">Interesses</h4>
+                </li>
+                <li>
+                    <a href="visualizarConsultas.php" class="footer-link">Agenda</a>
+                </li>
+                <li>
+                    <a href="../agendamentoAtendente/agendamento.php" class="footer-link">Agendamento</a>
+                </li>
+            </ul>
+            <div id="footer_subscribe">
+                <h4 id="subtitulo-footer">Clínica</h4>
+                <p>
+                    Venha visualizar o que temos!
+                </p>
+                <ul class="footer-list">
+                <li>
+                    <a href="../esteticista/esteticistas.php" class="footer-link">Profissionais</a>
+                </li>
+                <li>
+                    <a href="../procedimento/procedimentos.php" class="footer-link">Procedimentos</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer_copyright">
+            &#169
+            2024 all rights reserved
+        </div>
+    </footer>
+    <!-- Link Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Link Js Navbar -->
+    <script src="../js/navbar.js"></script>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--  php da mensagem; se a mensagem não estiver vazia, ela é inserida na página  -->

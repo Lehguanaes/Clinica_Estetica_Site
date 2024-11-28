@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
+ <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultas Agendadas</title>
+    <title>Care Tones</title>
+    <!-- Ícone para navegadores modernos -->
+    <link rel="icon" href="../logo/Logo.png" type="image/png">
+    <!-- Ícone para navegadores antigos -->
+    <link rel="shortcut icon" href="../logo/Logo.png" type="image/x-icon">
+    <!-- Links externos -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Estilização padrão do web site -->
     <link rel="stylesheet" href="../css/style.css">
@@ -18,8 +25,6 @@
     <link rel="stylesheet" href="../css/calendario.css">
     <!-- Estilização Navbar -->
     <link rel="stylesheet" href="../css/navbar.css">
-    <!-- Link Js Navbar -->
-    <script src="../js/navbar.js"></script>
 </head>
 <script>
     function carregarMes(mes = new Date().getMonth() + 1, ano = new Date().getFullYear()) {
@@ -181,5 +186,6 @@
             2024 all rights reserved
         </div>
     </footer>
+    <script src="../js/navbar.js"></script> 
 </body>
 </html>

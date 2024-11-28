@@ -96,29 +96,32 @@
     echo '<div class="container">';
 
     if ($result->num_rows > 0) {
-    while ($procedimento = $result->fetch_assoc()) {
-        $foto = isset($procedimento['foto_procedimento']) && file_exists($_SERVER['DOCUMENT_ROOT'] . "/glow_schedule/uploads/" . $procedimento['foto_procedimento'])
-            ? "/glow_schedule/uploads/" . htmlspecialchars($procedimento['foto_procedimento'])
-            : "../iconesPerfil/perfilPadrao.png"; 
-
-        echo '<div class="card">';
-        echo '    <img src="' . $foto . '" alt="Foto do procedimento">';
-        echo '    <div class="card-content">';
-        echo '        <h2 class="titulo-card">' . htmlspecialchars($procedimento['nome_procedimento']) . '</h2>';
-        echo '        <div class="cor-falsificada">';
-        echo '            <p class="mais-texto">Saiba mais <i class="fa-solid fa-arrow-down"></i></p>';
-        echo '            <p>' . htmlspecialchars($procedimento['descricao_p_procedimento']) . '</p>';
-        echo '            <div class="position-button">';
-        echo '                <a href="procedimentosInfo.php?nome_procedimento=' . urlencode($procedimento['nome_procedimento']) . '" class="card-button">Saiba mais</a>';
-        echo '            </div>';
-        echo '        </div>';
-        echo '    </div>';
-        echo '</div>';
+        while ($procedimento = $result->fetch_assoc()) {
+            // Verifica se a foto do procedimento existe
+            $fotoPath = $_SERVER['DOCUMENT_ROOT'] . '/glow_schedule/' . $procedimento['foto_procedimento'];
+            $foto = file_exists($fotoPath) && !empty($procedimento['foto_procedimento']) 
+                    ? '/glow_schedule/' . htmlspecialchars($procedimento['foto_procedimento']) 
+                    : '../iconesProcedimentos/procedimentoPadrao.png'; // URL da imagem padrão
+    
+            // Renderização do cartão
+            echo '<div class="card">';
+            echo '    <img src="' . $foto . '" alt="Foto do procedimento" class="card-img">';
+            echo '    <div class="card-content">';
+            echo '        <h2 class="titulo-card">' . htmlspecialchars($procedimento['nome_procedimento']) . '</h2>';
+            echo '        <div class="cor-falsificada">';
+            echo '            <p class="mais-texto">Saiba mais <i class="fa-solid fa-arrow-down"></i></p>';
+            echo '            <p>' . htmlspecialchars($procedimento['descricao_p_procedimento']) . '</p>';
+            echo '            <div class="position-button">';
+            echo '                <a href="procedimentosInfo.php?nome_procedimento=' . urlencode($procedimento['nome_procedimento']) . '" class="card-button">Saiba mais</a>';
+            echo '            </div>';
+            echo '        </div>';
+            echo '    </div>';
+            echo '</div>';
+        }
+    } else {
+        echo '<p>Nenhum procedimento encontrado.</p>';
     }
-} else {
-    echo '<p>Nenhum procedimento encontrado.</p>';
-}
-
+    
 // Fecha o container
 echo '</div>';
 echo '</div>';

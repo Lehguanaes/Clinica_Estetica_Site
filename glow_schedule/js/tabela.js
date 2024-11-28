@@ -9,9 +9,6 @@ $(document).ready(function () {
             success: function (data) {
                 $("#results").html(data);
             },
-            error: function () {
-                alert("Erro ao carregar os dados.");
-            }
         });
     }
 

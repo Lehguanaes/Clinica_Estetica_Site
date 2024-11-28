@@ -65,7 +65,7 @@
                 <div class="input-box">
                     <!-- Campo de Foto de Perfil -->
                     <div class="profile-pic-container">
-                    <img src="../iconesProcedimento/procedimentoPadrao.png" alt="Foto de procedimento padrão" class="profile-pic" id="procedimento-pic-preview">
+                    <img src="../iconesProcedimentos/procedimentoPadrao.png" alt="Foto de procedimento padrão" class="profile-pic" id="procedimento-pic-preview">
                         <label class="upload-button" for="foto_procedimento">
                             <i class="fa fa-plus"></i>
                         </label>

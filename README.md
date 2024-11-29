@@ -12,7 +12,7 @@
 
 ## Visão geral
 
-Desenvolvemos um website para uma Clínica Estética voltada ao público de pele negra, promovendo conforto, clareza e identificação, além de facilitar o acesso e criar uma conexão autêntica com seus clientes.
+Desenvolvemos um website e uma aplicação mobile para uma Clínica Estética voltada ao público de pele negra, priorizando conforto, clareza e identificação. O projeto facilita o acesso aos serviços e fortalece a conexão autêntica entre a clínica e seus clientes.
 
 ## Sobre o Projeto e a Empresa
 
@@ -23,11 +23,13 @@ O website é um projeto interdisciplinar que está sendo desenvolvido com mentor
 
 ## Tecnologias utilizadas
 
+![Kotlin](https://img.shields.io/badge/Kotlin-0D1117?&style=for-the-badge&logo=kotlin&logoColor=white)
 ![HTML](https://img.shields.io/badge/-HTML-0D1117?style=for-the-badge&logo=html5&labelColor=0D1117)&nbsp; 
 ![CSS](https://img.shields.io/badge/-CSS-0D1117?style=for-the-badge&logo=CSS3&logoColor=1572B6&labelColor=0D1117)&nbsp;
 ![Boostrap](https://img.shields.io/badge/-boostrap-0D1117?style=for-the-badge&logo=bootstrap&labelColor=0D1117)&nbsp;
 ![Typescript](https://img.shields.io/badge/-JavaScript-0D1117?style=for-the-badge&logo=javascript&labelColor=0D1117&textColor=0D1117)&nbsp;
 ![Figma](https://img.shields.io/badge/-figma-0D1117?style=for-the-badge&logo=figma&labelColor=0D1117)
+
 
  Planejamento e organização do Projeto:
 - Figma: Prototipagem visual.
@@ -38,6 +40,7 @@ Código:
 - CSS: Estilo de página.
 - JavaScript: Interação, dinamismo e validação.
 - Bootstrap: elementos pré-estilizados e responsivos, utilizado para otimização de tempo.
+- Kotlin: aplicação mobile.
   
 #
 

@@ -1,20 +1,21 @@
 <div align="center"> 
   
-# Projeto: Site Clínica Estética
+# Glow Schedule
+## Sistema de Agendamento para uma Clínica Estética
 
 
-  <a href="Projeto Clínica Estética" target="_blank"><img src="https://img.shields.io/badge/Código do Site-EBF3F8?style=for-the-badge&logo=github&logoColor=CB6373"></a> 
+  <a href="glow_schedule" target="_blank"><img src="https://img.shields.io/badge/Código do WebSite-EBF3F8?style=for-the-badge&logo=github&logoColor=CB6373"></a> 
   <a href="https://www.figma.com/file/AsyqBSFvNkSN8ZIIzuKlQ2/Cl%C3%ADnica-Est%C3%A9tica?type=design&t=1ZkGzKG2SFcM01Rr-6" target="_blank"><img src="https://img.shields.io/badge/-figma-EBF3F8?style=for-the-badge&logo=figma&logoColor=CB6373"></a> 
-   <a href="https://www.canva.com/design/DAFvx0TnRHY/eq0c-LB2e0_CWa2q_FiRRQ/view?utm_content=DAFvx0TnRHY&utm_campaign=designshare&utm_medium=link&utm_source=editor" target="_blank"><img src="https://img.shields.io/badge/-Apresentação pdf-EBF3F8?style=for-the-badge&logo=canva&logoColor=CB6373"></a>
+   <a href="https://www.canva.com/design/DAGV6NnPNY0/8DY3YfCoRzvQSBId8KBvaQ/view?utm_content=DAGV6NnPNY0&utm_campaign=designshare&utm_medium=link&utm_source=editor" target="_blank"><img src="https://img.shields.io/badge/-Apresentação-EBF3F8?style=for-the-badge&logo=canva&logoColor=CB6373"></a>
 </div>
 
 ## Visão geral
 
-Estamos desenvolvendo um site para uma Clínica Estética voltada ao público de pele negra, visando trazer conforto, clareza e identificação a esses clientes que  procuram esse serviço.
+Desenvolvemos um website para uma Clínica Estética voltada ao público de pele negra, promovendo conforto, clareza e identificação, além de facilitar o acesso e criar uma conexão autêntica com seus clientes.
 
 ## Sobre o Projeto e a Empresa
 
-O site é um projeto interdisciplinar que está sendo desenvolvido com mentoria da empresa parceira IBM, a clínica está apenas sendo simbolizada e representada a partir de criação fictícia para este projeto.
+O website é um projeto interdisciplinar que está sendo desenvolvido com mentoria da empresa parceira IBM, a clínica está apenas sendo simbolizada e representada a partir de criação fictícia para este projeto.
 
 <img width="70" alt="image" src="https://github.com/user-attachments/assets/ac7280c6-4bb5-439c-894b-0ae3c7bbfab5">
 <img width="70" alt="image" src="https://github.com/user-attachments/assets/704cc48c-10ca-4d9d-bdf6-6936a514900e">

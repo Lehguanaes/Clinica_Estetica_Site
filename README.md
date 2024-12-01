@@ -41,7 +41,12 @@ Código:
 - JavaScript: Interação, dinamismo e validação.
 - Bootstrap: elementos pré-estilizados e responsivos, utilizado para otimização de tempo.
 - Kotlin: aplicação mobile.
-  
+
+ Repositório da aplicação mobile:
+ https://github.com/emycspri/App_Care_Tones
+
+
+Entreguem @⁨João Mota⁩ @⁨Leh⁩ @⁨~ぜ⁩
 #
 
 ## Contribuidores

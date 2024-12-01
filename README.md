@@ -44,9 +44,6 @@ Código:
 
  Repositório da aplicação mobile:
  https://github.com/emycspri/App_Care_Tones
-
-
-Entreguem @⁨João Mota⁩ @⁨Leh⁩ @⁨~ぜ⁩
 #
 
 ## Contribuidores
